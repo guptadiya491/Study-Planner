@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Progress</title>
+
+<link rel="stylesheet" href="progress.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="logo">
+    <i class="fa-solid fa-graduation-cap"></i> Study Planner
+  </div>
+
+  <nav>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="planner.html">Planner</a></li>
+      <li><a href="progress.html" class="active">Progress</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="contact.html">Contact Us</a></li>
+    </ul>
+  </nav>
+
+  <div class="profile">
+   
+  </div>
+</header>
+
+<!-- INTRO -->
+<section class="progress-intro">
+<h1>Today's Tasks</h1>
+
+<p class="intro-text">
+Track your tasks and mark completion status.
+</p>
+
+<div class="task-box glass">
+
+<table id="taskTable">
+<tr>
+<th>Subject</th>
+<th>Task</th>
+<th>Deadline</th>
+<th>Yes</th>
+<th>Partially</th>
+<th>No</th>
+<th>Delete</th>
+</tr>
+</table>
+
+<button id="calculateProgress">Calculate Progress</button>
+
+</div>
+</section>
+
+<!-- DASHBOARD -->
+<section class="progress-dashboard">
+
+<h2>📊 Progress Overview</h2>
+
+<div class="progress-wrapper">
+
+<div class="progress-card glass">
+<h3>Overall Completion</h3>
+
+<div class="circle-progress" id="circleProgress">
+<div class="circle-inner">
+<span id="overallPercent">0%</span>
+<p>Completed</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-container">
+
+    <div class="footer-box">
+      <h3>Study Planner</h3>
+      <p>Helping students plan smarter and achieve more every day.</p>
+    </div>
+
+    <div class="footer-box">
+      <h3>Quick Links</h3>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="planner.html">Planner</a></li>
+        <li><a href="progress.html">Progress</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-box">
+      <h3>Follow Us</h3>
+      <div class="social-icons">
+        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#"><i class="fa-brands fa-twitter"></i></a>
+        <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+      </div>
+    </div>
+
+  </div>
+  <div class="footer-bottom">
+    <p>©️ 2026 Study Planner | All Rights Reserved</p>
+  </div>
+</footer>
+
+<!-- SCRIPT -->
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+
+    const table = document.getElementById("taskTable");
+
+    // LOAD TASKS
+    function loadTasks() {
+        let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+        table.innerHTML = `
+        <tr>
+            <th>Subject</th>
+            <th>Task</th>
+            <th>Deadline</th>
+            <th>Yes</th>
+            <th>Partially</th>
+            <th>No</th>
+            <th>Delete</th>
+        </tr>
+        `;
+
+        tasks.forEach((task, index) => {
+            let row = document.createElement("tr");
+
+            row.innerHTML = `
+            <td>${task.subject}</td>
+            <td>${task.task}</td>
+            <td>${task.date || "-"}</td>
+
+            <td><input type="radio" name="task${index}"
+            ${task.status === "yes" ? "checked" : ""}
+            onchange="updateStatus(${index}, 'yes')"></td>
+
+            <td><input type="radio" name="task${index}"
+            ${task.status === "partial" ? "checked" : ""}
+            onchange="updateStatus(${index}, 'partial')"></td>
+
+            <td><input type="radio" name="task${index}"
+            ${task.status === "no" ? "checked" : ""}
+            onchange="updateStatus(${index}, 'no')"></td>
+
+            <td><button onclick="deleteTask(${index})">❌</button></td>
+            `;
+
+            table.appendChild(row);
+        });
+    }
+
+    // UPDATE STATUS
+    window.updateStatus = function(index, status) {
+        let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+        tasks[index].status = status;
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+    }
+
+    // DELETE TASK
+    window.deleteTask = function(index){
+        let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+        tasks.splice(index, 1);
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+        loadTasks();
+    }
+
+    // CALCULATE PROGRESS
+    document.getElementById("calculateProgress").onclick = function () {
+
+        let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+        let total = tasks.length;
+        let score = 0;
+
+        tasks.forEach(task => {
+            if (task.status === "yes") score += 1;
+            else if (task.status === "partial") score += 0.5;
+        });
+
+        let percent = total ? Math.round((score / total) * 100) : 0;
+
+        document.getElementById("overallPercent").textContent = percent + "%";
+
+        document.getElementById("circleProgress").style.background =
+            `conic-gradient(#6366f1 0% ${percent}%, #e5e7eb ${percent}% 100%)`;
+    };
+
+    // LOAD ON START
+    loadTasks();
+
+});
+</script>
+
+</body>
+</html>

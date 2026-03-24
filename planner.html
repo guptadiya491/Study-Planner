@@ -3,20 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>How To Plan</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+  <title>Home Page - Study Planner</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="planner.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
 </head>
 <body>
-
-<header class="header">
-  <div class="logo">
-    <i class="fa-solid fa-graduation-cap"></i> Study Planner
-  </div>
-
-  <nav>
+  <header class="header">
+    <div class="logo">
+      <i class="fa-solid fa-graduation-cap"></i> Study Planner
+    </div>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
       <li><a href="planner.html" class="active">Planner</a></li>
@@ -24,13 +20,7 @@
       <li><a href="about.html">About Us</a></li>
       <li><a href="contact.html">Contact Us</a></li>
     </ul>
-  </nav>
-
-  <div class="profile">
-   
-  </div>
-</header>
-
+  </header>
 <main class="planner-section">
 
 <h2>Plan Your Study Tasks</h2>
@@ -101,55 +91,5 @@
     <p>© 2026 Study Planner | All Rights Reserved</p>
   </div>
 </footer>
-<!-- SCRIPT -->
-<script>
-document.querySelector(".planner-form").addEventListener("submit", function(e){
-    e.preventDefault();
-
-    let subject = document.getElementById("subject").value.trim();
-    let task = document.getElementById("task").value.trim();
-    let date = document.getElementById("date").value;
-    let priority = document.getElementById("priority").value;
-
-    // VALIDATION
-    if(subject === ""){
-        alert("Please enter subject");
-        return;
-    }
-
-    if(task === ""){
-        alert("Please enter task");
-        return;
-    }
-
-    if(date === ""){
-        alert("Deadline is mandatory!");
-        return;
-    }
-
-    let newTask = {
-        subject: subject,
-        task: task,
-        date: date,
-        priority: priority,
-        status: "no"
-    };
-
-    let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-
-    tasks.push(newTask);
-
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-
-    alert("Task Added Successfully!");
-
-    // clear form
-    document.getElementById("subject").value = "";
-    document.getElementById("task").value = "";
-    document.getElementById("date").value = "";
-    document.getElementById("priority").value = "High";
-});
-</script>
-
 </body>
 </html>

@@ -3,7 +3,6 @@
   padding: 0;
   box-sizing: border-box;
 }
-
 body {
   font-family: 'Poppins', sans-serif;
   background: linear-gradient(135deg, #f5f7ff, #eef1ff);
@@ -53,26 +52,6 @@ body {
   color: #60a5fa; /* light blue */
   font-weight: 700;
 }
-
-/* Profile/Login with lift effect */
-.profile a {
-  text-decoration: none;
-  color: #1e3a8a;
-  font-weight: 600;
-  background-color: #60a5fa;
-  padding: 8px 18px;
-  border-radius: 25px;
-  transition: all 0.3s ease;
-  display: inline-block;
-}
-
-.profile a:hover {
-  transform: translateY(-5px); /* lift-up effect */
-  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
-  background-color: #3b82f6; /* darker blue */
-  color: #fff;
-}
-/* Responsive */
 /* Responsive */
 @media screen and (max-width: 768px) {
   .header {
@@ -92,10 +71,6 @@ body {
   .nav-links li {
     padding: 5px 0;
     border: none;
-  }
-
-  .profile {
-    margin-top: 10px;
   }
 }
 /* Hero Section */
@@ -338,4 +313,49 @@ body {
   padding-top: 20px;
   font-size: 14px;
   color: #999;
+}
+/* Responsive Footer */
+
+/* Tablets */
+@media (max-width: 992px) {
+  .footer-container {
+    justify-content: center;
+    gap: 30px;
+  }
+
+  .footer-box {
+    flex: 1 1 45%;
+  }
+}
+
+/* Mobile Devices */
+@media (max-width: 600px) {
+  .footer {
+    padding: 40px 15px 15px 15px;
+    text-align: center;
+  }
+
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+  }
+
+  .footer-box {
+    width: 100%;
+  }
+
+  .footer-box h3 {
+    font-size: 18px;
+  }
+
+  .footer-box p,
+  .footer-box ul li {
+    font-size: 13px;
+  }
+
+  .social-icons a {
+    margin: 0 10px;
+    font-size: 16px;
+  }
 }

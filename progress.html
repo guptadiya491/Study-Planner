@@ -1,38 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Study Progress</title>
-
-<link rel="stylesheet" href="progress.css">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home Page - Study Planner</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="progress.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
 </head>
-
 <body>
-
-<!-- HEADER -->
-<header class="header">
-  <div class="logo">
-    <i class="fa-solid fa-graduation-cap"></i> Study Planner
-  </div>
-
-  <nav>
+  <header class="header">
+    <div class="logo">
+      <i class="fa-solid fa-graduation-cap"></i> Study Planner
+    </div>
+    <nav>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
       <li><a href="planner.html">Planner</a></li>
       <li><a href="progress.html" class="active">Progress</a></li>
       <li><a href="about.html">About Us</a></li>
       <li><a href="contact.html">Contact Us</a></li>
-    </ul>
-  </nav>
-
-  <div class="profile">
-   
-  </div>
-</header>
+    </ul></nav>
+  </header>
 
 <!-- INTRO -->
 <section class="progress-intro">
@@ -83,7 +72,7 @@ Track your tasks and mark completion status.
 </div>
 </section>
 
-<!-- FOOTER -->
+<!-- Footer Section -->
 <footer class="footer">
   <div class="footer-container">
 
@@ -115,100 +104,9 @@ Track your tasks and mark completion status.
 
   </div>
   <div class="footer-bottom">
-    <p>©️ 2026 Study Planner | All Rights Reserved</p>
+    <p>© 2026 Study Planner | All Rights Reserved</p>
   </div>
 </footer>
-
-<!-- SCRIPT -->
-<script>
-document.addEventListener("DOMContentLoaded", function(){
-
-    const table = document.getElementById("taskTable");
-
-    // LOAD TASKS
-    function loadTasks() {
-        let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-
-        table.innerHTML = `
-        <tr>
-            <th>Subject</th>
-            <th>Task</th>
-            <th>Deadline</th>
-            <th>Yes</th>
-            <th>Partially</th>
-            <th>No</th>
-            <th>Delete</th>
-        </tr>
-        `;
-
-        tasks.forEach((task, index) => {
-            let row = document.createElement("tr");
-
-            row.innerHTML = `
-            <td>${task.subject}</td>
-            <td>${task.task}</td>
-            <td>${task.date || "-"}</td>
-
-            <td><input type="radio" name="task${index}"
-            ${task.status === "yes" ? "checked" : ""}
-            onchange="updateStatus(${index}, 'yes')"></td>
-
-            <td><input type="radio" name="task${index}"
-            ${task.status === "partial" ? "checked" : ""}
-            onchange="updateStatus(${index}, 'partial')"></td>
-
-            <td><input type="radio" name="task${index}"
-            ${task.status === "no" ? "checked" : ""}
-            onchange="updateStatus(${index}, 'no')"></td>
-
-            <td><button onclick="deleteTask(${index})">❌</button></td>
-            `;
-
-            table.appendChild(row);
-        });
-    }
-
-    // UPDATE STATUS
-    window.updateStatus = function(index, status) {
-        let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-        tasks[index].status = status;
-        localStorage.setItem("tasks", JSON.stringify(tasks));
-    }
-
-    // DELETE TASK
-    window.deleteTask = function(index){
-        let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-        tasks.splice(index, 1);
-        localStorage.setItem("tasks", JSON.stringify(tasks));
-        loadTasks();
-    }
-
-    // CALCULATE PROGRESS
-    document.getElementById("calculateProgress").onclick = function () {
-
-        let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-
-        let total = tasks.length;
-        let score = 0;
-
-        tasks.forEach(task => {
-            if (task.status === "yes") score += 1;
-            else if (task.status === "partial") score += 0.5;
-        });
-
-        let percent = total ? Math.round((score / total) * 100) : 0;
-
-        document.getElementById("overallPercent").textContent = percent + "%";
-
-        document.getElementById("circleProgress").style.background =
-            `conic-gradient(#6366f1 0% ${percent}%, #e5e7eb ${percent}% 100%)`;
-    };
-
-    // LOAD ON START
-    loadTasks();
-
-});
-</script>
 
 </body>
 </html>

@@ -1,17 +1,15 @@
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-
-body{
-font-family:'Poppins',sans-serif;
-background:linear-gradient(135deg,#f5f7ff,#eef1ff);
-color:#222;
-line-height:1.6;
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #f5f7ff, #eef1ff);
+  color: #222;
+  line-height: 1.6;
 }
-
-
+/* Header */
 .header {
   position: sticky;
   top: 0;
@@ -54,67 +52,27 @@ line-height:1.6;
   color: #60a5fa; /* light blue */
   font-weight: 700;
 }
-
-/* Profile/Login with lift effect */
-.profile a {
-  text-decoration: none;
-  color: #1e3a8a;
-  font-weight: 600;
-  background-color: #60a5fa;
-  padding: 8px 18px;
-  border-radius: 25px;
-  transition: all 0.3s ease;
-  display: inline-block;
-}
-
-.profile a:hover {
-  transform: translateY(-5px); /* lift-up effect */
-  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
-  background-color: #3b82f6; /* darker blue */
-  color: #fff;
-}
-
-/* Hamburger Menu */
-.hamburger {
-  display: none;
-  font-size: 1.5rem;
-  cursor: pointer;
-  color: #fff;
-}
 /* Responsive */
 @media screen and (max-width: 768px) {
-  .nav-links {
-    position: absolute;
-    top: 70px;
-    left: -100%;
-    width: 100%;
+  .header {
     flex-direction: column;
-    background-color: #1e3a8a;
-    gap: 0;
-    transition: left 0.3s ease;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .nav-links {
+    position: static;   /* remove absolute */
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    gap: 10px;
   }
 
   .nav-links li {
-    text-align: center;
-    padding: 15px 0;
-    border-bottom: 1px solid #3b82f6;
-  }
-
-  .nav-links li:last-child {
-    border-bottom: none;
-  }
-
-  .nav-links.show {
-    left: 0;
-  }
-
-  .hamburger {
-    display: block;
+    padding: 5px 0;
+    border: none;
   }
 }
-
-
-
 /* UNIFORM SECTION SPACING */
 
 .about-hero,

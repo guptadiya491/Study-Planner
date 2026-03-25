@@ -74,32 +74,39 @@ body {
   background-color: #3b82f6;
   color: #fff;
 }
-/* ===== TABLET (>=768px) ===== */
-@media (min-width: 768px) {
+/* Responsive */
+@media screen and (max-width: 768px) {
   .header {
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 15px 5%;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
   }
 
   .nav-links {
-    flex-direction: row;
-    gap: 20px;
-  }
-}
-
-/* ===== DESKTOP (>=1024px) ===== */
-@media (min-width: 1024px) {
-  .header {
-    padding: 15px 10%;
+    position: static;  
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    gap: 10px;
   }
 
-  .nav-links {
-    gap: 25px;
+  .nav-links li {
+    padding: 5px 0;
+    border: none;
   }
 }
+/* UNIFORM SECTION SPACING */
+
+.about-hero,
+.team-section,
+.about{
+padding:110px 8%;
+}
+
+
 
 /* HERO */
+
 .about-hero{
 background:linear-gradient(135deg,#6366f1,#8b5cf6);
 color:white;
@@ -121,11 +128,7 @@ margin:auto;
 color:#f3f4ff;
 animation:fadeIn 1.5s ease;
 }
-.about-hero,
-.team-section,
-.about{
-padding:110px 8%;
-}
+
 
 
 /* TEAM */
@@ -208,12 +211,17 @@ color:#444;
 .team-card:hover h3{
 color:#6366f1;
 }
+
+
+
 /* MISSION & VALUES */
+
 .about{
 display:flex;
 flex-direction:column;
 gap:90px; /* uniform vertical gap */
 }
+
 .section-title{
 text-align:center;
 font-size:48px;
@@ -223,11 +231,13 @@ background:linear-gradient(90deg,#1e3a8a,#6366f1,#8b5cf6);
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
 }
+
 .grid-4{
 display:grid;
 grid-template-columns:repeat(4,1fr);
 gap:35px;
 }
+
 .info-card{
 background:rgba(255,255,255,.6);
 backdrop-filter:blur(12px);
@@ -237,95 +247,14 @@ text-align:center;
 transition:.4s;
 box-shadow:0 10px 30px rgba(99,102,241,.15);
 }
+
 .info-card:hover{
 transform:translateY(-12px);
 box-shadow:0 20px 40px rgba(99,102,241,.25);
 }
-/* =========================
-   TABLET (>=768px)
-========================= */
-@media (min-width: 768px) {
-  .about-hero h1 {
-    font-size: 2.8rem;
-  }
 
-  .hero-definition {
-    font-size: 1.1rem;
-  }
 
-  .team-section h2 {
-    font-size: 2.2rem;
-  }
 
-  .team-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 30px;
-  }
-
-  .team-card {
-    padding: 30px 20px;
-  }
-
-  .about {
-    gap: 70px;
-  }
-
-  .section-title {
-    font-size: 2.5rem;
-    margin-bottom: 50px;
-  }
-
-  .grid-4 {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 25px;
-  }
-
-  .info-card {
-    padding: 30px 20px;
-  }
-}
-
-/* =========================
-   DESKTOP (>=1024px)
-========================= */
-@media (min-width: 1024px) {
-  .about-hero h1 {
-    font-size: 3.5rem;
-  }
-
-  .hero-definition {
-    font-size: 1.2rem;
-    max-width: 850px;
-  }
-
-  .team-section h2 {
-    font-size: 3rem;
-  }
-
-  .team-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 40px;
-  }
-
-  .team-card {
-    padding: 45px 25px;
-    border-radius: 20px;
-  }
-
-  .section-title {
-    font-size: 3rem;
-  }
-
-  .grid-4 {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 35px;
-  }
-
-  .info-card {
-    padding: 35px 25px;
-    border-radius: 20px;
-  }
-}
 /* Footer */
 .footer {
   background: #1c1c1c;
@@ -395,57 +324,6 @@ box-shadow:0 20px 40px rgba(99,102,241,.25);
   font-size: 14px;
   color: #999;
 }
-/* =========================
-   TABLET (>=768px)
-========================= */
-@media (min-width: 768px) {
-
-  .footer {
-    text-align: left;
-    padding: 50px 30px 20px;
-  }
-
-  .footer-container {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 30px;
-  }
-
-  .footer-box {
-    flex: 1 1 45%;
-  }
-
-  .social-icons a {
-    margin-right: 15px;
-    margin-left: 0;
-  }
-}
-
-/* =========================
-   DESKTOP (>=1024px)
-========================= */
-@media (min-width: 1024px) {
-
-  .footer-container {
-    max-width: 1200px;
-    margin: auto;
-    justify-content: space-between;
-  }
-
-  .footer-box {
-    flex: 1;
-  }
-
-  .footer-box h3 {
-    font-size: 20px;
-  }
-
-  .footer-box p,
-  .footer-box ul li {
-    font-size: 14px;
-  }
-}
 
 /* ANIMATIONS */
 
@@ -474,4 +352,32 @@ transform:translateY(0);
 @keyframes fadeIn{
 from{opacity:0;transform:translateY(20px);}
 to{opacity:1;transform:translateY(0);}
+}
+
+
+
+/* RESPONSIVE */
+
+@media(max-width:1024px){
+
+.grid-4{
+grid-template-columns:repeat(2,1fr);
+}
+
+.team-grid{
+grid-template-columns:1fr;
+}
+
+}
+
+@media(max-width:600px){
+
+.section-title{
+font-size:30px;
+}
+
+.about-hero h1{
+font-size:32px;
+}
+
 }

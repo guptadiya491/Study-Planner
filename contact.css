@@ -74,28 +74,25 @@ body {
   background-color: #3b82f6;
   color: #fff;
 }
-/* ===== TABLET (>=768px) ===== */
-@media (min-width: 768px) {
+/* Responsive */
+@media screen and (max-width: 768px) {
   .header {
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 15px 5%;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
   }
 
   .nav-links {
-    flex-direction: row;
-    gap: 20px;
-  }
-}
-
-/* ===== DESKTOP (>=1024px) ===== */
-@media (min-width: 1024px) {
-  .header {
-    padding: 15px 10%;
+    position: static;   /* remove absolute */
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    gap: 10px;
   }
 
-  .nav-links {
-    gap: 25px;
+  .nav-links li {
+    padding: 5px 0;
+    border: none;
   }
 }
 /* ================= MAIN ================= */
@@ -274,9 +271,10 @@ body {
 .faq-card:nth-child(2) { animation-delay: 0.3s; }
 .faq-card:nth-child(3) { animation-delay: 0.5s; }
 
-/* ================= TABLET (>=768px) ================= */
-@media (min-width: 768px) {
+/* ================= RESPONSIVE DESIGN ================= */
 
+/* Tablets (<= 992px) */
+@media (max-width: 992px) {
   .main {
     padding: 60px 5%;
   }
@@ -290,54 +288,94 @@ body {
   }
 
   .section-2 {
-    margin: 60px auto;
-    padding: 40px;
-    max-width: 900px;
+    padding: 50px 5%;
   }
 
-  .section-3 {
-    margin: 60px auto;
-    max-width: 900px;
+  .section-2 h2 {
+    font-size: 2.2rem;
   }
 
   .info-container,
   .faq-container {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .info-card,
-  .faq-card {
-    padding: 25px;
+    gap: 25px;
   }
 }
 
-/* ================= DESKTOP (>=1024px) ================= */
-@media (min-width: 1024px) {
-
+/* Mobile (<= 768px) */
+@media (max-width: 768px) {
   .main {
-    padding: 80px 10%;
+    padding: 50px 20px;
+  }
+
+  .section-1 {
+    padding: 30px 20px;
   }
 
   .section-1 h1 {
-    font-size: 2.5rem;
+    font-size: 2rem;
+    text-align: center;
   }
 
-  .section-2 h2,
-  .section-3 h2 {
-    font-size: 2.4rem;
+  .section-1 p {
+    text-align: center;
+    font-size: 0.95rem;
+  }
+
+  .contact-form button {
+    width: 100%;
+  }
+
+  .section-2 {
+    margin: 60px 0;
+    padding: 40px 20px;
+    border-radius: 15px;
+  }
+
+  .section-2 h2 {
+    font-size: 2rem;
+  }
+
+  .section-2 .contact-desc {
+    font-size: 1rem;
   }
 
   .info-container,
   .faq-container {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1fr;
   }
 
   .info-card,
   .faq-card {
-    max-width: 360px;
+    max-width: 100%;
   }
 }
- 
+
+/* Small Mobile (<= 480px) */
+@media (max-width: 480px) {
+  .section-1 h1 {
+    font-size: 1.7rem;
+  }
+
+  .section-2 h2 {
+    font-size: 1.6rem;
+  }
+
+  .info-card h4,
+  .faq-card h4 {
+    font-size: 1.2rem;
+  }
+
+  .info-card p,
+  .faq-card p {
+    font-size: 0.9rem;
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    font-size: 0.9rem;
+    padding: 10px;
+  }
+}
 /* ================= FOOTER ================= */
 .footer {
   background: #1c1c1c;
@@ -407,19 +445,11 @@ body {
   font-size: 14px;
   color: #999;
 }
-/* =========================
-   TABLET (>=768px)
-========================= */
-@media (min-width: 768px) {
+/* Responsive Footer */
 
-  .footer {
-    text-align: left;
-    padding: 50px 30px 20px;
-  }
-
+/* Tablets */
+@media (max-width: 992px) {
   .footer-container {
-    flex-direction: row;
-    flex-wrap: wrap;
     justify-content: center;
     gap: 30px;
   }
@@ -427,33 +457,36 @@ body {
   .footer-box {
     flex: 1 1 45%;
   }
-
-  .social-icons a {
-    margin-right: 15px;
-    margin-left: 0;
-  }
 }
-/* =========================
-   DESKTOP (>=1024px)
-========================= */
-@media (min-width: 1024px) {
+
+/* Mobile Devices */
+@media (max-width: 600px) {
+  .footer {
+    padding: 40px 15px 15px 15px;
+    text-align: center;
+  }
 
   .footer-container {
-    max-width: 1200px;
-    margin: auto;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
   }
 
   .footer-box {
-    flex: 1;
+    width: 100%;
   }
 
   .footer-box h3 {
-    font-size: 20px;
+    font-size: 18px;
   }
 
   .footer-box p,
   .footer-box ul li {
-    font-size: 14px;
+    font-size: 13px;
+  }
+
+  .social-icons a {
+    margin: 0 10px;
+    font-size: 16px;
   }
 }

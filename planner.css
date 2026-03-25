@@ -13,6 +13,7 @@ body {
   color: #222;
   line-height: 1.6;
 }
+
 /* =========================
    HEADER
 ========================= */
@@ -74,28 +75,25 @@ body {
   background-color: #3b82f6;
   color: #fff;
 }
-/* ===== TABLET (>=768px) ===== */
-@media (min-width: 768px) {
+/* Responsive */
+@media screen and (max-width: 768px) {
   .header {
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 15px 5%;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
   }
 
   .nav-links {
-    flex-direction: row;
-    gap: 20px;
-  }
-}
-
-/* ===== DESKTOP (>=1024px) ===== */
-@media (min-width: 1024px) {
-  .header {
-    padding: 15px 10%;
+    position: static;   /* remove absolute */
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    gap: 10px;
   }
 
-  .nav-links {
-    gap: 25px;
+  .nav-links li {
+    padding: 5px 0;
+    border: none;
   }
 }
 /* =========================
@@ -263,79 +261,6 @@ body {
   margin-bottom: 12px;
   color: #28a745;
 }
-.planner-form textarea {
-  width: 100%;
-  padding: 12px 15px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  font-size: 16px;
-  resize: none;
-  transition: all 0.3s ease;
-}
-
-.planner-form textarea:focus {
-  outline: none;
-  border-color: #007bff;
-  box-shadow: 0 0 10px rgba(0,123,255,0.2);
-}
-/* =========================
-   TABLET (>=768px)
-========================= */
-@media (min-width: 768px) {
-
-  .planner-section {
-    max-width: 700px;
-    margin: 50px auto;
-    padding: 30px;
-  }
-
-  .planner-section h2 {
-    font-size: 1.8rem;
-  }
-
-  .planner-guide,
-  .study-tips {
-    max-width: 800px;
-    margin: 50px auto;
-  }
-
-  .planner-guide .content,
-  .study-tips .tips {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .planner-guide .card,
-  .study-tips .tip-card {
-    flex: 1 1 45%;
-  }
-}
-
-/* =========================
-   DESKTOP (>=1024px)
-========================= */
-@media (min-width: 1024px) {
-
-  .planner-section {
-    max-width: 800px;
-    padding: 40px;
-  }
-
-  .planner-section h2 {
-    font-size: 2rem;
-  }
-
-  .planner-guide,
-  .study-tips {
-    max-width: 900px;
-  }
-
-  .planner-guide .card,
-  .study-tips .tip-card {
-    flex: 1 1 250px;
-  }
-}
 /* Footer */
 .footer {
   background: #1c1c1c;
@@ -406,52 +331,112 @@ body {
   color: #999;
 }
 /* =========================
-   TABLET (>=768px)
+   RESPONSIVE
 ========================= */
-@media (min-width: 768px) {
-
-  .footer {
-    text-align: left;
-    padding: 50px 30px 20px;
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    gap: 10px;
   }
 
-  .footer-container {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 30px;
+  .nav-links {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
   }
 
-  .footer-box {
-    flex: 1 1 45%;
+  .planner-guide .content,
+  .study-tips .tips {
+    flex-direction: column;
+    align-items: center;
   }
 
-  .social-icons a {
-    margin-right: 15px;
-    margin-left: 0;
+  .planner-section {
+    margin: 40px 20px;
+    padding: 30px;
   }
 }
-/* =========================
-   DESKTOP (>=1024px)
-========================= */
-@media (min-width: 1024px) {
+.planner-form textarea {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 16px;
+  resize: none;
+  transition: all 0.3s ease;
+}
 
-  .footer-container {
-    max-width: 1200px;
-    margin: auto;
-    justify-content: space-between;
-  }
+.planner-form textarea:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 10px rgba(0,123,255,0.2);
+}
+/* Footer */
+.footer {
+  background: #1c1c1c;
+  color: #f1f1f1;
+  padding: 60px 20px 20px 20px;
+  font-family: 'Poppins', sans-serif;
+}
 
-  .footer-box {
-    flex: 1;
-  }
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: auto;
+  gap: 40px;
+}
 
-  .footer-box h3 {
-    font-size: 20px;
-  }
+.footer-box h3 {
+  font-size: 20px;
+  margin-bottom: 15px;
+  color: #ffffff;
+}
 
-  .footer-box p,
-  .footer-box ul li {
-    font-size: 14px;
-  }
+.footer-box p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #cfcfcf;
+}
+
+.footer-box ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-box ul li {
+  margin-bottom: 10px;
+}
+
+.footer-box ul li a {
+  color: #cfcfcf;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.footer-box ul li a:hover {
+  color: #2575fc;
+}
+
+.social-icons a {
+  display: inline-block;
+  margin-right: 15px;
+  color: #cfcfcf;
+  font-size: 18px;
+  transition: 0.3s;
+}
+
+.social-icons a:hover {
+  color: #2575fc;
+  transform: scale(1.2);
+}
+
+.footer-bottom {
+  text-align: center;
+  border-top: 1px solid #333;
+  margin-top: 40px;
+  padding-top: 20px;
+  font-size: 14px;
+  color: #999;
 }

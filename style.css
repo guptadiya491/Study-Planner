@@ -1,15 +1,21 @@
+/* =========================
+   RESET & GLOBAL STYLES
+========================= */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+
 body {
   font-family: 'Poppins', sans-serif;
   background: linear-gradient(135deg, #e0ebff, #f5f7ff);
   color: #222;
   line-height: 1.6;
 }
-/* ====HEADER====*/
+/* =========================
+   HEADER
+========================= */
 .header {
   position: sticky;
   top: 0;
@@ -22,6 +28,7 @@ body {
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   color: #fff;
 }
+
 .logo {
   font-size: 1.8rem;
   font-weight: 700;
@@ -60,34 +67,32 @@ body {
   transition: all 0.3s ease;
   display: inline-block;
 }
+
 .profile a:hover {
   transform: translateY(-5px);
   box-shadow: 0 6px 12px rgba(0,0,0,0.2);
   background-color: #3b82f6;
   color: #fff;
 }
-/* ===== TABLET (>=768px) ===== */
-@media (min-width: 768px) {
+/* Responsive */
+@media screen and (max-width: 768px) {
   .header {
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 15px 5%;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
   }
 
   .nav-links {
-    flex-direction: row;
-    gap: 20px;
-  }
-}
-
-/* ===== DESKTOP (>=1024px) ===== */
-@media (min-width: 1024px) {
-  .header {
-    padding: 15px 10%;
+    position: static;   /* remove absolute */
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    gap: 10px;
   }
 
-  .nav-links {
-    gap: 25px;
+  .nav-links li {
+    padding: 5px 0;
+    border: none;
   }
 }
 /* Hero Section */
@@ -203,6 +208,21 @@ body {
   background: #f1f1f1;
   transform: scale(1.05);
 }
+/* Responsive */
+@media screen and (max-width: 768px) {
+  .hero {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .hero-image img {
+    margin-top: 20px;
+  }
+
+  .feature-container {
+    flex-direction: column;
+  }
+}
 /* Gallery */
 .gallery {
   text-align: center;
@@ -246,80 +266,6 @@ body {
   width: 250px;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-/* =========================
-   TABLET (>=768px)
-========================= */
-@media (min-width: 768px) {
-
-  .hero {
-    flex-direction: row;
-    text-align: left;
-    justify-content: space-between;
-    padding: 50px 5%;
-  }
-
-  .hero-text h1 {
-    font-size: 2.3rem;
-  }
-
-  .hero-image img {
-    max-width: 300px;
-  }
-
-  .feature-container {
-    flex-direction: row;
-    flex-wrap: wrap;
-  }
-
-  .feature-box {
-    flex: 1 1 45%;
-  }
-
-  .testimonial-container {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .testimonial-box {
-    width: 45%;
-  }
-
-  .gallery img {
-    width: 130px;
-  }
-}
-
-/* =========================
-   DESKTOP (>=1024px)
-========================= */
-@media (min-width: 1024px) {
-
-  .hero {
-    padding: 60px 10%;
-  }
-
-  .hero-text h1 {
-    font-size: 2.8rem;
-  }
-
-  .feature-box {
-    flex: 1;
-  }
-
-  .testimonial-box {
-    width: 250px;
-  }
-
-  .gallery img {
-    width: 150px;
-  }
-
-  .cta {
-    max-width: 900px;
-    margin: 60px auto;
-  }
 }
 /* Footer */
 .footer {
@@ -390,19 +336,11 @@ body {
   font-size: 14px;
   color: #999;
 }
-/* =========================
-   TABLET (>=768px)
-========================= */
-@media (min-width: 768px) {
+/* Responsive Footer */
 
-  .footer {
-    text-align: left;
-    padding: 50px 30px 20px;
-  }
-
+/* Tablets */
+@media (max-width: 992px) {
   .footer-container {
-    flex-direction: row;
-    flex-wrap: wrap;
     justify-content: center;
     gap: 30px;
   }
@@ -410,34 +348,36 @@ body {
   .footer-box {
     flex: 1 1 45%;
   }
-
-  .social-icons a {
-    margin-right: 15px;
-    margin-left: 0;
-  }
 }
 
-/* =========================
-   DESKTOP (>=1024px)
-========================= */
-@media (min-width: 1024px) {
+/* Mobile Devices */
+@media (max-width: 600px) {
+  .footer {
+    padding: 40px 15px 15px 15px;
+    text-align: center;
+  }
 
   .footer-container {
-    max-width: 1200px;
-    margin: auto;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
   }
 
   .footer-box {
-    flex: 1;
+    width: 100%;
   }
 
   .footer-box h3 {
-    font-size: 20px;
+    font-size: 18px;
   }
 
   .footer-box p,
   .footer-box ul li {
-    font-size: 14px;
+    font-size: 13px;
+  }
+
+  .social-icons a {
+    margin: 0 10px;
+    font-size: 16px;
   }
 }

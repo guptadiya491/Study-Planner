@@ -74,30 +74,28 @@ body {
   background-color: #3b82f6;
   color: #fff;
 }
-/* ===== TABLET (>=768px) ===== */
-@media (min-width: 768px) {
+/* Responsive */
+@media screen and (max-width: 768px) {
   .header {
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 15px 5%;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
   }
 
   .nav-links {
-    flex-direction: row;
-    gap: 20px;
+    position: static;   /* remove absolute */
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .nav-links li {
+    padding: 5px 0;
+    border: none;
   }
 }
 
-/* ===== DESKTOP (>=1024px) ===== */
-@media (min-width: 1024px) {
-  .header {
-    padding: 15px 10%;
-  }
-
-  .nav-links {
-    gap: 25px;
-  }
-}
 .progress-intro {
   text-align: center;
   padding: 60px 8%;
@@ -105,6 +103,13 @@ body {
 
 .intro-text {
   margin-top: 10px;
+}
+
+/* INTRO RESPONSIVE */
+@media (max-width: 768px) {
+  .progress-intro {
+    padding: 40px 5%;
+  }
 }
 
 /* =========================
@@ -137,6 +142,21 @@ th {
 td {
   background: white;
 }
+
+/* TABLE RESPONSIVE */
+@media (max-width: 768px) {
+  th, td {
+    font-size: 0.85rem;
+    padding: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  table {
+    min-width: 500px;
+  }
+}
+
 /* =========================
    BUTTON
 ========================= */
@@ -188,6 +208,13 @@ opacity:1;
 transform: scale(1);
 }
 }
+/* BUTTON RESPONSIVE */
+@media (max-width: 480px) {
+  #calculateProgress {
+    width: 100%;
+  }
+}
+
 /* =========================
    DASHBOARD
 ========================= */
@@ -228,83 +255,18 @@ transform: scale(1);
   justify-content: center;
   align-items: center;
 }
-/* =========================
-   TABLET (>=768px)
-========================= */
-@media (min-width: 768px) {
-  .progress-intro {
-    padding: 50px 8%;
-    font-size: 1rem;
-  }
 
-  .task-box {
-    padding: 20px;
-  }
 
-  th, td {
-    padding: 10px;
-    font-size: 1rem;
-  }
-
-  #calculateProgress {
-    width: auto;
-    padding: 14px 25px;
-  }
-
-  .progress-wrapper {
-    flex-direction: row; /* cards side by side */
-    flex-wrap: wrap;
-    gap: 25px;
-  }
-
-  .progress-card {
-    max-width: 180px;
-    padding: 20px;
-  }
-
+/* DASHBOARD RESPONSIVE */
+@media (max-width: 768px) {
   .circle-progress {
-    width: 180px;
-    height: 180px;
+    width: 150px;
+    height: 150px;
   }
 
   .circle-inner {
-    width: 110px;
-    height: 110px;
-    font-size: 1rem;
-  }
-}
-
-/* =========================
-   DESKTOP (>=1024px)
-========================= */
-@media (min-width: 1024px) {
-  .progress-intro {
-    padding: 60px 8%;
-    font-size: 1.1rem;
-  }
-
-  .task-box {
-    padding: 25px;
-  }
-
-  th, td {
-    padding: 12px;
-    font-size: 1.05rem;
-  }
-
-  .progress-card {
-    max-width: 220px;
-  }
-
-  .circle-progress {
-    width: 200px;
-    height: 200px;
-  }
-
-  .circle-inner {
-    width: 120px;
-    height: 120px;
-    font-size: 1.1rem;
+    width: 90px;
+    height: 90px;
   }
 }
 /* Footer */
@@ -376,19 +338,11 @@ transform: scale(1);
   font-size: 14px;
   color: #999;
 }
-/* =========================
-   TABLET (>=768px)
-========================= */
-@media (min-width: 768px) {
+/* Responsive Footer */
 
-  .footer {
-    text-align: left;
-    padding: 50px 30px 20px;
-  }
-
+/* Tablets */
+@media (max-width: 992px) {
   .footer-container {
-    flex-direction: row;
-    flex-wrap: wrap;
     justify-content: center;
     gap: 30px;
   }
@@ -396,36 +350,36 @@ transform: scale(1);
   .footer-box {
     flex: 1 1 45%;
   }
-
-  .social-icons a {
-    margin-right: 15px;
-    margin-left: 0;
-  }
 }
-/* =========================
-   DESKTOP (>=1024px)
-========================= */
-@media (min-width: 1024px) {
+
+/* Mobile Devices */
+@media (max-width: 600px) {
+  .footer {
+    padding: 40px 15px 15px 15px;
+    text-align: center;
+  }
 
   .footer-container {
-    max-width: 1200px;
-    margin: auto;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
   }
 
   .footer-box {
-    flex: 1;
+    width: 100%;
   }
 
   .footer-box h3 {
-    font-size: 20px;
+    font-size: 18px;
   }
 
   .footer-box p,
   .footer-box ul li {
-    font-size: 14px;
+    font-size: 13px;
+  }
+
+  .social-icons a {
+    margin: 0 10px;
+    font-size: 16px;
   }
 }
-
-
-

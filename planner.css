@@ -1,15 +1,22 @@
-*{
+/* =========================
+   RESET & GLOBAL STYLES
+========================= */
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+
 body {
   font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg, #f5f7ff, #eef1ff);
+  background: linear-gradient(135deg, #e0ebff, #f5f7ff);
   color: #222;
   line-height: 1.6;
 }
-/* Header */
+
+/* =========================
+   HEADER
+========================= */
 .header {
   position: sticky;
   top: 0;
@@ -18,12 +25,11 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 15px 10%;
-  background-color: #1e3a8a; /* dark blue */
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  background-color: #1e3a8a;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   color: #fff;
 }
 
-/* Logo */
 .logo {
   font-size: 1.8rem;
   font-weight: 700;
@@ -33,7 +39,6 @@ body {
   color: #fff;
 }
 
-/* Navigation */
 .nav-links {
   list-style: none;
   display: flex;
@@ -49,8 +54,26 @@ body {
 
 .nav-links li a:hover,
 .nav-links li a.active {
-  color: #60a5fa; /* light blue */
+  color: #60a5fa;
   font-weight: 700;
+}
+
+.profile a {
+  text-decoration: none;
+  color: #1e3a8a;
+  font-weight: 600;
+  background-color: #60a5fa;
+  padding: 8px 18px;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.profile a:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+  background-color: #3b82f6;
+  color: #fff;
 }
 /* Responsive */
 @media screen and (max-width: 768px) {

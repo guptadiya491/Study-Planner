@@ -3,24 +3,35 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home Page - Study Planner</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <title>How To Plan</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="progress.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
 </head>
+
 <body>
+  <!-- ================= HEADER ================= -->
   <header class="header">
     <div class="logo">
       <i class="fa-solid fa-graduation-cap"></i> Study Planner
     </div>
+
     <nav>
-    <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="planner.html">Planner</a></li>
-      <li><a href="progress.html" class="active">Progress</a></li>
-      <li><a href="about.html">About Us</a></li>
-      <li><a href="contact.html">Contact Us</a></li>
-    </ul></nav>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="planner.html">Planner</a></li>
+        <li><a href="progress.html" class="active">Progress</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+    </nav>
+
+    <div class="profile">
+      <a href="#">Login</a>
+    </div>
   </header>
 
 <!-- INTRO -->
@@ -43,13 +54,21 @@ Track your tasks and mark completion status.
 <th>No</th>
 <th>Delete</th>
 </tr>
+<tr>
+<td>Javascript</td>
+<td>Prepare for ST1</td>
+<td>20-02-2026</td>
+<td></td>
+<td>✔</td>
+<td></td>
+<td>❌</td>
+</tr>
 </table>
 
 <button id="calculateProgress">Calculate Progress</button>
 
 </div>
 </section>
-
 <!-- DASHBOARD -->
 <section class="progress-dashboard">
 
@@ -62,7 +81,7 @@ Track your tasks and mark completion status.
 
 <div class="circle-progress" id="circleProgress">
 <div class="circle-inner">
-<span id="overallPercent">0%</span>
+<span id="overallPercent">70%</span>
 <p>Completed</p>
 </div>
 </div>

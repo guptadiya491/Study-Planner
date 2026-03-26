@@ -1,17 +1,18 @@
-/* =========================
-   RESET & GLOBAL STYLES
+/*RESET & GLOBAL STYLES
 ========================= */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+
 body {
   font-family: 'Poppins', sans-serif;
   background: linear-gradient(135deg, #e0ebff, #f5f7ff);
   color: #222;
   line-height: 1.6;
 }
+
 /* =========================
    HEADER
 ========================= */
@@ -479,4 +480,162 @@ td {
     font-size: 12px;
     padding-top: 15px;
   }
+}
+/* EXTRA STATS */
+.extra-stats {
+  padding: 60px 6%;
+}
+
+.stats-container {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.stat-card {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  width: 220px;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  transition: 0.3s;
+}
+
+.stat-card:hover {
+  transform: translateY(-10px);
+}
+
+.stat-card p {
+  font-size: 26px;
+  font-weight: bold;
+  color: #6366f1;
+}
+
+/* SUBJECT PROGRESS */
+.subject-progress {
+  padding: 60px 6%;
+  text-align: center;
+}
+
+.progress-bar-box {
+  max-width: 500px;
+  margin: 20px auto;
+  text-align: left;
+}
+
+.bar {
+  width: 100%;
+  height: 12px;
+  background: #ddd;
+  border-radius: 10px;
+}
+
+.bar span {
+  display: block;
+  height: 100%;
+  background: #6366f1;
+  border-radius: 10px;
+}
+
+/* MOTIVATION */
+.motivation {
+  padding: 80px 6%;
+  text-align: center;
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  color: white;
+}
+
+.motivation p {
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .stat-card {
+    width: 180px;
+  }
+}
+
+@media (max-width: 480px) {
+  .stats-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .stat-card {
+    width: 100%;
+    max-width: 250px;
+  }
+}
+/* 🌈 MAIN BACKGROUND IMPROVEMENT */
+body {
+  background: linear-gradient(135deg, #c7d2fe, #e0e7ff, #f1f5ff);
+}
+
+
+/* 📦 SECTION SPACING (make it feel bigger) */
+.progress-dashboard {
+  padding: 80px 6%;
+}
+
+
+/* 💎 CARD / BOX GLASS EFFECT */
+.progress-card {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+  transition: 0.3s;
+}
+
+.progress-card:hover {
+  transform: translateY(-8px);
+}
+
+
+/* 🎯 CIRCLE BACKGROUND IMPROVEMENT */
+.circle-progress {
+  background: conic-gradient(#6366f1 70%, #cbd5f5 0%);
+}
+
+
+/* 🟣 INNER CIRCLE (less white) */
+.circle-inner {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(6px);
+}
+
+
+/* 📊 HEADING STYLE */
+.progress-dashboard h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #1e293b;
+}
+
+
+/* ✨ ADD SOFT SECTION BACKGROUND */
+.progress-dashboard {
+  background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(255,255,255,0.3));
+  border-radius: 30px;
+  margin: 40px 6%;
+}
+
+
+/* 🧊 STATS CARDS (if visible below) */
+.stat-card {
+  background: rgba(255,255,255,0.6);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+
+/* 🔥 BUTTON IMPROVEMENT */
+#calculateProgress {
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  box-shadow: 0 8px 20px rgba(99,102,241,0.3);
 }

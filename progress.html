@@ -1,49 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Progress-Study Planner</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Progress-Study Planner</title>
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="progress.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+<link rel="stylesheet" href="progress.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>">
 </head>
 
 <body>
-  <!-- ================= HEADER ================= -->
-  <header class="header">
-    <div class="logo">
-      <i class="fa-solid fa-graduation-cap"></i> Study Planner
-    </div>
 
-    <nav>
-      <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="planner.html">Planner</a></li>
-        <li><a href="progress.html" class="active">Progress</a></li>
-        <li><a href="about.html">About Us</a></li>
-        <li><a href="contact.html">Contact Us</a></li>
-      </ul>
-    </nav>
+<header class="header">
+  <div class="logo">
+    <i class="fa-solid fa-graduation-cap"></i> Study Planner
+  </div>
 
-    <div class="profile">
-      <a href="#">Login</a>
-    </div>
-  </header>
+  <nav>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="planner.html">Planner</a></li>
+      <li><a href="progress.html" class="active">Progress</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="contact.html">Contact Us</a></li>
+    </ul>
+  </nav>
+
+  <div class="profile">
+    <a href="#">Login</a>
+  </div>
+</header>
 
 <!-- INTRO -->
 <section class="progress-intro">
 <h1>Today's Tasks</h1>
+<p class="intro-text">Track your tasks and mark completion status.</p>
 
-<p class="intro-text">
-Track your tasks and mark completion status.
-</p>
-
-<div class="task-box glass">
-
+<div class="task-box">
 <table id="taskTable">
 <tr>
 <th>Subject</th>
@@ -54,41 +51,107 @@ Track your tasks and mark completion status.
 <th>No</th>
 <th>Delete</th>
 </tr>
+
 <tr>
 <td>Javascript</td>
-<td>Prepare for ST1</td>
-<td>20-02-2026</td>
+<td>DOM Manipulation</td>
+<td>27-03-2026</td>
 <td></td>
 <td>✔</td>
 <td></td>
 <td>❌</td>
 </tr>
+<tr>
+<td>C</td>
+<td>Pointers and Memory Management</td>
+<td>29-03-2026</td>
+<td></td>
+<td>✔</td>
+<td></td>
+<td>❌</td>
+<tr>
+<td>OS</td>
+<td>Operating Systems Concepts</td>
+<td>26-03-2026</td>
+<td></td>
+<td>✔</td>
+<td></td>
+<td>❌</td>
+</tr>
+</tr>
 </table>
 
 <button id="calculateProgress">Calculate Progress</button>
-
 </div>
 </section>
+
 <!-- DASHBOARD -->
 <section class="progress-dashboard">
-
 <h2>📊 Progress Overview</h2>
 
 <div class="progress-wrapper">
+<div class="progress-card">
 
-<div class="progress-card glass">
 <h3>Overall Completion</h3>
 
-<div class="circle-progress" id="circleProgress">
+<div class="circle-progress">
 <div class="circle-inner">
-<span id="overallPercent">70%</span>
+<span>70%</span>
 <p>Completed</p>
 </div>
 </div>
 
 </div>
+</div>
+</section>
+
+<!-- EXTRA STATS -->
+<section class="extra-stats">
+<div class="stats-container">
+
+<div class="stat-card">
+<h3>Total Tasks</h3>
+<p>3</p>
+</div>
+
+<div class="stat-card">
+<h3>Completed</h3>
+<p>0</p>
+</div>
+
+<div class="stat-card">
+<h3>Pending</h3>
+<p>3</p>
+</div>
 
 </div>
+</section>
+
+<!-- SUBJECT PROGRESS -->
+<section class="subject-progress">
+<h2>📚 Subject Progress</h2>
+
+<div class="progress-bar-box">
+<p>JavaScript</p>
+<div class="bar"><span style="width:70%"></span></div>
+</div>
+
+<div class="progress-bar-box">
+<p>C</p>
+<div class="bar"><span style="width:85%"></span></div>
+</div>
+
+<div class="progress-bar-box">
+<p>OS</p>
+<div class="bar"><span style="width:60%"></span></div>
+</div>
+
+</section>
+
+<!-- MOTIVATION -->
+<section class="motivation">
+<h2>✨ Stay Motivated</h2>
+<p>"Small progress each day adds up to big results 🚀"</p>
 </section>
 
 <!-- Footer Section -->
@@ -126,6 +189,7 @@ Track your tasks and mark completion status.
     <p>© 2026 Study Planner | All Rights Reserved</p>
   </div>
 </footer>
+
 
 </body>
 </html>

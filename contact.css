@@ -74,27 +74,59 @@ body {
   background-color: #3b82f6;
   color: #fff;
 }
-/* Responsive */
+/* =========================
+   Header Responsiveness
+========================= */
+
+/* Tablet: 768px and below */
 @media screen and (max-width: 768px) {
   .header {
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
+    flex-direction: column;      /* Stack logo, nav, profile vertically */
+    align-items: center;         /* Center all elements horizontally */
+    gap: 10px;                   /* Space between stacked items */
   }
 
   .nav-links {
-    position: static;   /* remove absolute */
-    flex-direction: column;
-    width: 100%;
-    align-items: center;
-    gap: 10px;
+    position: static;            /* Remove absolute if used */
+    flex-direction: column;      /* Stack links vertically */
+    width: 100%;                 /* Full width */
+    align-items: center;         /* Center links horizontally */
+    gap: 10px;                   /* Spacing between links */
   }
 
   .nav-links li {
-    padding: 5px 0;
-    border: none;
+    padding: 5px 0;              /* Vertical padding for each link */
+    border: none;                /* Remove borders if any */
+  }
+
+  .profile a {
+    width: auto;                 /* Keep button normal width */
+    text-align: center;
   }
 }
+
+/* Mobile: 480px and below */
+@media screen and (max-width: 480px) {
+  .header {
+    padding: 10px 5%;           /* Reduce horizontal padding */
+    gap: 8px;                    /* Slightly smaller gap */
+  }
+
+  .logo {
+    font-size: 1.3rem;           /* Smaller logo text */
+  }
+
+  .nav-links li a {
+    font-size: 0.9rem;           /* Smaller link text for phones */
+    padding: 4px 0;
+  }
+
+  .profile a {
+    font-size: 0.9rem;           /* Smaller profile button text */
+    padding: 6px 12px;           /* Smaller padding for button */
+  }
+}
+
 /* ================= MAIN ================= */
 .main {
   padding: 80px 10%;
@@ -271,111 +303,148 @@ body {
 .faq-card:nth-child(2) { animation-delay: 0.3s; }
 .faq-card:nth-child(3) { animation-delay: 0.5s; }
 
-/* ================= RESPONSIVE DESIGN ================= */
-
-/* Tablets (<= 992px) */
-@media (max-width: 992px) {
-  .main {
-    padding: 60px 5%;
-  }
-
-  .section-1 {
-    padding: 40px;
-  }
-
-  .section-1 h1 {
-    font-size: 2.2rem;
-  }
-
-  .section-2 {
-    padding: 50px 5%;
-  }
-
-  .section-2 h2 {
-    font-size: 2.2rem;
-  }
-
-  .info-container,
-  .faq-container {
-    gap: 25px;
-  }
-}
-
-/* Mobile (<= 768px) */
+/* =========================
+   RESPONSIVE: TABLET 768px
+========================= */
 @media (max-width: 768px) {
   .main {
-    padding: 50px 20px;
+    padding: 60px 6%;
   }
 
+  /* Section 1 - Contact Form */
   .section-1 {
-    padding: 30px 20px;
+    padding: 40px 25px;
+    margin-bottom: 50px;
   }
 
   .section-1 h1 {
     font-size: 2rem;
-    text-align: center;
   }
 
   .section-1 p {
-    text-align: center;
+    font-size: 0.95rem;
+    margin-bottom: 25px;
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    padding: 10px 12px;
     font-size: 0.95rem;
   }
 
   .contact-form button {
-    width: 100%;
+    padding: 10px 25px;
+    font-size: 0.95rem;
   }
 
+  /* Section 2 - Get in Touch */
   .section-2 {
-    margin: 60px 0;
-    padding: 40px 20px;
-    border-radius: 15px;
+    padding: 50px 6%;
   }
 
-  .section-2 h2 {
+  .section-2 h2, .section-3 h2 {
     font-size: 2rem;
   }
 
   .section-2 .contact-desc {
     font-size: 1rem;
+    max-width: 90%;
   }
 
-  .info-container,
-  .faq-container {
-    grid-template-columns: 1fr;
+  /* Section 3 - FAQ */
+  .section-3 {
+    padding: 50px 6%;
   }
 
-  .info-card,
-  .faq-card {
-    max-width: 100%;
-  }
-}
-
-/* Small Mobile (<= 480px) */
-@media (max-width: 480px) {
-  .section-1 h1 {
-    font-size: 1.7rem;
+  .info-container, .faq-container {
+    gap: 25px;
   }
 
-  .section-2 h2 {
-    font-size: 1.6rem;
+  .info-card, .faq-card {
+    max-width: 320px;
+    padding: 25px 20px;
   }
 
-  .info-card h4,
-  .faq-card h4 {
+  .info-card h4, .faq-card h4 {
     font-size: 1.2rem;
   }
 
-  .info-card p,
-  .faq-card p {
+  .info-card p, .faq-card p, .info-card span {
     font-size: 0.9rem;
+  }
+}
+
+/* =========================
+   RESPONSIVE: MOBILE 480px
+========================= */
+@media (max-width: 480px) {
+  .main {
+    padding: 40px 4%;
+  }
+
+  /* Section 1 - Contact Form */
+  .section-1 {
+    padding: 30px 15px;
+    margin-bottom: 40px;
+  }
+
+  .section-1 h1 {
+    font-size: 1.6rem;
+  }
+
+  .section-1 p {
+    font-size: 0.9rem;
+    margin-bottom: 20px;
   }
 
   .contact-form input,
   .contact-form textarea {
+    padding: 8px 10px;
     font-size: 0.9rem;
-    padding: 10px;
+  }
+
+  .contact-form button {
+    padding: 8px 20px;
+    font-size: 0.9rem;
+  }
+
+  /* Section 2 - Get in Touch */
+  .section-2 {
+    padding: 40px 4%;
+  }
+
+  .section-2 h2, .section-3 h2 {
+    font-size: 1.8rem;
+  }
+
+  .section-2 .contact-desc {
+    font-size: 0.95rem;
+    max-width: 100%;
+  }
+
+  /* Section 3 - FAQ */
+  .section-3 {
+    padding: 40px 4%;
+  }
+
+  .info-container, .faq-container {
+    gap: 20px;
+  }
+
+  .info-card, .faq-card {
+    max-width: 100%;
+    padding: 20px 15px;
+  }
+
+  .info-card h4, .faq-card h4 {
+    font-size: 1.1rem;
+  }
+
+  .info-card p, .faq-card p, .info-card span {
+    font-size: 0.85rem;
   }
 }
+
 /* ================= FOOTER ================= */
 .footer {
   background: #1c1c1c;
@@ -445,48 +514,42 @@ body {
   font-size: 14px;
   color: #999;
 }
-/* Responsive Footer */
-
-/* Tablets */
-@media (max-width: 992px) {
-  .footer-container {
-    justify-content: center;
-    gap: 30px;
-  }
-
-  .footer-box {
-    flex: 1 1 45%;
-  }
-}
-
-/* Mobile Devices */
-@media (max-width: 600px) {
-  .footer {
-    padding: 40px 15px 15px 15px;
-    text-align: center;
-  }
-
+/* Footer Responsiveness */
+@media (max-width: 768px) {
   .footer-container {
     flex-direction: column;
-    align-items: center;
-    gap: 25px;
+    align-items: flex-start;
+    gap: 30px; /* reduce gap on tablets */
   }
-
   .footer-box {
     width: 100%;
   }
-
-  .footer-box h3 {
-    font-size: 18px;
-  }
-
-  .footer-box p,
-  .footer-box ul li {
-    font-size: 13px;
-  }
-
   .social-icons a {
-    margin: 0 10px;
+    margin-right: 12px;
     font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer {
+    padding: 40px 15px 15px 15px; /* reduce overall padding */
+  }
+  .footer-container {
+    gap: 20px;
+  }
+  .footer-box h3 {
+    font-size: 18px; /* slightly smaller headings */
+  }
+  .footer-box p,
+  .footer-box ul li a {
+    font-size: 13px; /* smaller text for mobile */
+  }
+  .social-icons a {
+    margin-right: 10px;
+    font-size: 14px;
+  }
+  .footer-bottom {
+    font-size: 12px;
+    padding-top: 15px;
   }
 }

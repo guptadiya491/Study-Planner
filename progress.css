@@ -74,21 +74,59 @@ body {
   color: #fff;
 }
 
-/* HEADER RESPONSIVE */
-@media (max-width: 768px) {
+/* =========================
+   Header Responsiveness
+========================= */
+
+/* Tablet: 768px and below */
+@media screen and (max-width: 768px) {
   .header {
-    flex-direction: column;
-    gap: 10px;
-    padding: 15px 5%;
+    flex-direction: column;      /* Stack logo, nav, profile vertically */
+    align-items: center;         /* Center all elements horizontally */
+    gap: 10px;                   /* Space between stacked items */
   }
 
   .nav-links {
-    flex-direction: column;
-    width: 100%;
-    align-items: center;
-    gap: 10px;
+    position: static;            /* Remove absolute if used */
+    flex-direction: column;      /* Stack links vertically */
+    width: 100%;                 /* Full width */
+    align-items: center;         /* Center links horizontally */
+    gap: 10px;                   /* Spacing between links */
+  }
+
+  .nav-links li {
+    padding: 5px 0;              /* Vertical padding for each link */
+    border: none;                /* Remove borders if any */
+  }
+
+  .profile a {
+    width: auto;                 /* Keep button normal width */
+    text-align: center;
   }
 }
+
+/* Mobile: 480px and below */
+@media screen and (max-width: 480px) {
+  .header {
+    padding: 10px 5%;           /* Reduce horizontal padding */
+    gap: 8px;                    /* Slightly smaller gap */
+  }
+
+  .logo {
+    font-size: 1.3rem;           /* Smaller logo text */
+  }
+
+  .nav-links li a {
+    font-size: 0.9rem;           /* Smaller link text for phones */
+    padding: 4px 0;
+  }
+
+  .profile a {
+    font-size: 0.9rem;           /* Smaller profile button text */
+    padding: 6px 12px;           /* Smaller padding for button */
+  }
+}
+
 
 /* =========================
    INTRO SECTION
@@ -220,7 +258,127 @@ td {
   justify-content: center;
   align-items: center;
 }
+/* =========================
+   RESPONSIVE: TABLET 768px
+========================= */
+@media (max-width: 768px) {
 
+  /* Intro */
+  .progress-intro {
+    padding: 40px 5%;
+  }
+
+  .intro-text {
+    font-size: 15px;
+  }
+
+  /* Task Table */
+  .task-box {
+    padding: 15px;
+    margin: 20px auto;
+  }
+
+  table {
+    min-width: 100%;
+  }
+
+  th, td {
+    padding: 8px;
+  }
+
+  /* Button */
+  #calculateProgress {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  /* Dashboard */
+  .progress-dashboard {
+    padding: 40px 5%;
+  }
+
+  .progress-wrapper {
+    gap: 20px;
+  }
+
+  .progress-card {
+    max-width: 300px;
+    padding: 15px;
+  }
+
+  .circle-progress {
+    width: 150px;
+    height: 150px;
+    margin: 15px auto;
+  }
+
+  .circle-inner {
+    width: 90px;
+    height: 90px;
+  }
+}
+
+/* =========================
+   RESPONSIVE: MOBILE 480px
+========================= */
+@media (max-width: 480px) {
+
+  /* Intro */
+  .progress-intro {
+    padding: 30px 4%;
+  }
+
+  .intro-text {
+    font-size: 14px;
+  }
+
+  /* Task Table */
+  .task-box {
+    padding: 10px;
+    margin: 15px auto;
+  }
+
+  table {
+    min-width: 100%;
+    font-size: 12px;
+  }
+
+  th, td {
+    padding: 6px;
+  }
+
+  /* Button */
+  #calculateProgress {
+    padding: 8px;
+    font-size: 13px;
+  }
+
+  /* Dashboard */
+  .progress-dashboard {
+    padding: 30px 4%;
+  }
+
+  .progress-wrapper {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .progress-card {
+    max-width: 100%;
+    padding: 10px;
+  }
+
+  .circle-progress {
+    width: 120px;
+    height: 120px;
+    margin: 10px auto;
+  }
+
+  .circle-inner {
+    width: 70px;
+    height: 70px;
+  }
+}
 /* =========================
    FOOTER
 ========================= */
@@ -285,70 +443,42 @@ td {
   font-size: 14px;
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
-
-/* Tablet */
-@media (max-width: 992px) {
-  .footer-container {
-    justify-content: center;
-  }
-
-  .footer-box {
-    flex: 1 1 45%;
-  }
-}
-
-/* Mobile */
+/* Footer Responsiveness */
 @media (max-width: 768px) {
-  th, td {
-    font-size: 0.85rem;
-    padding: 8px;
-  }
-
-  .circle-progress {
-    width: 150px;
-    height: 150px;
-  }
-
-  .circle-inner {
-    width: 90px;
-    height: 90px;
-  }
-}
-
-/* Small Mobile */
-@media (max-width: 480px) {
-
-  .progress-intro h1 {
-    font-size: 26px;
-  }
-
-  .intro-text {
-    font-size: 14px;
-  }
-
-  #calculateProgress {
-    width: 100%;
-  }
-
-  .circle-progress {
-    width: 130px;
-    height: 130px;
-  }
-
-  .circle-inner {
-    width: 80px;
-    height: 80px;
-  }
-
-  table {
-    min-width: 500px;
-  }
-
   .footer-container {
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
+    gap: 30px; /* reduce gap on tablets */
+  }
+  .footer-box {
+    width: 100%;
+  }
+  .social-icons a {
+    margin-right: 12px;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer {
+    padding: 40px 15px 15px 15px; /* reduce overall padding */
+  }
+  .footer-container {
+    gap: 20px;
+  }
+  .footer-box h3 {
+    font-size: 18px; /* slightly smaller headings */
+  }
+  .footer-box p,
+  .footer-box ul li a {
+    font-size: 13px; /* smaller text for mobile */
+  }
+  .social-icons a {
+    margin-right: 10px;
+    font-size: 14px;
+  }
+  .footer-bottom {
+    font-size: 12px;
+    padding-top: 15px;
   }
 }

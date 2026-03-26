@@ -74,27 +74,60 @@ body {
   background-color: #3b82f6;
   color: #fff;
 }
-/* Responsive */
+/* =========================
+   Header Responsiveness
+========================= */
+
+/* Tablet: 768px and below */
 @media screen and (max-width: 768px) {
   .header {
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
+    flex-direction: column;      /* Stack logo, nav, profile vertically */
+    align-items: center;         /* Center all elements horizontally */
+    gap: 10px;                   /* Space between stacked items */
   }
 
   .nav-links {
-    position: static;  
-    flex-direction: column;
-    width: 100%;
-    align-items: center;
-    gap: 10px;
+    position: static;            /* Remove absolute if used */
+    flex-direction: column;      /* Stack links vertically */
+    width: 100%;                 /* Full width */
+    align-items: center;         /* Center links horizontally */
+    gap: 10px;                   /* Spacing between links */
   }
 
   .nav-links li {
-    padding: 5px 0;
-    border: none;
+    padding: 5px 0;              /* Vertical padding for each link */
+    border: none;                /* Remove borders if any */
+  }
+
+  .profile a {
+    width: auto;                 /* Keep button normal width */
+    text-align: center;
   }
 }
+
+/* Mobile: 480px and below */
+@media screen and (max-width: 480px) {
+  .header {
+    padding: 10px 5%;           /* Reduce horizontal padding */
+    gap: 8px;                    /* Slightly smaller gap */
+  }
+
+  .logo {
+    font-size: 1.3rem;           /* Smaller logo text */
+  }
+
+  .nav-links li a {
+    font-size: 0.9rem;           /* Smaller link text for phones */
+    padding: 4px 0;
+  }
+
+  .profile a {
+    font-size: 0.9rem;           /* Smaller profile button text */
+    padding: 6px 12px;           /* Smaller padding for button */
+  }
+}
+
+
 /* UNIFORM SECTION SPACING */
 
 .about-hero,
@@ -252,6 +285,95 @@ box-shadow:0 10px 30px rgba(99,102,241,.15);
 transform:translateY(-12px);
 box-shadow:0 20px 40px rgba(99,102,241,.25);
 }
+/* RESPONSIVE STYLES */
+
+/* Tablet: 768px */
+@media (max-width: 768px) {
+  .about-hero h1 {
+    font-size: 36px;
+  }
+
+  .hero-definition {
+    font-size: 18px;
+    max-width: 90%;
+  }
+
+  .team-section h2 {
+    font-size: 32px;
+    margin-bottom: 50px;
+  }
+
+  .team-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+  }
+
+  .team-card {
+    padding: 35px 20px;
+  }
+
+  .about {
+    gap: 70px;
+  }
+
+  .section-title {
+    font-size: 36px;
+    margin-bottom: 40px;
+  }
+
+  .grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+  }
+
+  .info-card {
+    padding: 30px 20px;
+  }
+}
+
+/* Mobile: 480px */
+@media (max-width: 480px) {
+  .about-hero h1 {
+    font-size: 28px;
+  }
+
+  .hero-definition {
+    font-size: 16px;
+    max-width: 100%;
+  }
+
+  .team-section h2 {
+    font-size: 28px;
+    margin-bottom: 40px;
+  }
+
+  .team-grid {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+
+  .team-card {
+    padding: 30px 15px;
+  }
+
+  .about {
+    gap: 50px;
+  }
+
+  .section-title {
+    font-size: 28px;
+    margin-bottom: 30px;
+  }
+
+  .grid-4 {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .info-card {
+    padding: 25px 15px;
+  }
+}
 
 
 
@@ -354,30 +476,40 @@ from{opacity:0;transform:translateY(20px);}
 to{opacity:1;transform:translateY(0);}
 }
 
-
-
-/* RESPONSIVE */
-
-@media(max-width:1024px){
-
-.grid-4{
-grid-template-columns:repeat(2,1fr);
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 30px; /* reduce gap on tablets */
+  }
+  .footer-box {
+    width: 100%;
+  }
+  .social-icons a {
+    margin-right: 12px;
+    font-size: 16px;
+  }
 }
-
-.team-grid{
-grid-template-columns:1fr;
-}
-
-}
-
-@media(max-width:600px){
-
-.section-title{
-font-size:30px;
-}
-
-.about-hero h1{
-font-size:32px;
-}
-
+@media (max-width: 480px) {
+  .footer {
+    padding: 40px 15px 15px 15px; /* reduce overall padding */
+  }
+  .footer-container {
+    gap: 20px;
+  }
+  .footer-box h3 {
+    font-size: 18px; /* slightly smaller headings */
+  }
+  .footer-box p,
+  .footer-box ul li a {
+    font-size: 13px; /* smaller text for mobile */
+  }
+  .social-icons a {
+    margin-right: 10px;
+    font-size: 14px;
+  }
+  .footer-bottom {
+    font-size: 12px;
+    padding-top: 15px;
+  }
 }

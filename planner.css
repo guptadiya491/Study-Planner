@@ -75,25 +75,55 @@ body {
   background-color: #3b82f6;
   color: #fff;
 }
-/* Responsive */
+/* =========================
+   Header Responsiveness
+========================= */
+
+/* Tablet: 768px and below */
 @media screen and (max-width: 768px) {
   .header {
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
+    flex-direction: column;      /* Stack logo, nav, profile vertically */
+    align-items: center;         /* Center all elements horizontally */
+    gap: 10px;                   /* Space between stacked items */
   }
 
   .nav-links {
-    position: static;   /* remove absolute */
-    flex-direction: column;
-    width: 100%;
-    align-items: center;
-    gap: 10px;
+    position: static;            /* Remove absolute if used */
+    flex-direction: column;      /* Stack links vertically */
+    width: 100%;                 /* Full width */
+    align-items: center;         /* Center links horizontally */
+    gap: 10px;                   /* Spacing between links */
   }
 
   .nav-links li {
-    padding: 5px 0;
-    border: none;
+    padding: 5px 0;              /* Vertical padding for each link */
+    border: none;                /* Remove borders if any */
+  }
+
+  .profile a {
+    width: auto;                 /* Keep button normal width */
+    text-align: center;
+  }
+}
+/* Mobile: 480px and below */
+@media screen and (max-width: 480px) {
+  .header {
+    padding: 10px 5%;           /* Reduce horizontal padding */
+    gap: 8px;                    /* Slightly smaller gap */
+  }
+
+  .logo {
+    font-size: 1.3rem;           /* Smaller logo text */
+  }
+
+  .nav-links li a {
+    font-size: 0.9rem;           /* Smaller link text for phones */
+    padding: 4px 0;
+  }
+
+  .profile a {
+    font-size: 0.9rem;           /* Smaller profile button text */
+    padding: 6px 12px;           /* Smaller padding for button */
   }
 }
 /* =========================
@@ -261,6 +291,171 @@ body {
   margin-bottom: 12px;
   color: #28a745;
 }
+/* =========================
+   RESPONSIVE: TABLET 768px
+========================= */
+@media (max-width: 768px) {
+  /* Planner Section */
+  .planner-section {
+    max-width: 90%;
+    margin: 40px auto;
+    padding: 30px;
+  }
+
+  .planner-section h2 {
+    font-size: 1.7rem;
+  }
+
+  .planner-section .plan {
+    font-size: 1rem;
+    margin-bottom: 25px;
+  }
+
+  .planner-form input[type="text"],
+  .planner-form input[type="date"],
+  .planner-form select {
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+
+  .add-btn {
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  /* Planner Guide */
+  .planner-guide {
+    max-width: 95%;
+    padding: 15px 20px;
+  }
+
+  .planner-guide h3 {
+    font-size: 1.6rem;
+    margin-bottom: 30px;
+  }
+
+  .planner-guide .content {
+    gap: 20px;
+  }
+
+  .planner-guide .card {
+    flex: 1 1 45%;
+    padding: 20px;
+  }
+
+  .planner-guide .card h4 {
+    font-size: 1.2rem;
+  }
+
+  /* Study Tips */
+  .study-tips {
+    max-width: 95%;
+    margin: 50px auto;
+    padding: 15px 20px;
+  }
+
+  .study-tips h3 {
+    font-size: 1.6rem;
+    margin-bottom: 30px;
+  }
+
+  .study-tips .tips {
+    gap: 20px;
+  }
+
+  .study-tips .tip-card {
+    flex: 1 1 45%;
+    padding: 20px;
+  }
+
+  .study-tips .tip-card h4 {
+    font-size: 1.2rem;
+  }
+}
+
+/* =========================
+   RESPONSIVE: MOBILE 480px
+========================= */
+@media (max-width: 480px) {
+  /* Planner Section */
+  .planner-section {
+    max-width: 100%;
+    margin: 30px auto;
+    padding: 20px;
+  }
+
+  .planner-section h2 {
+    font-size: 1.5rem;
+  }
+
+  .planner-section .plan {
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+  }
+
+  .planner-form input[type="text"],
+  .planner-form input[type="date"],
+  .planner-form select {
+    padding: 8px 10px;
+    font-size: 13px;
+  }
+
+  .add-btn {
+    padding: 10px;
+    font-size: 13px;
+  }
+
+  /* Planner Guide */
+  .planner-guide {
+    max-width: 100%;
+    padding: 10px 15px;
+  }
+
+  .planner-guide h3 {
+    font-size: 1.4rem;
+    margin-bottom: 25px;
+  }
+
+  .planner-guide .content {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .planner-guide .card {
+    flex: 1 1 100%;
+    padding: 15px;
+  }
+
+  .planner-guide .card h4 {
+    font-size: 1.1rem;
+  }
+
+  /* Study Tips */
+  .study-tips {
+    max-width: 100%;
+    margin: 40px auto;
+    padding: 10px 15px;
+  }
+
+  .study-tips h3 {
+    font-size: 1.4rem;
+    margin-bottom: 25px;
+  }
+
+  .study-tips .tips {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .study-tips .tip-card {
+    flex: 1 1 100%;
+    padding: 15px;
+  }
+
+  .study-tips .tip-card h4 {
+    font-size: 1.1rem;
+  }
+}
 /* Footer */
 .footer {
   background: #1c1c1c;
@@ -329,32 +524,6 @@ body {
   padding-top: 20px;
   font-size: 14px;
   color: #999;
-}
-/* =========================
-   RESPONSIVE
-========================= */
-@media (max-width: 768px) {
-  .header {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .nav-links {
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .planner-guide .content,
-  .study-tips .tips {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .planner-section {
-    margin: 40px 20px;
-    padding: 30px;
-  }
 }
 .planner-form textarea {
   width: 100%;
@@ -440,3 +609,28 @@ body {
   font-size: 14px;
   color: #999;
 }
+
+@media (max-width: 480px) {
+  .footer {
+    padding: 40px 15px 15px 15px; /* reduce overall padding */
+  }
+  .footer-container {
+    gap: 20px;
+  }
+  .footer-box h3 {
+    font-size: 18px; /* slightly smaller headings */
+  }
+  .footer-box p,
+  .footer-box ul li a {
+    font-size: 13px; /* smaller text for mobile */
+  }
+  .social-icons a {
+    margin-right: 10px;
+    font-size: 14px;
+  }
+  .footer-bottom {
+    font-size: 12px;
+    padding-top: 15px;
+  }
+}
+    

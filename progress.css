@@ -6,14 +6,12 @@
   padding: 0;
   box-sizing: border-box;
 }
-
 body {
   font-family: 'Poppins', sans-serif;
   background: linear-gradient(135deg, #e0ebff, #f5f7ff);
   color: #222;
   line-height: 1.6;
 }
-
 /* =========================
    HEADER
 ========================= */

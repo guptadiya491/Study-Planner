@@ -1,19 +1,17 @@
 /* =========================
    RESET & GLOBAL STYLES
 ========================= */
-* {
+*{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-
 body {
   font-family: 'Poppins', sans-serif;
   background: linear-gradient(135deg, #e0ebff, #f5f7ff);
   color: #222;
   line-height: 1.6;
 }
-
 /* =========================
    HEADER
 ========================= */
@@ -83,47 +81,47 @@ body {
 @media screen and (max-width: 768px) {
   .header {
     flex-direction: column;      /* Stack logo, nav, profile vertically */
-    align-items: center;         /* Center all elements horizontally */
+    align-items: center;         
     gap: 10px;                   /* Space between stacked items */
   }
 
   .nav-links {
-    position: static;            /* Remove absolute if used */
-    flex-direction: column;      /* Stack links vertically */
-    width: 100%;                 /* Full width */
-    align-items: center;         /* Center links horizontally */
-    gap: 10px;                   /* Spacing between links */
+    position: static;            
+    flex-direction: column;      
+    width: 100%;                 
+    align-items: center;         
+    gap: 10px;                   
   }
 
   .nav-links li {
-    padding: 5px 0;              /* Vertical padding for each link */
-    border: none;                /* Remove borders if any */
+    padding: 5px 0;              
+    border: none;                
   }
 
   .profile a {
-    width: auto;                 /* Keep button normal width */
+    width: auto;                 
     text-align: center;
   }
 }
 /* Mobile: 480px and below */
 @media screen and (max-width: 480px) {
   .header {
-    padding: 10px 5%;           /* Reduce horizontal padding */
-    gap: 8px;                    /* Slightly smaller gap */
+    padding: 10px 5%;           
+    gap: 8px;                    
   }
 
   .logo {
-    font-size: 1.3rem;           /* Smaller logo text */
+    font-size: 1.3rem;           
   }
 
   .nav-links li a {
-    font-size: 0.9rem;           /* Smaller link text for phones */
+    font-size: 0.9rem;           
     padding: 4px 0;
   }
 
   .profile a {
-    font-size: 0.9rem;           /* Smaller profile button text */
-    padding: 6px 12px;           /* Smaller padding for button */
+    font-size: 0.9rem;           
+    padding: 6px 12px;           
   }
 }
 /* =========================
@@ -179,7 +177,6 @@ body {
   font-size: 16px;
   transition: all 0.3s ease;
 }
-
 .planner-form input[type="text"]:focus,
 .planner-form input[type="date"]:focus,
 .planner-form select:focus {
@@ -187,7 +184,6 @@ body {
   border-color: #007bff;
   box-shadow: 0 0 10px rgba(0,123,255,0.2);
 }
-
 .add-btn {
   display: block;
   width: 100%;
@@ -207,89 +203,20 @@ body {
   transform: translateY(-3px);
   box-shadow: 0 6px 15px rgba(0,0,0,0.15);
 }
-
-/* =========================
-   PLANNER GUIDE
-========================= */
-.planner-guide {
-  max-width: 900px;
-  margin: 60px auto;
-  padding: 20px 30px;
-}
-
-.planner-guide h3 {
-  text-align: center;
-  margin-bottom: 40px;
-  color: #1e3a8a;
-  font-size: 1.8rem;
-}
-
-.planner-guide .content {
-  display: flex;
-  gap: 25px;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.planner-guide .card {
-  background-color: #ffffff;
-  flex: 1 1 250px;
-  padding: 25px;
-  border-radius: 15px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+.planner-form textarea {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 16px;
+  resize: none;
   transition: all 0.3s ease;
 }
 
-.planner-guide .card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
-}
-
-.planner-guide .card h4 {
-  margin-bottom: 12px;
-  color: #007bff;
-}
-
-/* =========================
-   STUDY TIPS
-========================= */
-.study-tips {
-  max-width: 900px;
-  margin: 60px auto;
-  padding: 20px 30px;
-}
-
-.study-tips h3 {
-  text-align: center;
-  margin-bottom: 40px;
-  color: #1e3a8a;
-  font-size: 1.8rem;
-}
-
-.study-tips .tips {
-  display: flex;
-  gap: 25px;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.study-tips .tip-card {
-  background: linear-gradient(145deg, #ffffff, #f0f7f0);
-  flex: 1 1 250px;
-  padding: 25px;
-  border-radius: 15px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
-  transition: all 0.3s ease;
-}
-
-.study-tips .tip-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
-}
-
-.study-tips .tip-card h4 {
-  margin-bottom: 12px;
-  color: #28a745;
+.planner-form textarea:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 10px rgba(0,123,255,0.2);
 }
 /* =========================
    RESPONSIVE: TABLET 768px
@@ -322,55 +249,6 @@ body {
     padding: 12px;
     font-size: 14px;
   }
-
-  /* Planner Guide */
-  .planner-guide {
-    max-width: 95%;
-    padding: 15px 20px;
-  }
-
-  .planner-guide h3 {
-    font-size: 1.6rem;
-    margin-bottom: 30px;
-  }
-
-  .planner-guide .content {
-    gap: 20px;
-  }
-
-  .planner-guide .card {
-    flex: 1 1 45%;
-    padding: 20px;
-  }
-
-  .planner-guide .card h4 {
-    font-size: 1.2rem;
-  }
-
-  /* Study Tips */
-  .study-tips {
-    max-width: 95%;
-    margin: 50px auto;
-    padding: 15px 20px;
-  }
-
-  .study-tips h3 {
-    font-size: 1.6rem;
-    margin-bottom: 30px;
-  }
-
-  .study-tips .tips {
-    gap: 20px;
-  }
-
-  .study-tips .tip-card {
-    flex: 1 1 45%;
-    padding: 20px;
-  }
-
-  .study-tips .tip-card h4 {
-    font-size: 1.2rem;
-  }
 }
 
 /* =========================
@@ -399,146 +277,18 @@ body {
     padding: 8px 10px;
     font-size: 13px;
   }
-
+  .planner-form textarea {
+    font-size: 14px;
+    padding: 10px 12px;
+  }
+  .planner-form textarea {
+    font-size: 13px;
+    padding: 8px 10px;
+  }
   .add-btn {
     padding: 10px;
     font-size: 13px;
   }
-
-  /* Planner Guide */
-  .planner-guide {
-    max-width: 100%;
-    padding: 10px 15px;
-  }
-
-  .planner-guide h3 {
-    font-size: 1.4rem;
-    margin-bottom: 25px;
-  }
-
-  .planner-guide .content {
-    flex-direction: column;
-    gap: 15px;
-  }
-
-  .planner-guide .card {
-    flex: 1 1 100%;
-    padding: 15px;
-  }
-
-  .planner-guide .card h4 {
-    font-size: 1.1rem;
-  }
-
-  /* Study Tips */
-  .study-tips {
-    max-width: 100%;
-    margin: 40px auto;
-    padding: 10px 15px;
-  }
-
-  .study-tips h3 {
-    font-size: 1.4rem;
-    margin-bottom: 25px;
-  }
-
-  .study-tips .tips {
-    flex-direction: column;
-    gap: 15px;
-  }
-
-  .study-tips .tip-card {
-    flex: 1 1 100%;
-    padding: 15px;
-  }
-
-  .study-tips .tip-card h4 {
-    font-size: 1.1rem;
-  }
-}
-/* Footer */
-.footer {
-  background: #1c1c1c;
-  color: #f1f1f1;
-  padding: 60px 20px 20px 20px;
-  font-family: 'Poppins', sans-serif;
-}
-
-.footer-container {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  max-width: 1200px;
-  margin: auto;
-  gap: 40px;
-}
-
-.footer-box h3 {
-  font-size: 20px;
-  margin-bottom: 15px;
-  color: #ffffff;
-}
-
-.footer-box p {
-  font-size: 14px;
-  line-height: 1.6;
-  color: #cfcfcf;
-}
-
-.footer-box ul {
-  list-style: none;
-  padding: 0;
-}
-
-.footer-box ul li {
-  margin-bottom: 10px;
-}
-
-.footer-box ul li a {
-  color: #cfcfcf;
-  text-decoration: none;
-  transition: 0.3s;
-}
-
-.footer-box ul li a:hover {
-  color: #2575fc;
-}
-
-.social-icons a {
-  display: inline-block;
-  margin-right: 15px;
-  color: #cfcfcf;
-  font-size: 18px;
-  transition: 0.3s;
-}
-
-.social-icons a:hover {
-  color: #2575fc;
-  transform: scale(1.2);
-}
-
-.footer-bottom {
-  text-align: center;
-  border-top: 1px solid #333;
-  margin-top: 40px;
-  padding-top: 20px;
-  font-size: 14px;
-  color: #999;
-}
-.planner-form textarea {
-  width: 100%;
-  padding: 12px 15px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  font-size: 16px;
-  resize: none;
-  transition: all 0.3s ease;
-}
-
-.planner-form textarea:focus {
-  outline: none;
-  border-color: #007bff;
-  box-shadow: 0 0 10px rgba(0,123,255,0.2);
 }
 /* Footer */
 .footer {

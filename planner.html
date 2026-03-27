@@ -4,17 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>How To Plan</title>
-
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="planner.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+  <link rel="stylesheet" href="planner.css">
+
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>">
 </head>
 <body>
   <!-- ================= HEADER ================= -->
+   <!--Used Semantic tags for better SEO-->
   <header class="header">
     <div class="logo">
       <i class="fa-solid fa-graduation-cap"></i> Study Planner
@@ -28,7 +28,6 @@
         <li><a href="contact.html">Contact Us</a></li>
       </ul>
     </nav>
-
     <div class="profile">
       <a href="#">Login</a>
     </div>
@@ -43,7 +42,7 @@
 
 <div class="form-group">
 <label for="subject">Subject</label>
-<textarea id="subject" rows="2" placeholder="Enter subject"></textarea>
+<textarea id="subject" rows="2" placeholder="Enter subject" required></textarea>
 </div>
 
 <div class="form-group">
@@ -59,6 +58,7 @@
 <div class="form-group">
 <label for="priority">Priority</label>
 <select id="priority">
+<option value="" disabled selected>Select Priority</option>
 <option>High</option>
 <option>Medium</option>
 <option>Low</option>
@@ -67,6 +67,7 @@
 <button type="submit" class="add-btn">Add Task</button>
 </form>
 </main>
+
 <!-- Footer Section -->
 <footer class="footer">
   <div class="footer-container">
@@ -96,10 +97,9 @@
         <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
       </div>
     </div>
-
   </div>
   <div class="footer-bottom">
-    <p>© 2026 Study Planner | All Rights Reserved</p>
+    <p>&copy; 2026 Study Planner | All Rights Reserved</p>
   </div>
 </footer>
 </body>

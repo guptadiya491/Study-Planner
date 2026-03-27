@@ -23,7 +23,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 8%;
+  padding: 15px 10%;
   background-color: #1e3a8a;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   color: #fff;
@@ -35,6 +35,7 @@ body {
   display: flex;
   align-items: center;
   gap: 10px;
+  color: #fff;
 }
 
 .nav-links {
@@ -47,7 +48,7 @@ body {
   text-decoration: none;
   color: #fff;
   font-weight: 500;
-  transition: 0.3s;
+  transition: color 0.3s;
 }
 
 .nav-links li a:hover,
@@ -63,7 +64,8 @@ body {
   background-color: #60a5fa;
   padding: 8px 18px;
   border-radius: 25px;
-  transition: 0.3s;
+  transition: all 0.3s ease;
+  display: inline-block;
 }
 
 .profile a:hover {
@@ -378,13 +380,12 @@ td {
     height: 70px;
   }
 }
-/* =========================
-   FOOTER
-========================= */
+/* Footer */
 .footer {
   background: #1c1c1c;
   color: #f1f1f1;
-  padding: 60px 20px 20px;
+  padding: 60px 20px 20px 20px;
+  font-family: 'Poppins', sans-serif;
 }
 
 .footer-container {
@@ -399,15 +400,18 @@ td {
 .footer-box h3 {
   font-size: 20px;
   margin-bottom: 15px;
+  color: #ffffff;
 }
 
 .footer-box p {
   font-size: 14px;
+  line-height: 1.6;
   color: #cfcfcf;
 }
 
 .footer-box ul {
   list-style: none;
+  padding: 0;
 }
 
 .footer-box ul li {
@@ -417,6 +421,7 @@ td {
 .footer-box ul li a {
   color: #cfcfcf;
   text-decoration: none;
+  transition: 0.3s;
 }
 
 .footer-box ul li a:hover {
@@ -424,9 +429,11 @@ td {
 }
 
 .social-icons a {
+  display: inline-block;
   margin-right: 15px;
   color: #cfcfcf;
   font-size: 18px;
+  transition: 0.3s;
 }
 
 .social-icons a:hover {
@@ -440,8 +447,8 @@ td {
   margin-top: 40px;
   padding-top: 20px;
   font-size: 14px;
+  color: #999;
 }
-
 /* Footer Responsiveness */
 @media (max-width: 768px) {
   .footer-container {
@@ -570,19 +577,19 @@ td {
     max-width: 250px;
   }
 }
-/* 🌈 MAIN BACKGROUND IMPROVEMENT */
+
 body {
   background: linear-gradient(135deg, #c7d2fe, #e0e7ff, #f1f5ff);
 }
 
 
-/* 📦 SECTION SPACING (make it feel bigger) */
+/*  SECTION SPACING (make it feel bigger) */
 .progress-dashboard {
   padding: 80px 6%;
 }
 
 
-/* 💎 CARD / BOX GLASS EFFECT */
+/*  CARD / BOX GLASS EFFECT */
 .progress-card {
   background: rgba(255, 255, 255, 0.6);
   backdrop-filter: blur(12px);
@@ -596,20 +603,20 @@ body {
 }
 
 
-/* 🎯 CIRCLE BACKGROUND IMPROVEMENT */
+/*  CIRCLE BACKGROUND IMPROVEMENT */
 .circle-progress {
   background: conic-gradient(#6366f1 70%, #cbd5f5 0%);
 }
 
 
-/* 🟣 INNER CIRCLE (less white) */
+/*  INNER CIRCLE (less white) */
 .circle-inner {
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(6px);
 }
 
 
-/* 📊 HEADING STYLE */
+/*  HEADING STYLE */
 .progress-dashboard h2 {
   font-size: 28px;
   margin-bottom: 20px;
@@ -617,7 +624,7 @@ body {
 }
 
 
-/* ✨ ADD SOFT SECTION BACKGROUND */
+/*  ADD SOFT SECTION BACKGROUND */
 .progress-dashboard {
   background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(255,255,255,0.3));
   border-radius: 30px;
@@ -625,7 +632,7 @@ body {
 }
 
 
-/* 🧊 STATS CARDS (if visible below) */
+/*  STATS CARDS (if visible below) */
 .stat-card {
   background: rgba(255,255,255,0.6);
   backdrop-filter: blur(10px);
@@ -634,7 +641,7 @@ body {
 }
 
 
-/* 🔥 BUTTON IMPROVEMENT */
+/*  BUTTON IMPROVEMENT */
 #calculateProgress {
   background: linear-gradient(135deg, #6366f1, #4f46e5);
   box-shadow: 0 8px 20px rgba(99,102,241,0.3);

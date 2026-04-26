@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Study Planner - Plan Your Tasks</title>
+ 
+  <!-- ===== EXTERNAL FONTS ===== -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;600&display=swap"
+    rel="stylesheet">
+ 
+  <!-- ===== FONT AWESOME ICONS (v6.5 — stable release) ===== -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+ 
+  <!-- ===== MAIN STYLESHEET ===== -->
+  <link rel="stylesheet" href="planner.css">
+ 
+  <!-- ===== FAVICON ===== -->
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>">
+ 
+  <!--
+    ===== DARK MODE FLASH PREVENTION =====
+    Must run in <head> BEFORE the page renders so there's no
+    white flash when the user had dark mode saved.
+    NOTE: Planner uses html.dark (class on <html>), not body.dark.
+    This keeps it consistent with the CSS variables in planner.css.
+  -->
+  <script>
+    if (localStorage.getItem("theme") === "dark") {
+      document.documentElement.classList.add("dark");
+    }
+  </script>
+ 
+  <!--
+    ===== AUTH GUARD (inline — runs before page renders) =====
+    Redirects to login if user is not logged in.
+    Uses localStorage (not sessionStorage) so login persists on
+    page refresh and across tabs.
+    BUG FIX: Duplicate auth check existed here AND in planner.js.
+    Keeping only the <head> inline version here ensures the redirect
+    happens before any content flashes on screen. planner.js also
+    has a pageshow listener for back-button navigation safety.
+  -->
+  <script>
+    if (!localStorage.getItem("loggedInUser")) {
+      window.location.replace("login.html");
+    }
+  </script>
+</head>
+ 
+<body>
+ 
+  <!-- ================================================
+       HEADER — sticky navigation bar
+  ================================================ -->
+  <header class="header">
+ 
+    <!-- Brand / Logo -->
+    <div class="logo">
+      <i class="fa-solid fa-graduation-cap"></i> Study Planner
+    </div>
+ 
+    <!-- Navigation (includes hamburger for mobile) -->
+    <nav>
+      <!-- Hamburger button — visible only on mobile (CSS controls display) -->
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+ 
+      <!-- Nav links — toggled open/closed on mobile via JS -->
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="planner.html" class="active">Planner</a></li>
+        <li><a href="progress.html">Progress</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="profile.html" class="profile-btn"><i class="fa-solid fa-user"></i> Profile</a></li>
+      </ul>
+    </nav>
+ 
+    <!-- Dark mode toggle -->
+    <button id="darkModeBtn" class="dark-toggle" aria-label="Toggle dark mode">
+      <i class="fa-solid fa-moon"></i>
+    </button>
+ 
+  </header><!-- /header -->
+ 
+ 
+  <main>
+ 
+    <!-- ================================================
+         HERO BANNER — stats + floating motivational cards
+    ================================================ -->
+    <section class="planner-hero">
+ 
+      <!-- Left: headline + live task stats -->
+      <div class="hero-content">
+        <span class="hero-badge"><i class="fa-solid fa-bolt"></i> Smart Study Planner</span>
+        <h1>Organize Your <span class="gradient-text">Study Goals</span></h1>
+        <p>Add tasks, set deadlines, and stay on track. Your academic success starts here.</p>
+ 
+        <!-- Live stats — updated by JS on every task change -->
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <span id="heroTotal">0</span>
+            <small>Tasks Saved</small>
+          </div>
+          <div class="hero-stat-divider"></div>
+          <div class="hero-stat">
+            <span id="heroToday">0</span>
+            <small>Due Today</small>
+          </div>
+          <div class="hero-stat-divider"></div>
+          <div class="hero-stat">
+            <span id="heroOverdue">0</span>
+            <small>Overdue</small>
+          </div>
+        </div>
+      </div>
+ 
+      <!-- Right: decorative floating cards (CSS animated) -->
+      <div class="hero-illustration">
+        <div class="floating-card fc1"><i class="fa-solid fa-check-circle"></i> Stay focused</div>
+        <div class="floating-card fc2"><i class="fa-solid fa-fire"></i> One step ahead</div>
+        <div class="floating-card fc3"><i class="fa-solid fa-clock"></i> Keep going</div>
+      </div>
+ 
+    </section><!-- /planner-hero -->
+ 
+ 
+    <!-- ================================================
+         MAIN LAYOUT — two-column: form + sidebar
+    ================================================ -->
+    <div class="planner-layout">
+ 
+      <!-- ---- LEFT: ADD TASK FORM ---- -->
+      <section class="planner-section">
+ 
+        <div class="section-header">
+          <h2><i class="fa-solid fa-plus-circle"></i> Add New Task</h2>
+          <p>Fill in the details below to add a task to your planner.</p>
+        </div>
+ 
+        <!--
+          novalidate: disables browser's default ugly tooltips
+          so we can show custom styled error messages instead
+        -->
+        <form class="planner-form" id="plannerForm" novalidate>
+ 
+          <!-- Row 1: Subject + Priority (side by side) -->
+          <div class="form-row">
+ 
+            <div class="form-group">
+              <label for="subject"><i class="fa-solid fa-book"></i> Subject</label>
+              <div class="input-wrapper">
+                <!-- list="subjectList" enables dropdown suggestions from <datalist> -->
+                <input type="text" id="subject" list="subjectList"
+                       placeholder="Enter or select subject" required>
+                <datalist id="subjectList">
+                  <option value="Mathematics">
+                  <option value="Physics">
+                  <option value="Chemistry">
+                  <option value="Biology">
+                  <option value="English">
+                  <option value="History">
+                  <option value="Geography">
+                  <option value="Computer Science">
+                  <option value="Economics">
+                </datalist>
+              </div>
+              <!-- Inline error shown by JS validation -->
+              <span class="field-error" id="subjectErr"></span>
+            </div>
+ 
+            <div class="form-group">
+              <label for="priority"><i class="fa-solid fa-flag"></i> Priority</label>
+              <div class="input-wrapper">
+                <select id="priority" required>
+                  <option value="" disabled selected>Select priority</option>
+                  <option value="high">🔴 High</option>
+                  <option value="medium">🟡 Medium</option>
+                  <option value="low">🟢 Low</option>
+                </select>
+              </div>
+              <span class="field-error" id="priorityErr"></span>
+            </div>
+ 
+          </div><!-- /form-row -->
+ 
+          <!-- Task Description (full width) -->
+          <div class="form-group">
+            <label for="task"><i class="fa-solid fa-pen-to-square"></i> Task Description</label>
+            <div class="input-wrapper">
+              <textarea id="task" rows="3"
+                        placeholder="Describe your task or topic in detail..." required></textarea>
+              <!-- Live character counter updated by JS -->
+              <span class="char-count" id="charCount">0/200</span>
+            </div>
+            <span class="field-error" id="taskErr"></span>
+          </div>
+ 
+          <!-- Row 2: Date + Time (side by side) -->
+          <div class="form-row">
+ 
+            <div class="form-group">
+              <label for="date"><i class="fa-solid fa-calendar-days"></i> Deadline Date</label>
+              <div class="input-wrapper">
+                <!-- min attribute set to today's date by JS on load -->
+                <input type="date" id="date" required>
+              </div>
+              <span class="field-error" id="dateErr"></span>
+            </div>
+ 
+            <div class="form-group">
+              <label for="time"><i class="fa-solid fa-clock"></i> Deadline Time</label>
+              <div class="input-wrapper">
+                <input type="time" id="time" required>
+              </div>
+              <span class="field-error" id="timeErr"></span>
+            </div>
+ 
+          </div><!-- /form-row -->
+ 
+          <!-- Notes (optional, full width) -->
+          <div class="form-group">
+            <label for="notes">
+              <i class="fa-solid fa-note-sticky"></i> Notes
+              <span class="optional">(optional)</span>
+            </label>
+            <div class="input-wrapper">
+              <textarea id="notes" rows="2"
+                        placeholder="Any extra notes or resources..."></textarea>
+            </div>
+          </div>
+ 
+          <!-- Form Buttons -->
+          <div class="form-actions">
+            <button type="reset" class="clear-btn">
+              <i class="fa-solid fa-rotate-left"></i> Clear
+            </button>
+            <button type="submit" class="add-btn" id="submitBtn">
+              <i class="fa-solid fa-plus"></i> Add Task
+            </button>
+          </div>
+ 
+        </form><!-- /plannerForm -->
+ 
+        <!-- SUCCESS TOAST — shown briefly after task is added -->
+        <div class="toast" id="toast">
+          <i class="fa-solid fa-circle-check"></i>
+          <span>Task added successfully!</span>
+        </div>
+ 
+      </section><!-- /planner-section -->
+ 
+ 
+      <!-- ---- RIGHT: SIDEBAR ---- -->
+      <aside class="planner-sidebar">
+ 
+        <!-- Study Tips (auto-rotating slider) -->
+        <div class="sidebar-card tips-card">
+          <h3><i class="fa-solid fa-lightbulb"></i> Study Tips</h3>
+          <div class="tip-slider" id="tipSlider">
+            <!-- Only one .tip-text has .active at a time; JS rotates them -->
+            <p class="tip-text active">"Break big tasks into smaller chunks — it reduces overwhelm."</p>
+            <p class="tip-text">"Use the Pomodoro technique: 25 min study, 5 min break."</p>
+            <p class="tip-text">"Review your notes within 24 hours of a lecture."</p>
+            <p class="tip-text">"Prioritize difficult tasks when your energy is highest."</p>
+            <p class="tip-text">"Teach concepts to someone else to solidify your learning."</p>
+          </div>
+          <!-- Dot indicators generated by JS (one dot per tip) -->
+          <div class="tip-dots" id="tipDots"></div>
+        </div>
+ 
+        <!-- Task Priority Summary (counts pulled from localStorage) -->
+        <div class="sidebar-card summary-card">
+          <h3><i class="fa-solid fa-chart-bar"></i> Task Summary</h3>
+          <div class="summary-grid">
+            <div class="summary-item high">
+              <span id="highCount">0</span>
+              <small>High</small>
+            </div>
+            <div class="summary-item medium">
+              <span id="medCount">0</span>
+              <small>Medium</small>
+            </div>
+            <div class="summary-item low">
+              <span id="lowCount">0</span>
+              <small>Low</small>
+            </div>
+          </div>
+          <a href="progress.html" class="view-all-btn">
+            <i class="fa-solid fa-arrow-right"></i> View All Tasks
+          </a>
+        </div>
+ 
+        <!-- Motivational Quote (cycles through quotes array in JS) -->
+        <div class="sidebar-card quote-card">
+          <div class="quote-icon"><i class="fa-solid fa-quote-left"></i></div>
+          <p id="quoteText">"Success is the sum of small efforts, repeated day in and day out."</p>
+          <span id="quoteAuthor">— Robert Collier</span>
+          <button class="new-quote-btn" id="newQuoteBtn">
+            <i class="fa-solid fa-shuffle"></i> New Quote
+          </button>
+        </div>
+ 
+      </aside><!-- /planner-sidebar -->
+ 
+    </div><!-- /planner-layout -->
+ 
+ 
+    <!-- ================================================
+         DAILY PLANNER — hourly schedule grid with week row
+    ================================================ -->
+    <section class="daily-planner-section">
+ 
+      <div class="section-header">
+        <h2><i class="fa-solid fa-calendar-week"></i> Daily Planner</h2>
+        <p>Plan every hour of your day. Click a slot to add or view tasks.</p>
+      </div>
+ 
+      <div class="daily-planner-wrapper">
+ 
+        <!-- Date navigation (prev / next / today) -->
+        <div class="date-navigator">
+          <button id="prevDay" aria-label="Previous day">
+            <i class="fa-solid fa-chevron-left"></i>
+          </button>
+ 
+          <!-- Current date display — updated by JS -->
+          <div class="current-date-display">
+            <span id="dayName">Monday</span>
+            <span id="fullDate">April 25, 2026</span>
+          </div>
+ 
+          <button id="nextDay" aria-label="Next day">
+            <i class="fa-solid fa-chevron-right"></i>
+          </button>
+          <button id="todayBtn" class="today-btn">Today</button>
+        </div>
+ 
+        <!-- 7-day week strip — generated by JS, click any day to jump to it -->
+        <div class="week-row" id="weekRow"></div>
+ 
+        <!-- 24-hour schedule — generated by JS, tasks slot into their hour -->
+        <div class="schedule-grid" id="scheduleGrid"></div>
+ 
+      </div>
+    </section><!-- /daily-planner-section -->
+ 
+ 
+    <!-- ================================================
+         RECENT TASKS — filterable task card grid
+    ================================================ -->
+    <section class="recent-tasks-section">
+ 
+      <div class="section-header-flex">
+        <h2><i class="fa-solid fa-list-check"></i> Recent Tasks</h2>
+ 
+        <!-- Priority filter buttons — JS handles active state + re-render -->
+        <div class="filter-bar">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="high">High</button>
+          <button class="filter-btn" data-filter="medium">Medium</button>
+          <button class="filter-btn" data-filter="low">Low</button>
+        </div>
+      </div>
+ 
+      <!-- Task cards injected here by renderRecentTasks() -->
+      <div class="tasks-grid" id="recentTasksGrid">
+        <!-- Default placeholder shown when no tasks exist -->
+        <div class="no-tasks-placeholder">
+          <i class="fa-solid fa-clipboard"></i>
+          <p>No tasks yet. Add your first task above!</p>
+        </div>
+      </div>
+ 
+    </section><!-- /recent-tasks-section -->
+ 
+  </main><!-- /main -->
+ 
+ 
+  <!-- ================================================
+       FOOTER
+  ================================================ -->
+  <footer class="footer">
+    <div class="footer-container">
+ 
+      <div class="footer-box">
+        <h3><i class="fa-solid fa-graduation-cap"></i> Study Planner</h3>
+        <p>Helping students plan smarter and achieve more every day.</p>
+      </div>
+ 
+      <div class="footer-box">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="planner.html">Planner</a></li>
+          <li><a href="progress.html">Progress</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+ 
+      <div class="footer-box">
+        <h3>Follow Us</h3>
+        <div class="social-icons">
+          <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        </div>
+      </div>
+ 
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Study Planner | All Rights Reserved</p>
+    </div>
+  </footer><!-- /footer -->
+ 
+ 
+  <!-- ================================================
+       MAIN SCRIPT — loaded last so entire DOM is ready
+  ================================================ -->
+  <script src="planner.js"></script>
+ 
+</body>
+</html>

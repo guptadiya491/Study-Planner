@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Planning Tips | Study Planner</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+  <style>
+    .tips-section { padding: 60px 10%; text-align: center; }
+    .tips-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-top: 40px; }
+    .tip-card { 
+      background: #fff; padding: 30px; border-radius: 15px; text-align: left;
+      box-shadow: 0 10px 40px rgba(59, 130, 246, 0.15); transition: 0.3s;
+    }
+    .dark .tip-card { background: #1e1e1e; color: #fff; }
+    .tip-card i { color: #3b82f6; font-size: 1.5rem; margin-bottom: 15px; }
+    .back-btn { margin-top: 40px; display: inline-block; }
+  </style>
+</head>
+<body class="dark"> <section class="tips-section">
+    <h1>Master Smart Planning 🧠</h1>
+    <p>Success isn't about studying harder, it's about studying smarter.</p>
+
+    <div class="tips-grid">
+      <div class="tip-card">
+        <i class="fa-solid fa-layer-group"></i>
+        <h3>The 80/20 Rule</h3>
+        <p>Identify the 20% of the material that will likely account for 80% of your exam results. Focus your deepest energy there first.</p>
+      </div>
+
+      <div class="tip-card">
+        <i class="fa-solid fa-hourglass-half"></i>
+        <h3>Time Blocking</h3>
+        <p>Don't just list tasks; assign them a specific time slot. This prevents "decision fatigue" when you sit down to work.</p>
+      </div>
+
+      <div class="tip-card">
+        <i class="fa-solid fa-brain"></i>
+        <h3>Active Recall</h3>
+        <p>Instead of re-reading notes, test yourself. Planning sessions for self-quizzing is the most effective way to retain info.</p>
+      </div>
+
+      <div class="tip-card">
+        <i class="fa-solid fa-battery-half"></i>
+        <h3>Planned Breaks</h3>
+        <p>Use the Pomodoro technique (25m study / 5m break). A planned break keeps your brain's "processing power" high.</p>
+      </div>
+    </div>
+
+    <a href="index.html" class="btn back-btn">← Back to Home</a>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>

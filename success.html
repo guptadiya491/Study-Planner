@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Achieve Goals | Study Planner</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+  <style>
+    .tips-section { padding: 60px 10%; text-align: center; }
+    .tips-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-top: 40px; }
+    .tip-card { 
+      background: #fff; padding: 30px; border-radius: 15px; text-align: left;
+      box-shadow: 0 10px 40px rgba(59, 130, 246, 0.15); transition: 0.3s;
+    }
+    .dark .tip-card { background: #1e1e1e; color: #fff; }
+    .tip-card i { color: #3b82f6; font-size: 1.5rem; margin-bottom: 15px; }
+    .back-btn { margin-top: 40px; display: inline-block; }
+  </style>
+</head>
+<body class="dark">
+  <section class="tips-section">
+    <h1>Achieve Your Goals 🎯</h1>
+    <p>Turn your academic dreams into measurable realities.</p>
+    <div class="tips-grid">
+      <div class="tip-card">
+        <i class="fa-solid fa-bullseye"></i>
+        <h3>S.M.A.R.T Goals</h3>
+        <p>Ensure your goals are Specific, Measurable, Achievable, Relevant, and Time-bound to avoid aimless studying.</p>
+      </div>
+      <div class="tip-card">
+        <i class="fa-solid fa-sitemap"></i>
+        <h3>Micro-Goals</h3>
+        <p>Break a huge exam into 10 smaller "mini-exams." Completing small pieces prevents burnout and overwhelm.</p>
+      </div>
+      <div class="tip-card">
+        <i class="fa-solid fa-medal"></i>
+        <h3>Reward Systems</h3>
+        <p>Set a reward for hitting a goal. Positive reinforcement builds a stronger neural connection between effort and success.</p>
+      </div>
+    </div>
+    <a href="index.html" class="btn back-btn">← Back to Home</a>
+  </section>
+  <script src="script.js"></script>
+</body>
+</html>

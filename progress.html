@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Study Planner - Progress</title>
+ 
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="progress.css">
+ 
+  <!-- Emoji favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>">
+ 
+  <!-- Apply saved dark mode BEFORE body renders to prevent flash -->
+  <script>
+    if (localStorage.getItem("theme") === "dark") {
+      document.documentElement.classList.add("dark");
+    }
+  </script>
+</head>
+<body>
+ 
+<!-- ==============================
+     HEADER / NAVIGATION
+============================== -->
+<header class="header">
+  <div class="logo">
+    <i class="fa-solid fa-graduation-cap"></i> Study Planner
+  </div>
+  <nav>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="planner.html">Planner</a></li>
+      <li><a href="progress.html" class="active">Progress</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="contact.html">Contact Us</a></li>
+      <li><a href="profile.html" class="profile-btn"><i class="fa-solid fa-user"></i> Profile</a></li>
+    </ul>
+  </nav>
+  <button id="darkModeBtn" class="dark-toggle" aria-label="Toggle dark mode">
+    <i class="fa-solid fa-moon"></i>
+  </button>
+</header>
+ 
+<!-- ==============================
+     HERO SECTION
+============================== -->
+<section class="progress-hero">
+  <div class="hero-content">
+    <span class="hero-badge"><i class="fa-solid fa-chart-line"></i> Live Progress Tracker</span>
+    <h1>Track Your <span class="gradient-text">Academic Progress</span></h1>
+    <p>Mark tasks complete, view your performance, and celebrate your wins.</p>
+  </div>
+
+  <!-- CHANGE: Replaced the progress ring with a 3-quote rotating carousel -->
+  <div class="hero-quotes-wrap">
+    <div class="hero-quotes-card" id="heroQuotesCard">
+      <i class="fa-solid fa-quote-left hero-quote-icon"></i>
+      <p class="hero-quote-text" id="heroQuoteText"></p>
+      <!-- Dot indicators showing which quote is active -->
+      <div class="hero-quote-dots">
+        <span class="hq-dot active" data-index="0"></span>
+        <span class="hq-dot" data-index="1"></span>
+        <span class="hq-dot" data-index="2"></span>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- ==============================
+     QUICK STATS BAR
+============================== -->
+<section class="quick-stats">
+  <div class="stat-card sc-total">
+    <div class="sc-icon"><i class="fa-solid fa-list-check"></i></div>
+    <div class="sc-body">
+      <span id="statTotal">0</span>
+      <small>Total Tasks</small>
+    </div>
+  </div>
+  <div class="stat-card sc-done">
+    <div class="sc-icon"><i class="fa-solid fa-circle-check"></i></div>
+    <div class="sc-body">
+      <span id="statDone">0</span>
+      <small>Completed</small>
+    </div>
+  </div>
+  <div class="stat-card sc-partial">
+    <div class="sc-icon"><i class="fa-solid fa-circle-half-stroke"></i></div>
+    <div class="sc-body">
+      <span id="statPartial">0</span>
+      <small>Partial</small>
+    </div>
+  </div>
+  <div class="stat-card sc-pending">
+    <div class="sc-icon"><i class="fa-solid fa-clock"></i></div>
+    <div class="sc-body">
+      <span id="statPending">0</span>
+      <small>Pending</small>
+    </div>
+  </div>
+  <div class="stat-card sc-overdue">
+    <div class="sc-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+    <div class="sc-body">
+      <span id="statOverdue">0</span>
+      <small>Overdue</small>
+    </div>
+  </div>
+</section>
+ 
+<!-- ==============================
+     TASK TABLE SECTION
+============================== -->
+<section class="task-section">
+  <div class="section-header-flex">
+    <div>
+      <h2><i class="fa-solid fa-table-list"></i> Task Status</h2>
+      <p>Review all your tasks and mark their completion status.</p>
+    </div>
+    <div class="table-actions">
+      <input type="text" id="searchBox" placeholder="🔍 Search tasks..." class="search-input">
+      <button id="exportBtn" class="action-btn export-btn"><i class="fa-solid fa-download"></i> Export</button>
+      <button id="clearAllBtn" class="action-btn danger-btn"><i class="fa-solid fa-trash"></i> Clear All</button>
+    </div>
+  </div>
+ 
+  <div class="task-table-wrapper">
+    <table id="taskTable">
+      <thead>
+        <tr>
+          <th data-sort="subject">Subject <i class="fa-solid fa-sort"></i></th>
+          <th data-sort="task">Task <i class="fa-solid fa-sort"></i></th>
+          <th data-sort="date">Date <i class="fa-solid fa-sort"></i></th>
+          <th>Time</th>
+          <th>Priority</th>
+          <th><i class="fa-solid fa-check"></i> Done</th>
+          <th><i class="fa-solid fa-minus"></i> Partial</th>
+          <th><i class="fa-solid fa-x"></i> No</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody id="taskBody"></tbody>
+    </table>
+    <!-- Shown when no tasks exist or search returns nothing -->
+    <div class="no-tasks-msg" id="noTasksMsg" style="display:none;">
+      <i class="fa-solid fa-clipboard-list"></i>
+      <p>No tasks found. <a href="planner.html">Add some tasks</a> to get started!</p>
+    </div>
+  </div>
+ 
+  <div class="table-footer">
+    <button id="calculateProgress" class="calc-btn">
+      <i class="fa-solid fa-calculator"></i> Calculate Progress
+    </button>
+  </div>
+</section>
+ 
+<!-- ==============================
+     PROGRESS DASHBOARD
+============================== -->
+<section class="progress-dashboard">
+  <h2><i class="fa-solid fa-gauge-high"></i> Progress Overview</h2>
+  <div class="dashboard-grid">
+ 
+    <!-- Animated conic-gradient circle -->
+    <div class="dashboard-card circle-card">
+      <h3>Overall Completion</h3>
+      <div class="circle-progress" id="circleProgress">
+        <div class="circle-inner">
+          <span id="circlePercent">0%</span>
+          <p>Completed</p>
+        </div>
+      </div>
+      <p class="circle-status" id="circleStatus">Click calculate to update</p>
+    </div>
+ 
+    <!-- Bar chart: tasks per subject -->
+    <!-- CHANGE: Added empty-state overlay div inside chart cards -->
+    <div class="dashboard-card chart-card">
+      <h3>Tasks by Subject</h3>
+      <div class="chart-empty-state" id="subjectEmpty">
+        <i class="fa-solid fa-chart-bar"></i>
+        <p>No tasks yet</p>
+        <span>Add tasks from the <a href="planner.html">Planner</a> to see your subject breakdown here.</span>
+      </div>
+      <canvas id="subjectChart"></canvas>
+    </div>
+ 
+    <!-- Doughnut chart: priority breakdown -->
+    <div class="dashboard-card chart-card">
+      <h3>Priority Breakdown</h3>
+      <div class="chart-empty-state" id="priorityEmpty">
+        <i class="fa-solid fa-chart-pie"></i>
+        <p>No tasks yet</p>
+        <span>Once you add tasks with priorities, your breakdown will appear here.</span>
+      </div>
+      <canvas id="priorityChart"></canvas>
+    </div>
+ 
+  </div>
+</section>
+ 
+<!-- ==============================
+     MONTHLY CALENDAR
+============================== -->
+<section class="calendar-section">
+  <div class="section-header-flex">
+    <div>
+      <h2><i class="fa-solid fa-calendar-days"></i> Monthly Planner</h2>
+      <p>See which days have tasks scheduled.</p>
+    </div>
+  </div>
+ 
+  <div class="calendar-wrapper">
+    <!-- Month navigation -->
+    <div class="calendar-nav">
+      <button id="prevMonth"><i class="fa-solid fa-chevron-left"></i></button>
+      <h3 id="monthTitle"></h3>
+      <button id="nextMonth"><i class="fa-solid fa-chevron-right"></i></button>
+    </div>
+ 
+    <!-- Day-of-week header -->
+    <div class="calendar-days-header">
+      <span>Sun</span><span>Mon</span><span>Tue</span>
+      <span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+    </div>
+ 
+    <!-- Calendar day cells injected by JS -->
+    <div id="calendarGrid" class="calendar-grid"></div>
+ 
+    <!-- Task list for clicked day -->
+    <div id="dayTaskPanel" class="day-task-panel">
+      <h4 id="dayTaskTitle">Select a day to view tasks</h4>
+      <ul id="dayTaskList" class="day-task-list"></ul>
+    </div>
+  </div>
+</section>
+ 
+<!-- ==============================
+     MOTIVATION & BADGES
+============================== -->
+<section class="motivation-section">
+  <div class="motivation-content">
+    <div class="motivation-icon"><i class="fa-solid fa-fire"></i></div>
+    <h2>Stay Motivated!</h2>
+    <p id="motivationQuote">"Small progress each day adds up to big results 🚀"</p>
+    <button id="newMotivation" class="motivation-btn"><i class="fa-solid fa-shuffle"></i> New Quote</button>
+  </div>
+  <!-- Badges unlock based on progress milestones -->
+  <div class="motivation-badges">
+    <div class="badge" id="badge1">
+      <i class="fa-solid fa-star"></i>
+      <span>First Task</span>
+    </div>
+    <div class="badge" id="badge2">
+      <i class="fa-solid fa-fire"></i>
+      <span>50% Done</span>
+    </div>
+    <div class="badge" id="badge3">
+      <i class="fa-solid fa-trophy"></i>
+      <span>All Done!</span>
+    </div>
+  </div>
+</section>
+ 
+<!-- ==============================
+     AI FEEDBACK TOAST (floating)
+============================== -->
+<div id="feedbackBox" class="feedback-box">
+  <div class="feedback-inner">
+    <i class="fa-solid fa-robot feedback-icon"></i>
+    <span id="feedbackText">Progress feedback will appear here...</span>
+  </div>
+  <button class="feedback-close" id="feedbackClose"><i class="fa-solid fa-xmark"></i></button>
+</div>
+ 
+<!-- ==============================
+     FOOTER
+============================== -->
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-box">
+      <h3><i class="fa-solid fa-graduation-cap"></i> Study Planner</h3>
+      <p>Helping students plan smarter and achieve more every day.</p>
+    </div>
+    <div class="footer-box">
+      <h3>Quick Links</h3>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="planner.html">Planner</a></li>
+        <li><a href="progress.html">Progress</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+    </div>
+    <div class="footer-box">
+      <h3>Follow Us</h3>
+      <div class="social-icons">
+        <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+        <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 Study Planner | All Rights Reserved</p>
+  </div>
+</footer>
+ 
+<!-- ==============================
+     LOCK OVERLAY (shown if not logged in)
+============================== -->
+<div id="lockOverlay" class="lock-overlay" style="display:none;">
+  <div class="lock-box">
+    <i class="fa-solid fa-lock lock-icon"></i>
+    <h2>Access Locked</h2>
+    <p>Please go to Planner and login first to view your progress.</p>
+    <button onclick="goToPlanner()">Go to Planner</button>
+  </div>
+</div>
+ 
+<!-- External libraries loaded before our script -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<script src="progress.js"></script>
+</body>
+</html>

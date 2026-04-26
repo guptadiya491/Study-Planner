@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Study Planner</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome Icons (for eye icon, Google, Facebook) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- Our styles -->
+  <link rel="stylesheet" href="login.css">
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- ===== LEFT PANEL: Branding ===== -->
+    <div class="left">
+      <h1>Study Planner</h1>
+      <p>Organize your study, track progress and achieve your goals 🚀</p>
+    </div>
+
+    <!-- ===== RIGHT PANEL: Login Form ===== -->
+    <div class="right">
+
+      <h2>Login</h2>
+
+      <!-- Email Field -->
+      <div class="input-group">
+        <input type="email" id="email" placeholder="Enter Email">
+      </div>
+
+      <!-- Password Field
+           NOTE: type="text" is intentional — we use CSS (-webkit-text-security)
+           to visually mask the password. This completely prevents the browser
+           from injecting its own native eye icon. -->
+      <div class="input-group password-group">
+        <input
+          type="text"
+          id="password"
+          placeholder="Enter Your Password"
+          class="password-mask"
+          autocomplete="off"
+        >
+        <!-- Our custom eye icon — the ONLY eye that will appear -->
+        <i class="fa-solid fa-eye toggle-password" id="togglePassword"></i>
+      </div>
+
+      <!-- Login Button -->
+      <button class="btn" id="loginBtn">Login</button>
+
+      <!-- Forgot Password & Help Links -->
+      <div class="links">
+        <a href="#" id="forgotBtn">Forgot Password?</a>
+        <a href="#" id="helpBtn">Help?</a>
+      </div>
+
+      <!-- Social Login Buttons -->
+      <div class="social">
+        <button class="google" id="googleBtn">
+          <i class="fa-brands fa-google"></i> Sign in with Google
+        </button>
+        <button class="facebook" id="facebookBtn">
+          <i class="fa-brands fa-facebook-f"></i> Sign in with Facebook
+        </button>
+      </div>
+
+      <!-- Sign Up Link -->
+      <div class="signup">
+        Don't have an account? <a href="signup.html">Sign Up</a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Our scripts -->
+  <script src="login.js"></script>
+</body>
+</html>

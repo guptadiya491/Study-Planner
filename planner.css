@@ -1,0 +1,1351 @@
+/* =====================================================
+   STUDY PLANNER — PLANNER PAGE STYLESHEET
+   Structure:
+   1.  CSS Variables (Light + Dark themes)
+   2.  Reset & Base
+   3.  Header
+   4.  Hero Section
+   5.  Layout (two-column grid)
+   6.  Section Headers
+   7.  Add Task Form
+   8.  Toast Notification
+   9.  Sidebar Cards
+        9a. Tips Slider
+        9b. Task Summary
+        9c. Quote Card
+   10. Daily Planner (date nav, week row, schedule grid)
+   11. Recent Tasks (filter bar + task cards)
+   12. Footer
+   13. Responsive Breakpoints
+===================================================== */
+ 
+ 
+/* =====================================================
+   1. CSS VARIABLES
+   All colors and common values live here.
+   Light mode defaults are on :root.
+   Dark mode overrides on html.dark (applied by JS to <html>).
+   Using <html> instead of <body> avoids a flash of unstyled
+   content when the theme is applied before body renders.
+===================================================== */
+:root {
+  /* Brand colors */
+  --primary:       #4f46e5;
+  --primary-light: #818cf8;
+  --primary-dark:  #3730a3;
+  --accent:        #06b6d4;
+ 
+  /* Status colors */
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger:  #ef4444;
+ 
+  /* Surfaces */
+  --bg:       #f0f4ff;
+  --surface:  #ffffff;
+  --surface2: #f8faff;
+ 
+  /* Typography */
+  --text:       #1e293b;
+  --text-muted: #64748b;
+ 
+  /* UI details */
+  --border:       rgba(99, 102, 241, 0.15);
+  --shadow:       0 4px 24px rgba(79, 70, 229, 0.08);
+  --shadow-hover: 0 12px 40px rgba(79, 70, 229, 0.18);
+  --radius:       14px;
+  --radius-sm:    8px;
+  --transition:   0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --header-h:     68px;
+}
+ 
+/* Dark mode — overrides only what changes */
+html.dark {
+  --primary:       #818cf8;
+  --primary-light: #a5b4fc;
+  --primary-dark:  #6366f1;
+  --accent:        #22d3ee;
+ 
+  --bg:       #0a0f1e;
+  --surface:  #141929;
+  --surface2: #1e2540;
+ 
+  --text:       #e2e8f0;
+  --text-muted: #94a3b8;
+ 
+  --border:       rgba(129, 140, 248, 0.15);
+  --shadow:       0 4px 24px rgba(0, 0, 0, 0.4);
+  --shadow-hover: 0 12px 40px rgba(99, 102, 241, 0.25);
+}
+ 
+ 
+/* =====================================================
+   2. RESET & BASE
+===================================================== */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+ 
+html {
+  scroll-behavior: smooth; /* smooth anchor jumps */
+}
+ 
+body {
+  font-family: 'Poppins', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  /* Smooth background/color transition when toggling dark mode */
+  transition: background var(--transition), color var(--transition);
+  min-height: 100vh;
+}
+ 
+ 
+/* =====================================================
+   3. HEADER
+===================================================== */
+.header {
+  position: sticky; /* stays visible while scrolling */
+  top: 0;
+  z-index: 1000;    /* above all page content */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 10%;
+  background-color: #1e3a8a;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  color: #fff;
+  gap: 20px;
+}
+ 
+html.dark .header {
+  background: #000;
+  border-bottom: 1px solid rgba(56, 189, 248, 0.3);
+  box-shadow: 0 2px 20px rgba(56, 189, 248, 0.8);
+}
+ 
+/* Brand logo */
+.logo {
+  font-size: 1.8rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+  white-space: nowrap;
+  flex-shrink: 0; /* doesn't shrink when nav is full */
+}
+ 
+/* Navigation list (horizontal on desktop) */
+.nav-links {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+ 
+.nav-links li a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: 500;
+  transition: color 0.3s;
+  white-space: nowrap;
+}
+ 
+.nav-links li a:hover,
+.nav-links li a.active {
+  color: #60a5fa;
+  font-weight: 700;
+}
+ 
+/* Profile button — styled differently from regular nav links */
+.profile-btn {
+  padding: 8px 18px !important;
+  border-radius: 20px !important;
+  background: linear-gradient(to right, #0072ff, #00c6ff) !important;
+  color: #fff !important;
+  font-weight: 500 !important;
+  transition: transform 0.3s;
+}
+ 
+.profile-btn:hover {
+  transform: scale(1.05) !important;
+}
+ 
+/* Dark mode toggle button (circular, icon only) */
+.dark-toggle {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition);
+  flex-shrink: 0;
+}
+ 
+.dark-toggle:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: rotate(20deg); /* fun spin on hover */
+}
+ 
+/* Hamburger button — hidden on desktop, shown on mobile via media query */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+}
+ 
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: #fff;
+  border-radius: 2px;
+  transition: all 0.3s;
+}
+ 
+ 
+/* =====================================================
+   4. HERO SECTION
+===================================================== */
+.planner-hero {
+  background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 50%, var(--accent) 100%);
+  color: #fff;
+  padding: 70px 6% 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  overflow: hidden;
+  position: relative;
+}
+ 
+/* Decorative background circles (pure CSS, no extra elements needed) */
+.planner-hero::before {
+  content: '';
+  position: absolute;
+  top: -80px;
+  right: -80px;
+  width: 350px;
+  height: 350px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 50%;
+}
+ 
+.planner-hero::after {
+  content: '';
+  position: absolute;
+  bottom: -100px;
+  left: 30%;
+  width: 250px;
+  height: 250px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 50%;
+}
+ 
+.hero-content {
+  max-width: 580px;
+  position: relative;
+  z-index: 1; /* sits above the ::before / ::after circles */
+}
+ 
+/* "Smart Study Planner" pill badge */
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 5px 14px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+  backdrop-filter: blur(8px);
+}
+ 
+/* Responsive heading that scales with viewport */
+.hero-content h1 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 14px;
+}
+ 
+/* "Study Goals" text with gradient fill */
+.gradient-text {
+  background: linear-gradient(90deg, #a5f3fc, #fde68a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+ 
+.hero-content p {
+  font-size: 1.05rem;
+  opacity: 0.85;
+  margin-bottom: 32px;
+}
+ 
+/* Stats row (Total / Due Today / Overdue) */
+.hero-stats {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 16px 24px;
+  border-radius: 16px;
+  width: fit-content;
+}
+ 
+.hero-stat { text-align: center; }
+.hero-stat span  { font-size: 1.8rem; font-weight: 800; display: block; }
+.hero-stat small { font-size: 0.75rem; opacity: 0.8; }
+ 
+/* Vertical divider between stat items */
+.hero-stat-divider {
+  width: 1px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.25);
+}
+ 
+/* Right side illustration area (hidden on mobile) */
+.hero-illustration {
+  position: relative;
+  width: 260px;
+  height: 200px;
+  flex-shrink: 0;
+  z-index: 1;
+}
+ 
+/* Individual floating cards inside the illustration */
+.floating-card {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  padding: 10px 16px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #fff;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  animation: float 3s ease-in-out infinite;
+}
+ 
+/* Staggered positions and animation delays for each card */
+.fc1 { top: 10px;  left: 0;    animation-delay: 0s; }
+.fc2 { top: 70px;  right: 0;   animation-delay: 0.8s; }
+.fc3 { bottom: 10px; left: 20px; animation-delay: 1.6s; }
+ 
+/* Icon colors per card */
+.fc1 i { color: #86efac; } /* green — check */
+.fc2 i { color: #fb923c; } /* orange — fire */
+.fc3 i { color: #fde68a; } /* yellow — clock */
+ 
+/* Gentle bob animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-10px); }
+}
+ 
+ 
+/* =====================================================
+   5. LAYOUT (two-column: form + sidebar)
+===================================================== */
+.planner-layout {
+  display: grid;
+  grid-template-columns: 1fr 340px; /* sidebar is fixed 340px wide */
+  gap: 30px;
+  padding: 40px 6%;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+ 
+ 
+/* =====================================================
+   6. SECTION HEADERS (shared style)
+===================================================== */
+.section-header {
+  margin-bottom: 28px;
+}
+ 
+.section-header h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+ 
+.section-header h2 i { color: var(--primary); }
+ 
+.section-header p {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+}
+ 
+ 
+/* =====================================================
+   7. ADD TASK FORM
+===================================================== */
+.planner-section {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 36px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+ 
+/* Coloured top accent line */
+.planner-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+ 
+/* Two inputs side by side */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+ 
+.form-group {
+  margin-bottom: 22px;
+}
+ 
+/* Label with icon */
+.form-group label {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+ 
+.form-group label i {
+  color: var(--primary);
+  font-size: 0.8rem;
+}
+ 
+/* "(optional)" tag inside label */
+.form-group .optional {
+  color: var(--text-muted);
+  font-weight: 400;
+  font-size: 0.8rem;
+}
+ 
+/* Wrapper needed to position char-count absolutely inside */
+.input-wrapper { position: relative; }
+ 
+/* Shared input/select/textarea styles */
+.planner-form input,
+.planner-form select,
+.planner-form textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.92rem;
+  background: var(--surface2);
+  color: var(--text);
+  transition: all var(--transition);
+  outline: none;
+  appearance: none; /* removes OS-default styling (esp. on select) */
+}
+ 
+/* Custom dropdown arrow for <select> */
+.planner-form select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2364748b' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 40px;
+}
+ 
+/* Focus ring */
+.planner-form input:focus,
+.planner-form select:focus,
+.planner-form textarea:focus {
+  border-color: var(--primary);
+  background: var(--surface);
+  box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+}
+ 
+.planner-form textarea {
+  resize: vertical;
+  min-height: 90px;
+}
+ 
+/* Character counter overlaid bottom-right of textarea */
+.char-count {
+  position: absolute;
+  bottom: 8px;
+  right: 12px;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  pointer-events: none; /* click-through so it doesn't block textarea */
+}
+ 
+/* Inline validation error text under each field */
+.field-error {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--danger);
+  margin-top: 4px;
+  min-height: 16px; /* prevents layout shift when error appears/disappears */
+}
+ 
+/* Button row */
+.form-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 10px;
+}
+ 
+/* Submit (Add Task) button */
+.add-btn {
+  flex: 1;
+  padding: 14px;
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  border: none;
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 700;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: 'Poppins', sans-serif;
+}
+ 
+.add-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(79, 70, 229, 0.4);
+  background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+}
+ 
+.add-btn:active {
+  transform: translateY(0) scale(0.98); /* subtle press feedback */
+}
+ 
+/* Clear/Reset button */
+.clear-btn {
+  padding: 14px 20px;
+  background: transparent;
+  border: 1.5px solid var(--border);
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition);
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+ 
+.clear-btn:hover {
+  border-color: var(--danger);
+  color: var(--danger);
+  background: rgba(239, 68, 68, 0.05);
+}
+ 
+ 
+/* =====================================================
+   8. TOAST NOTIFICATION
+   Fixed at bottom-center, slides up when .show is added by JS.
+===================================================== */
+.toast {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%) translateY(80px); /* hidden below viewport */
+  background: var(--success);
+  color: #fff;
+  padding: 14px 28px;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 8px 30px rgba(16, 185, 129, 0.4);
+  /* Bouncy slide-up animation */
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: 9999;
+  pointer-events: none; /* can't accidentally click it */
+}
+ 
+/* JS adds .show to make toast visible */
+.toast.show {
+  transform: translateX(-50%) translateY(0);
+}
+ 
+ 
+/* =====================================================
+   9. SIDEBAR CARDS
+===================================================== */
+.planner-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+ 
+/* Shared card shell */
+.sidebar-card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+}
+ 
+.sidebar-card h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text);
+}
+ 
+.sidebar-card h3 i { color: var(--primary); }
+ 
+ 
+/* ---- 9a. TIPS SLIDER ---- */
+/* Only the tip with .active is visible; JS rotates them every 4s */
+.tip-text {
+  display: none;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  font-style: italic;
+  line-height: 1.7;
+}
+ 
+.tip-text.active { display: block; }
+ 
+/* Dot row (generated by JS) */
+.tip-dots {
+  display: flex;
+  gap: 6px;
+  margin-top: 14px;
+}
+ 
+.tip-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--border);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+ 
+.tip-dot.active {
+  background: var(--primary);
+  transform: scale(1.3); /* active dot is slightly larger */
+}
+ 
+ 
+/* ---- 9b. TASK SUMMARY ---- */
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 16px;
+}
+ 
+.summary-item {
+  text-align: center;
+  padding: 12px 8px;
+  border-radius: 10px;
+  border: 1.5px solid transparent;
+}
+ 
+.summary-item span  { font-size: 1.6rem; font-weight: 800; display: block; }
+.summary-item small { font-size: 0.75rem; font-weight: 600; }
+ 
+/* Color-coded by priority */
+.summary-item.high   { background: rgba(239, 68, 68, 0.1);  border-color: rgba(239, 68, 68, 0.2); }
+.summary-item.high span, .summary-item.high small   { color: var(--danger); }
+ 
+.summary-item.medium { background: rgba(245, 158, 11, 0.1); border-color: rgba(245, 158, 11, 0.2); }
+.summary-item.medium span, .summary-item.medium small { color: var(--warning); }
+ 
+.summary-item.low    { background: rgba(16, 185, 129, 0.1); border-color: rgba(16, 185, 129, 0.2); }
+.summary-item.low span, .summary-item.low small   { color: var(--success); }
+ 
+/* "View All Tasks" link button */
+.view-all-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  justify-content: center;
+  padding: 10px;
+  background: var(--primary);
+  color: #fff;
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+  font-size: 0.88rem;
+  font-weight: 600;
+  transition: all var(--transition);
+}
+ 
+.view-all-btn:hover {
+  background: var(--primary-dark);
+  transform: translateY(-1px);
+}
+ 
+ 
+/* ---- 9c. QUOTE CARD ---- */
+.quote-card { text-align: center; }
+ 
+.quote-icon {
+  font-size: 1.8rem;
+  color: var(--primary);
+  margin-bottom: 12px;
+  opacity: 0.6;
+}
+ 
+#quoteText {
+  font-size: 0.88rem;
+  font-style: italic;
+  color: var(--text-muted);
+  line-height: 1.8;
+  margin-bottom: 8px;
+}
+ 
+#quoteAuthor {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--primary);
+  display: block;
+  margin-bottom: 14px;
+}
+ 
+.new-quote-btn {
+  background: transparent;
+  border: 1.5px solid var(--border);
+  color: var(--text-muted);
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.82rem;
+  font-weight: 600;
+  transition: all var(--transition);
+  font-family: 'Poppins', sans-serif;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+ 
+.new-quote-btn:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+ 
+ 
+/* =====================================================
+   10. DAILY PLANNER
+===================================================== */
+.daily-planner-section {
+  padding: 0 6% 40px;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+ 
+.daily-planner-wrapper {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 30px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+}
+ 
+/* --- Date Navigator --- */
+.date-navigator {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+ 
+/* Circular prev/next buttons */
+.date-navigator button {
+  background: var(--surface2);
+  border: 1.5px solid var(--border);
+  color: var(--text);
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+ 
+.date-navigator button:hover {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+ 
+/* "Today" button is pill-shaped, not circular */
+.today-btn {
+  width: auto !important;
+  padding: 0 16px !important;
+  border-radius: 20px !important;
+  font-size: 0.82rem !important;
+  font-weight: 600 !important;
+  font-family: 'Poppins', sans-serif;
+}
+ 
+.current-date-display { flex: 1; }
+ 
+#dayName {
+  font-size: 1.2rem;
+  font-weight: 700;
+  display: block;
+  color: var(--text);
+}
+ 
+#fullDate {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+ 
+/* --- 7-day Week Row --- */
+.week-row {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+  margin-bottom: 24px;
+}
+ 
+.week-day {
+  text-align: center;
+  padding: 10px 6px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all var(--transition);
+  border: 1.5px solid transparent;
+}
+ 
+.week-day:hover {
+  background: var(--surface2);
+  border-color: var(--border);
+}
+ 
+/* Currently selected day */
+.week-day.active {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+ 
+.week-day .wd-name { font-size: 0.72rem; font-weight: 600; opacity: 0.75; display: block; margin-bottom: 4px; }
+.week-day .wd-date { font-size: 1rem;    font-weight: 700; display: block; }
+ 
+/* Small dot under date if tasks exist for that day */
+.week-day .wd-dot {
+  width: 5px;
+  height: 5px;
+  background: var(--accent);
+  border-radius: 50%;
+  margin: 4px auto 0;
+}
+ 
+.week-day.active .wd-dot {
+  background: rgba(255, 255, 255, 0.7); /* visible on the blue active background */
+}
+ 
+/* --- 24-hour Schedule Grid --- */
+.schedule-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  max-height: 500px;
+  overflow-y: auto; /* scrollable without page scroll */
+  padding-right: 4px;
+}
+ 
+/* Custom scrollbar (Webkit browsers) */
+.schedule-grid::-webkit-scrollbar       { width: 6px; }
+.schedule-grid::-webkit-scrollbar-track { background: transparent; }
+.schedule-grid::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+ 
+/* Each hour row = time label + slot content */
+.time-slot {
+  display: grid;
+  grid-template-columns: 70px 1fr;
+  gap: 12px;
+  align-items: stretch;
+  min-height: 52px;
+}
+ 
+.time-label {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  text-align: right;
+  padding-top: 14px;
+}
+ 
+.slot-content {
+  border-left: 2px solid var(--border);
+  padding: 8px 14px;
+  cursor: pointer;
+  border-radius: 0 8px 8px 0;
+  transition: all var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 52px;
+}
+ 
+.slot-content:hover {
+  background: var(--surface2);
+  border-left-color: var(--primary);
+}
+ 
+/* Placeholder text inside empty slots */
+.slot-empty-text {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  opacity: 0.5;
+}
+ 
+.slot-content:hover .slot-empty-text {
+  opacity: 1;
+  color: var(--primary);
+}
+ 
+/* Slot that has a task assigned */
+.slot-task {
+  background: linear-gradient(135deg, rgba(79, 70, 229, 0.08), rgba(6, 182, 212, 0.06));
+  border-left-color: var(--primary) !important;
+  border-radius: 0 8px 8px 0;
+}
+ 
+.slot-task-inner { flex: 1; }
+ 
+.slot-task-subject {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+ 
+.slot-task-name {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-top: 1px;
+}
+ 
+/* Coloured priority dot on the left of a task slot */
+.slot-priority-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+ 
+.slot-priority-dot.high   { background: var(--danger); }
+.slot-priority-dot.medium { background: var(--warning); }
+.slot-priority-dot.low    { background: var(--success); }
+ 
+ 
+/* =====================================================
+   11. RECENT TASKS
+===================================================== */
+.recent-tasks-section {
+  padding: 0 6% 60px;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+ 
+/* Header row with title on left, filter buttons on right */
+.section-header-flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+ 
+.section-header-flex h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+ 
+.section-header-flex h2 i { color: var(--primary); }
+ 
+/* Filter pill buttons */
+.filter-bar { display: flex; gap: 8px; flex-wrap: wrap; }
+ 
+.filter-btn {
+  padding: 6px 16px;
+  border-radius: 20px;
+  border: 1.5px solid var(--border);
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+  font-family: 'Poppins', sans-serif;
+}
+ 
+.filter-btn:hover,
+.filter-btn.active {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+ 
+/* Auto-fill grid of task cards */
+.tasks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 18px;
+}
+ 
+/* Shown when there are no tasks to display */
+.no-tasks-placeholder {
+  grid-column: 1 / -1; /* spans all columns */
+  text-align: center;
+  padding: 60px;
+  color: var(--text-muted);
+}
+ 
+.no-tasks-placeholder i { font-size: 3rem; margin-bottom: 12px; opacity: 0.3; display: block; }
+.no-tasks-placeholder p { font-size: 0.95rem; }
+ 
+/* Individual task card */
+.task-card {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: var(--shadow);
+  transition: all var(--transition);
+  position: relative;
+  overflow: hidden;
+  animation: slideIn 0.4s ease; /* fades in when added */
+}
+ 
+/* Slide-up animation for newly added cards */
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+ 
+.task-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+}
+ 
+/* Coloured left border stripe by priority */
+.task-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+}
+ 
+.task-card.high::before   { background: var(--danger); }
+.task-card.medium::before { background: var(--warning); }
+.task-card.low::before    { background: var(--success); }
+ 
+/* Card sections */
+.task-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  padding-left: 8px; /* indent past the left stripe */
+}
+ 
+/* Subject badge (blue pill) */
+.task-subject-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  background: rgba(79, 70, 229, 0.1);
+  color: var(--primary);
+}
+ 
+/* Priority badge (color-coded pill) */
+.task-priority-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+ 
+.task-priority-badge.high   { background: rgba(239, 68, 68, 0.1);  color: var(--danger); }
+.task-priority-badge.medium { background: rgba(245, 158, 11, 0.1); color: var(--warning); }
+.task-priority-badge.low    { background: rgba(16, 185, 129, 0.1); color: var(--success); }
+ 
+.task-card-body { padding-left: 8px; }
+ 
+.task-card-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 6px;
+  line-height: 1.4;
+}
+ 
+.task-card-notes {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+ 
+/* Footer row: deadline on left, delete button on right */
+.task-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 8px;
+}
+ 
+.task-deadline {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+ 
+.task-deadline i { color: var(--primary); }
+ 
+/* Overdue tasks highlighted in red */
+.task-deadline.overdue { color: var(--danger); }
+.task-deadline.overdue i { color: var(--danger); }
+ 
+/* Delete button (icon only, no border) */
+.task-delete-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all var(--transition);
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+ 
+.task-delete-btn:hover {
+  color: var(--danger);
+  background: rgba(239, 68, 68, 0.08);
+}
+ 
+ 
+/* =====================================================
+   12. FOOTER
+===================================================== */
+.footer {
+  background: #111827;
+  color: #d1d5db;
+  padding: 60px 6% 24px;
+  margin-top: 40px;
+}
+ 
+html.dark .footer {
+  background: #060b18;
+  border-top: 1px solid rgba(129, 140, 248, 0.15);
+}
+ 
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 40px;
+  padding-bottom: 40px;
+}
+ 
+.footer-box h3 { color: #fff; font-size: 1rem; margin-bottom: 14px; }
+.footer-box p  { font-size: 0.88rem; line-height: 1.7; }
+.footer-box ul { list-style: none; }
+.footer-box ul li { margin-bottom: 8px; }
+ 
+.footer-box ul li a {
+  color: #9ca3af;
+  text-decoration: none;
+  font-size: 0.88rem;
+  transition: color 0.3s;
+}
+ 
+.footer-box ul li a:hover { color: var(--primary-light); }
+ 
+/* Social icon circles */
+.social-icons { display: flex; gap: 14px; flex-wrap: wrap; }
+ 
+.social-icons a {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #9ca3af;
+  text-decoration: none;
+  transition: all 0.3s;
+  font-size: 0.9rem;
+}
+ 
+.social-icons a:hover {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+  transform: translateY(-3px);
+}
+ 
+.footer-bottom {
+  text-align: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 20px;
+  font-size: 0.82rem;
+  color: #6b7280;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+ 
+ 
+/* =====================================================
+   13. RESPONSIVE BREAKPOINTS
+===================================================== */
+ 
+/* Tablet: collapse sidebar below form */
+@media (max-width: 1024px) {
+  .planner-layout {
+    grid-template-columns: 1fr; /* single column */
+  }
+ 
+  /* Sidebar cards go side by side instead of stacked */
+  .planner-sidebar {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  }
+}
+ 
+/* Mobile: hamburger nav + other layout adjustments */
+@media (max-width: 768px) {
+  /* Show hamburger button */
+  .hamburger { display: flex; }
+ 
+  /* Nav dropdown — slides down from header on mobile */
+  nav { position: relative; }
+ 
+  .nav-links {
+    display: none; /* hidden until .open is added by JS */
+    position: absolute;
+    top: 58px;
+    right: 0;
+    background: #1e3a8a;
+    border-radius: 0 0 var(--radius) var(--radius);
+    flex-direction: column;
+    width: 220px;
+    padding: 16px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    gap: 4px;
+    align-items: flex-start;
+  }
+ 
+  html.dark .nav-links { background: #000; }
+ 
+  .nav-links.open { display: flex; } /* JS toggles this */
+ 
+  .header { padding: 0.8rem 5%; }
+ 
+  .planner-hero {
+    flex-direction: column;
+    padding: 50px 6% 60px;
+  }
+ 
+  /* Hide decorative illustration on small screens */
+  .hero-illustration { display: none; }
+ 
+  /* Stack form rows vertically */
+  .form-row { grid-template-columns: 1fr; }
+ 
+  .planner-section        { padding: 24px; }
+  .daily-planner-wrapper  { padding: 20px; }
+ 
+  /* Week abbreviations get even smaller */
+  .week-day .wd-name { font-size: 0.65rem; }
+}
+ 
+/* Small mobile */
+@media (max-width: 480px) {
+  .header { padding: 0 4%; }
+  .logo   { font-size: 1.3rem; }
+ 
+  /* Stats stack vertically */
+  .hero-stats { flex-direction: column; gap: 12px; width: 100%; }
+  .hero-stat-divider { width: 80px; height: 1px; } /* horizontal divider now */
+ 
+  /* Sidebar and task cards go single column */
+  .planner-sidebar { grid-template-columns: 1fr; }
+  .tasks-grid      { grid-template-columns: 1fr; }
+ 
+  .section-header-flex { flex-direction: column; align-items: flex-start; }
+ 
+  /* Compact week row */
+  .week-row  { gap: 4px; }
+  .week-day  { padding: 8px 2px; }
+}

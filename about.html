@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us - Study Planner</title>
+
+  <!-- Google Fonts: Poppins for body text, Playfair Display for the hero paragraph -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- Our main stylesheet -->
+  <link rel="stylesheet" href="about.css">
+
+  <!-- Font Awesome for icons (nav logo, social icons, etc.) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- Emoji favicon (graduation cap) -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>">
+
+  <!--
+    DARK MODE FLASH PREVENTION
+    ─────────────────────────────────────────────────────────────────
+    This tiny script runs BEFORE the page paints.
+    If the user previously chose dark mode, we add the "dark" class
+    to <html> immediately — this prevents a white flash on reload.
+
+    IMPORTANT: We target <html> (documentElement) here.
+    The CSS and JS both also use <html>.dark — they must all match.
+    ─────────────────────────────────────────────────────────────────
+  -->
+  <script>
+    if (localStorage.getItem("theme") === "dark") {
+      document.documentElement.classList.add("dark");
+    }
+  </script>
+</head>
+
+<body>
+
+  <!-- ═══════════════════════════════════════════
+       SCROLL PROGRESS BAR
+       A thin bar at the top that fills as you scroll.
+       Controlled entirely by about.js.
+       ═══════════════════════════════════════════ -->
+  <div id="progress-bar"></div>
+
+
+  <!-- ═══════════════════════════════════════════
+       HEADER / NAVIGATION
+       Sticky at the top. Contains logo, nav links,
+       a "Join now" CTA button, and dark-mode toggle.
+       ═══════════════════════════════════════════ -->
+  <header class="header">
+
+    <!-- Logo (left side) -->
+    <div class="logo">
+      <i class="fa-solid fa-graduation-cap"></i> Study Planner
+    </div>
+
+    <!-- Main navigation links -->
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="planner.html">Planner</a></li>
+        <li><a href="progress.html">Progress</a></li>
+        <li><a href="about.html" class="active">About Us</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+    </nav>
+
+    <!-- "Join now" call-to-action (right side) -->
+    <div class="profile">
+      <a href="login.html">Join now for free</a>
+    </div>
+
+    <!--
+      Dark mode toggle button.
+      Matches the planner page exactly:
+      - class "dark-toggle" for the circular styled look
+      - Font Awesome icon inside <i> tag (fa-moon / fa-sun)
+      - JavaScript swaps the icon class when clicked
+    -->
+    <button id="darkModeBtn" class="dark-toggle" aria-label="Toggle dark mode">
+      <i class="fa-solid fa-moon"></i>
+    </button>
+
+  </header>
+
+
+  <!-- ═══════════════════════════════════════════
+       HERO SECTION
+       The big banner at the top of the page.
+       Contains a badge, animated typing headline,
+       tagline, description, and two CTA buttons.
+       ═══════════════════════════════════════════ -->
+  <section class="about-hero">
+
+    <!-- Small pill badge above the heading -->
+    <span class="hero-badge">✦ About Our Team</span>
+
+    <!--
+      This <h1> is intentionally left empty.
+      JavaScript fills it with a typing animation
+      (cycling through phrases like "Plan. Focus. Achieve.")
+    -->
+    <h1 id="typing"></h1>
+
+    <!-- Static tagline below the animated heading -->
+    <h2><b><i>FOR THE STUDENTS BY THE STUDENTS 😉</i></b></h2>
+
+    <!-- Platform description paragraph -->
+    <p class="hero-definition">
+      Study Planner is a smart academic productivity platform designed to help
+      students organize study schedules, manage deadlines, track progress,
+      and build consistent study habits. It turns unstructured routines into
+      clear and achievable plans — making learning focused and stress-free.
+    </p>
+
+    <!-- Two CTA buttons side by side -->
+    <div class="hero-cta-group">
+      <a href="planner.html" class="cta-primary">Start Planning Free →</a>
+      <a href="#team" class="cta-secondary">Meet the Team</a>
+    </div>
+
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════
+       TEAM SECTION
+       Three cards, one per team member.
+       Cards animate in when scrolled into view (JS).
+       ═══════════════════════════════════════════ -->
+  <section class="team-section" id="team">
+    <h2>Meet the Team</h2>
+
+    <div class="team-grid">
+
+      <!-- Team Member 1 -->
+      <div class="team-card">
+        <div class="team-avatar">👩‍💻</div>
+        <h3>Kirti Singla</h3>
+        <span><b>Project Lead, Frontend & JavaScript Developer</b></span>
+        <p>Leads the project and handles frontend architecture along with interactive JavaScript features.</p>
+      </div>
+
+      <!-- Team Member 2 -->
+      <div class="team-card">
+        <div class="team-avatar">🎨</div>
+        <h3>Mehakdeep</h3>
+        <span><b>UI/UX Designer & CSS Specialist</b></span>
+        <p>Designs visually appealing and responsive user interfaces with smooth animations and modern styling.</p>
+      </div>
+
+      <!-- Team Member 3 -->
+      <div class="team-card">
+        <div class="team-avatar">📖</div>
+        <h3>Diya</h3>
+        <span><b>Content Strategist & Research Analyst</b></span>
+        <p>Handles content creation, research, and planning to ensure meaningful and user-friendly experience.</p>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════
+       MISSION & VALUES SECTION
+       Two rows of 4 cards each.
+       First row = Our Mission, Second row = Our Values.
+       ═══════════════════════════════════════════ -->
+  <section class="about">
+
+    <!-- Mission Row -->
+    <div class="about-block">
+      <h2 class="section-title">Our Mission</h2>
+      <div class="grid-4">
+        <div class="info-card">
+          <h3>🎯 Clear Planning</h3>
+          <p>Help students understand workload clearly.</p>
+        </div>
+        <div class="info-card">
+          <h3>⏱ Time Efficiency</h3>
+          <p>Create smarter study schedules.</p>
+        </div>
+        <div class="info-card">
+          <h3>😊 Reduce Stress</h3>
+          <p>Improve organization and structure.</p>
+        </div>
+        <div class="info-card">
+          <h3>📚 Academic Success</h3>
+          <p>Support consistent academic growth.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Values Row -->
+    <div class="about-block">
+      <h2 class="section-title">Our Values</h2>
+      <div class="grid-4">
+        <div class="info-card">
+          <h3>Consistency</h3>
+          <p>Helping students build regular study habits.</p>
+        </div>
+        <div class="info-card">
+          <h3>Simplicity</h3>
+          <p>Clean tools without unnecessary complexity.</p>
+        </div>
+        <div class="info-card">
+          <h3>Quality</h3>
+          <p>Reliable and elegant experience.</p>
+        </div>
+        <div class="info-card">
+          <h3>Satisfaction</h3>
+          <p>Provide satisfaction to learners.</p>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════
+       STATS SECTION
+       Three animated counters that count up when
+       scrolled into view. The target number and
+       suffix (like + or %) live in data attributes.
+       ═══════════════════════════════════════════ -->
+  <section class="stats-section" id="statsSection">
+
+    <div class="stat-item">
+      <!-- data-target: the number to count up to | data-suffix: text shown after the number -->
+      <h2 class="stat-num" data-target="500" data-suffix="+">0</h2>
+      <p>Students Helped</p>
+    </div>
+
+    <div class="stat-item">
+      <h2 class="stat-num" data-target="3" data-suffix="">0</h2>
+      <p>Team Members</p>
+    </div>
+
+    <div class="stat-item">
+      <h2 class="stat-num" data-target="98" data-suffix="%">0</h2>
+      <p>% Satisfaction</p>
+    </div>
+
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════
+       OUR STORY / TIMELINE SECTION
+       Four timeline items that slide in one by one
+       as you scroll down (handled in about.js).
+       ═══════════════════════════════════════════ -->
+  <section class="story-section">
+
+    <!-- Small label above the main title -->
+    <span class="story-label">How We Got Here</span>
+
+    <h2 class="section-title story-title">Our Story</h2>
+
+    <div class="timeline">
+
+      <!-- Timeline Item 1 -->
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">The Problem</div>
+        <div class="timeline-title">Students Struggling with Chaos</div>
+        <p class="timeline-text">We noticed fellow students buried under unorganized notes, missed deadlines, and ineffective study routines. There had to be a better way.</p>
+      </div>
+
+      <!-- Timeline Item 2 -->
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">The Idea</div>
+        <div class="timeline-title">A Planner That Actually Works</div>
+        <p class="timeline-text">We envisioned a tool that combines intelligent scheduling, progress tracking, and habit building into one seamless experience built for students.</p>
+      </div>
+
+      <!-- Timeline Item 3 -->
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">The Build</div>
+        <div class="timeline-title">Three Minds, One Platform</div>
+        <p class="timeline-text">Kirti, Mehakdeep, and Diya collaborated across design, development, and content — shipping Study Planner with a focus on quality and simplicity.</p>
+      </div>
+
+      <!-- Timeline Item 4 -->
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">Today</div>
+        <div class="timeline-title">500+ Students and Growing</div>
+        <p class="timeline-text">Study Planner is actively helping students achieve better results. We're continuously improving based on real student feedback and evolving needs.</p>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════
+       FOOTER
+       Three columns: brand blurb, quick links,
+       and social media icons.
+       ═══════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="footer-container">
+
+      <!-- Column 1: Brand -->
+      <div class="footer-box">
+        <h3>Study Planner</h3>
+        <p>Helping students plan smarter and achieve more every day.</p>
+      </div>
+
+      <!-- Column 2: Quick navigation links -->
+      <div class="footer-box">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="planner.html">Planner</a></li>
+          <li><a href="progress.html">Progress</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 3: Social media icons -->
+      <div class="footer-box">
+        <h3>Follow Us</h3>
+        <div class="social-icons">
+          <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Copyright bar at the very bottom -->
+    <div class="footer-bottom">
+      <p>© 2026 Study Planner | All Rights Reserved</p>
+    </div>
+  </footer>
+
+
+  <!-- ═══════════════════════════════════════════
+       BACK TO TOP BUTTON
+       Fixed in the bottom-right corner.
+       Becomes visible after scrolling 400px down.
+       CSS class "visible" handles the fade-in.
+       ═══════════════════════════════════════════ -->
+  <button id="backToTop" title="Back to top" aria-label="Back to top">&#8679;</button>
+
+
+  <!-- Main JavaScript file — loaded last so the DOM is ready -->
+  <script src="about.js"></script>
+
+</body>
+</html>

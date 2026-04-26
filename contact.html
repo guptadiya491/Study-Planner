@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us - Study Planner</title>
+
+  <!-- Google Fonts: Poppins for body text, Playfair Display for headings -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- Main stylesheet for this page -->
+  <link rel="stylesheet" href="contact.css">
+
+  <!-- Font Awesome for icons (header logo, social icons, etc.) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- Emoji favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>">
+
+  <!--
+    DARK MODE FLASH PREVENTION:
+    Reads the saved theme from localStorage BEFORE the page renders.
+    Adds "dark" class to <html> immediately so there's no flash of the wrong theme.
+    Must be in <head> (not deferred) to run synchronously.
+  -->
+  <script>
+    if (localStorage.getItem("theme") === "dark") {
+      document.documentElement.classList.add("dark");
+    }
+  </script>
+</head>
+
+<body>
+
+  <!-- ================= HEADER ================= -->
+  <!--
+    Sticky top navigation bar.
+    Contains: logo | nav links | "Join now" CTA | dark mode toggle button
+  -->
+  <header class="header">
+
+    <!-- Site logo with graduation cap icon -->
+    <div class="logo">
+      <i class="fa-solid fa-graduation-cap"></i> Study Planner
+    </div>
+
+    <!-- Main navigation links -->
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="planner.html">Planner</a></li>
+        <li><a href="progress.html">Progress</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <!-- "active" class highlights the current page link -->
+        <li><a href="contact.html" class="active">Contact Us</a></li>
+      </ul>
+    </nav>
+
+    <!-- CTA button for unauthenticated users -->
+    <div class="profile">
+      <a href="login.html">Join now for free</a>
+    </div>
+
+    <!--
+      DARK MODE TOGGLE BUTTON — matches the planner page exactly:
+      - Uses Font Awesome moon/sun icon (not emoji)
+      - id="darkModeBtn" targeted by contact.js
+      - aria-label for accessibility
+    -->
+    <button id="darkModeBtn" class="dark-toggle" aria-label="Toggle dark mode">
+      <i class="fa-solid fa-moon"></i>
+    </button>
+
+  </header>
+
+  <!-- ================= MAIN CONTENT ================= -->
+  <main class="main">
+
+    <!-- ---- SECTION 1: Contact Form ---- -->
+    <!--
+      White card section containing the form.
+      The form captures: Full Name, Email, Message.
+      Validation + progress bar + char counter are injected by contact.js.
+    -->
+    <section class="section-1">
+      <h1>Contact Us</h1>
+      <p>Have questions about the Study Planner? We'd love to hear from you. Send us a message and our team will get back to you.</p>
+
+      <!-- id="contactForm" is used by contact.js to attach submit listener -->
+      <form class="contact-form" id="contactForm">
+
+        <div class="input-group">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" placeholder="Enter your name" required>
+        </div>
+
+        <div class="input-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" placeholder="Enter your email" required>
+        </div>
+
+        <div class="input-group">
+          <label for="message">Message</label>
+          <!-- maxlength and character counter are set dynamically in contact.js -->
+          <textarea id="message" rows="5" placeholder="Write your message here"></textarea>
+        </div>
+
+        <button type="submit">Send Message</button>
+      </form>
+    </section>
+
+    <!-- ---- SECTION 2: Get in Touch (Info Cards) ---- -->
+    <!--
+      Dark blue gradient background section.
+      Displays 3 info cards: Email Support, Location, Support Time.
+    -->
+    <section class="section-2">
+      <h2>Get in Touch</h2>
+      <p class="contact-desc">
+        Have questions or suggestions about the Study Planner?
+        Our team is always happy to help you stay organized and productive.
+      </p>
+
+      <!-- Grid of contact info cards — animated via CSS keyframes -->
+      <div class="info-container">
+
+        <div class="info-card">
+          <h4>Email Support</h4>
+          <p>studyplanner@gmail.com</p>
+          <span>Response within 24 hours.</span>
+        </div>
+
+        <div class="info-card">
+          <h4>Location</h4>
+          <p>India</p>
+          <span>Developed by a passionate student team.</span>
+        </div>
+
+        <div class="info-card">
+          <h4>Support Time</h4>
+          <p>Monday – Friday</p>
+          <span>Available from 7:00 AM – 4:10 PM.</span>
+          <p>Saturday–Sunday</p>
+          <span>Available from 10:00 AM – 6:00 PM.</span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ---- SECTION 3: FAQ ---- -->
+    <!--
+      Light background section with 3 FAQ cards.
+      Each card answers a common question about the planner.
+    -->
+    <section class="section-3">
+      <h2>Frequently Asked Questions</h2>
+
+      <!-- Grid of FAQ cards — same animation style as info cards -->
+      <div class="faq-container">
+
+        <div class="faq-card">
+          <h4>Is the Study Planner free to use?</h4>
+          <p>Yes, the basic features of our Study Planner are completely free for students to organize their subjects, tasks, and schedules.</p>
+        </div>
+
+        <div class="faq-card">
+          <h4>Will this planner help me manage my time better?</h4>
+          <p>The planner helps students organize their work, track deadlines, and plan study sessions efficiently.</p>
+        </div>
+
+        <div class="faq-card">
+          <h4>Who can use this Study Planner?</h4>
+          <p>This planner is designed for students who want to organize their study schedule, track assignments, and stay consistent with their goals.</p>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <!--
+    Dark footer with 3 columns: Brand info | Quick links | Social icons.
+    Consistent across all pages of the site.
+  -->
+  <footer class="footer">
+    <div class="footer-container">
+
+      <!-- Column 1: Brand description -->
+      <div class="footer-box">
+        <h3>Study Planner</h3>
+        <p>Helping students plan smarter and achieve more every day.</p>
+      </div>
+
+      <!-- Column 2: Internal page links -->
+      <div class="footer-box">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="planner.html">Planner</a></li>
+          <li><a href="progress.html">Progress</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 3: Social media icon links -->
+      <div class="footer-box">
+        <h3>Follow Us</h3>
+        <div class="social-icons">
+          <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Footer bottom bar with copyright -->
+    <div class="footer-bottom">
+      <p>© 2026 Study Planner | All Rights Reserved</p>
+    </div>
+  </footer>
+
+  <!-- contact.js: handles dark mode, form validation, progress bar, success overlay, back-to-top -->
+  <script src="contact.js"></script>
+
+</body>
+</html>

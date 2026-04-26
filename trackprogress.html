@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Track Progress | Study Planner</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+  <style>
+    .tips-section { padding: 60px 10%; text-align: center; }
+    .tips-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-top: 40px; }
+    .tip-card { 
+      background: #fff; padding: 30px; border-radius: 15px; text-align: left;
+      box-shadow: 0 10px 40px rgba(59, 130, 246, 0.15); transition: 0.3s;
+    }
+    .dark .tip-card { background: #1e1e1e; color: #fff; }
+    .tip-card i { color: #3b82f6; font-size: 1.5rem; margin-bottom: 15px; }
+    .back-btn { margin-top: 40px; display: inline-block; }
+  </style>
+</head>
+<body class="dark">
+  <section class="tips-section">
+    <h1>Track Your Progress 📈</h1>
+    <p>Visualize your journey and stay motivated through data.</p>
+    <div class="tips-grid">
+      <div class="tip-card">
+        <i class="fa-solid fa-check-double"></i>
+        <h3>Daily Streaks</h3>
+        <p>Consistency is key. Keeping a "streak" alive triggers a psychological win that makes it harder to skip a study session.</p>
+      </div>
+      <div class="tip-card">
+        <i class="fa-solid fa-stopwatch"></i>
+        <h3>Time Tracking</h3>
+        <p>Log your actual study hours. You’ll often find you’re spending less time on deep work than you originally thought.</p>
+      </div>
+      <div class="tip-card">
+        <i class="fa-solid fa-star"></i>
+        <h3>Review Milestones</h3>
+        <p>Every Sunday, review what you learned. Progress isn't just about hours; it's about the concepts mastered.</p>
+      </div>
+    </div>
+    <a href="index.html" class="btn back-btn">← Back to Home</a>
+  </section>
+  <script src="script.js"></script>
+</body>
+</html>

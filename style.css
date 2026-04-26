@@ -1,0 +1,959 @@
+/* =====================================================
+   STUDY PLANNER — MAIN STYLESHEET
+   Structure:
+   1. Reset & Base
+   2. Header
+   3. Header — Responsive
+   4. Hero Section
+   5. Features Section
+   6. CTA Section
+   7. Gallery Section
+   8. Testimonials Section
+   9. Chatbot Widget
+   10. Page Transition Overlay
+   11. Footer
+   12. Dark Mode (all overrides in one place)
+===================================================== */
+
+
+/* =====================================================
+   1. RESET & BASE
+===================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* consistent sizing across all elements */
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #e0ebff, #f5f7ff);
+  color: #222;
+  line-height: 1.6;
+}
+
+
+/* =====================================================
+   2. HEADER
+===================================================== */
+.header {
+  position: sticky;    /* stays at top while scrolling */
+  top: 0;
+  z-index: 1000;       /* always above page content */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 10%;
+  background-color: #1e3a8a;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  color: #fff;
+}
+
+/* Brand / Logo */
+.logo {
+  font-size: 1.8rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+}
+
+/* Navigation list */
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+}
+
+/* Nav link base style */
+.nav-links li a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+/* Active / Hover state */
+.nav-links li a:hover,
+.nav-links li a.active {
+  color: #60a5fa;
+  font-weight: 700;
+}
+
+/* "Join now" CTA button in header */
+.profile a {
+  text-decoration: none;
+  color: #1e3a8a;
+  font-weight: 600;
+  background-color: #60a5fa;
+  padding: 8px 18px;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.profile a:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  background-color: #3b82f6;
+  color: #fff;
+}
+
+/*
+  DARK MODE TOGGLE BUTTON
+  Styled identically to the planner page button.
+  - 38x38px circle with subtle white border
+  - Shows moon icon (light mode) or sun icon (dark mode)
+  - Icon swap is handled in script.js
+*/
+.dark-toggle {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  flex-shrink: 0;
+}
+
+.dark-toggle:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: rotate(20deg);
+}
+
+
+/* =====================================================
+   3. HEADER — RESPONSIVE
+===================================================== */
+
+/* Tablet (≤768px): stack vertically */
+@media screen and (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .nav-links li {
+    padding: 5px 0;
+  }
+
+  .profile a {
+    text-align: center;
+  }
+}
+
+/* Mobile (≤480px): tighten spacing & shrink font sizes */
+@media screen and (max-width: 480px) {
+  .header {
+    padding: 10px 5%;
+    gap: 8px;
+  }
+
+  .logo {
+    font-size: 1.3rem;
+  }
+
+  .nav-links li a {
+    font-size: 0.9rem;
+    padding: 4px 0;
+  }
+
+  .profile a {
+    font-size: 0.9rem;
+    padding: 6px 12px;
+  }
+}
+
+
+/* =====================================================
+   4. HERO SECTION
+===================================================== */
+.hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 60px 10%;
+  flex-wrap: wrap; /* stacks on small screens */
+}
+
+.hero-text {
+  max-width: 500px;
+}
+
+.hero-text h1 {
+  font-size: 2.8rem;
+  color: #1e3a8a;
+  margin-bottom: 15px;
+}
+
+.hero-text p {
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+}
+
+/* Shared button style used across hero, CTA, etc. */
+.btn {
+  display: inline-block;
+  background: #1e3a8a;
+  color: #fff;
+  padding: 10px 25px;
+  border-radius: 25px;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  background: #3b82f6;
+  transform: translateY(-3px);
+}
+
+/* Hero illustration */
+.hero-image {
+  position: relative;   /* needed to absolutely-position the quote box inside */
+  display: inline-block;
+  cursor: pointer;
+}
+
+.hero-image img {
+  width: 300px;
+}
+
+/* Spin animation triggered on click (class added by JS) */
+#heroImg {
+  transition: transform 0.8s ease;
+}
+
+#heroImg.spin {
+  transform: rotate(360deg);
+}
+
+/* Quote popup that appears over the image on click */
+#quoteBox {
+  display: none; /* shown via JS */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* perfectly centered over the image */
+  background: rgba(255, 255, 255, 0.95);
+  border: 2px solid #3b82f6;
+  border-radius: 15px;
+  padding: 18px 22px;
+  width: 260px;
+  text-align: center;
+  box-shadow: 0 8px 30px rgba(59, 130, 246, 0.35);
+  z-index: 10;
+  animation: fadeInQuote 0.5s ease forwards;
+}
+
+#quoteBox p {
+  font-size: 0.95rem;
+  color: #1e3a8a;
+  font-weight: 600;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Quote fade-in animation */
+@keyframes fadeInQuote {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -60%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+/* Hero responsive */
+@media (max-width: 768px) {
+  .hero {
+    flex-direction: column;
+    padding: 40px 5%;
+  }
+
+  .hero-text h1 { font-size: 2rem; }
+  .hero-text p  { font-size: 1rem; }
+
+  .hero-image img {
+    width: 200px;
+    margin-top: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-text h1 { font-size: 1.6rem; }
+  .hero-text p  { font-size: 0.95rem; }
+
+  .hero-image img { width: 150px; }
+}
+
+
+/* =====================================================
+   5. FEATURES SECTION
+===================================================== */
+.features {
+  padding: 60px 10%;
+  text-align: center;
+}
+
+.features h2 {
+  font-size: 2rem;
+  margin-bottom: 30px;
+  color: #1e3a8a;
+}
+
+/* Row of three feature cards — no wrapping on desktop */
+.feature-container {
+  display: flex;
+  justify-content: center;
+  align-items: stretch; /* equal card heights */
+  gap: 20px;
+  flex-wrap: nowrap;
+  margin-top: 30px;
+}
+
+/* Anchor wrapper — makes whole card a link without looking like one */
+.feature-link {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex: 1;
+  max-width: 350px;
+}
+
+/* Individual feature card */
+.feature-box {
+  width: 100%;
+  background: #fff;
+  padding: 30px;
+  border-radius: 15px;
+  text-align: center;
+  transition: all 0.4s ease;
+  cursor: pointer;
+  box-shadow: 0 10px 40px rgba(59, 130, 246, 0.15);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* Icon inside card */
+.feature-box i {
+  font-size: 2.5rem;
+  color: #3b82f6;
+  margin-bottom: 15px;
+}
+
+/* Card hover: lift + intensify glow */
+.feature-box:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 50px rgba(59, 130, 246, 0.4);
+  border-color: rgba(59, 130, 246, 0.3);
+}
+
+/* Responsive: allow stacking on tablets and below */
+@media screen and (max-width: 900px) {
+  .feature-container {
+    flex-wrap: wrap;
+  }
+
+  .feature-link {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .feature-container {
+    gap: 15px;
+  }
+
+  .feature-box {
+    flex: 1 1 45%;
+    min-width: 45%;
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .feature-box {
+    flex: 1 1 100%;
+    min-width: 100%;
+  }
+}
+
+
+/* =====================================================
+   6. CTA SECTION
+===================================================== */
+.cta {
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  margin: 60px auto;
+  padding: 40px 20px;
+  width: 80%;
+  max-width: 900px;
+  text-align: center;
+  border-radius: 20px;
+  color: white;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.cta h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+/* CTA button uses inverted color scheme (white bg, blue text) */
+.cta .btn {
+  background: white;
+  color: #2575fc;
+  padding: 12px 25px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.cta .btn:hover {
+  background: #f1f1f1;
+  transform: scale(1.05);
+}
+
+/* CTA responsive */
+@media (max-width: 768px) {
+  .cta {
+    width: 90%;
+    padding: 30px 15px;
+  }
+
+  .cta h2 { font-size: 24px; }
+
+  .cta .btn { padding: 10px 20px; }
+}
+
+@media (max-width: 480px) {
+  .cta {
+    width: 95%;
+    padding: 20px 10px;
+  }
+
+  .cta h2 { font-size: 20px; }
+
+  .cta .btn { padding: 8px 18px; }
+}
+
+
+/* =====================================================
+   7. GALLERY SECTION
+===================================================== */
+.gallery {
+  text-align: center;
+  padding: 50px 20px;
+}
+
+.gallery h2 {
+  margin-bottom: 20px;
+  color: #1e3a8a;
+}
+
+.gallery-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.gallery img {
+  width: 150px;
+  border-radius: 10px;
+  transition: transform 0.3s;
+}
+
+.gallery img:hover {
+  transform: scale(1.1);
+}
+
+/* Gallery responsive */
+@media (max-width: 768px) {
+  .gallery img {
+    width: 120px;
+  }
+
+  .gallery {
+    padding: 30px 10px;
+  }
+}
+
+
+/* =====================================================
+   8. TESTIMONIALS SECTION
+===================================================== */
+.testimonials {
+  background: #f9f9f9;
+  padding: 50px 20px;
+  text-align: center;
+}
+
+.testimonials h2 {
+  margin-bottom: 20px;
+  color: #1e3a8a;
+}
+
+.testimonial-container {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Individual review card */
+.testimonial-box {
+  background: white;
+  padding: 25px;
+  width: 280px;
+  border-radius: 15px;
+  text-align: center;
+  transition: all 0.4s ease;
+  box-shadow: 0 10px 30px rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.testimonial-box:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 45px rgba(59, 130, 246, 0.3);
+  border-color: rgba(59, 130, 246, 0.2);
+}
+
+/* Testimonials responsive */
+@media (max-width: 768px) {
+  .testimonial-container {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .testimonial-box {
+    width: 90%;
+    margin: 0 auto;
+  }
+
+  .testimonials {
+    padding: 30px 10px;
+  }
+}
+
+
+/* =====================================================
+   9. CHATBOT WIDGET
+===================================================== */
+
+/* Floating bubble icon (bottom-right corner) */
+#chatbot-icon {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #6c63ff;
+  color: white;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 24px;
+  z-index: 1000;
+  transition: transform 0.2s;
+}
+
+#chatbot-icon:hover {
+  transform: scale(1.1);
+}
+
+/* Popup panel — hidden by default, toggled via .show class by JS */
+#chatbot-popup {
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  width: 350px;
+  height: 500px;
+  background: white;
+  border-radius: 15px;
+  display: none; /* JS toggles this via .show class */
+  flex-direction: column;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  z-index: 1000;
+}
+
+/* Show state — JS adds / removes this class */
+#chatbot-popup.show {
+  display: flex;
+}
+
+/* Popup header bar */
+.chat-header {
+  background: #6c63ff;
+  color: white;
+  padding: 10px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chat-header span {
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: opacity 0.2s;
+}
+
+.chat-header span:hover {
+  opacity: 0.7;
+}
+
+/* Chatbot iframe fills remaining popup height */
+#chatbot-popup iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+
+/* =====================================================
+   10. PAGE TRANSITION OVERLAY
+   Full-screen overlay shown between page navigations.
+   Fades in, displays animated text, then JS redirects.
+===================================================== */
+#page-transition {
+  position: fixed;
+  inset: 0; /* shorthand for top/right/bottom/left: 0 */
+  background: #ffffff; /* default light mode background */
+  z-index: 9999;
+
+  opacity: 0;
+  pointer-events: none; /* invisible = non-interactive */
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  transition: opacity 0.6s ease;
+}
+
+/* Activated state — JS adds this class */
+#page-transition.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* Glowing text displayed during transition */
+.loading-text {
+  font-size: 42px;
+  font-weight: 700;
+  color: #2563eb;
+  margin: 0;
+  text-align: center;
+  text-shadow:
+    0 0 10px #38bdf8,
+    0 0 20px #38bdf8,
+    0 0 40px rgba(56, 189, 248, 0.5);
+}
+
+/* Each word is wrapped in a <span> by JS and animated in */
+.loading-text span {
+  opacity: 0;
+  transform: translateY(20px);
+  display: inline-block;
+  animation: wordReveal 0.5s ease forwards;
+}
+
+/* Word slide-up reveal animation */
+@keyframes wordReveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* =====================================================
+   11. FOOTER
+===================================================== */
+.footer {
+  background: #1c1c1c;
+  color: #f1f1f1;
+  padding: 60px 20px 20px 20px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: auto;
+  gap: 40px;
+}
+
+.footer-box h3 {
+  font-size: 20px;
+  margin-bottom: 15px;
+  color: #ffffff;
+}
+
+.footer-box p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #cfcfcf;
+}
+
+.footer-box ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-box ul li {
+  margin-bottom: 10px;
+}
+
+.footer-box ul li a {
+  color: #cfcfcf;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-box ul li a:hover {
+  color: #2575fc;
+}
+
+.social-icons a {
+  display: inline-block;
+  margin-right: 15px;
+  color: #cfcfcf;
+  font-size: 18px;
+  transition: color 0.3s, transform 0.2s;
+}
+
+.social-icons a:hover {
+  color: #2575fc;
+  transform: scale(1.2);
+}
+
+.footer-bottom {
+  text-align: center;
+  border-top: 1px solid #333;
+  margin-top: 40px;
+  padding-top: 20px;
+  font-size: 14px;
+  color: #999;
+}
+
+/* Footer responsive */
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 30px;
+  }
+
+  .footer-box {
+    width: 100%;
+  }
+
+  .social-icons a {
+    margin-right: 12px;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer {
+    padding: 40px 15px 15px 15px;
+  }
+
+  .footer-container {
+    gap: 20px;
+  }
+
+  .footer-box h3 {
+    font-size: 18px;
+  }
+
+  .footer-box p,
+  .footer-box ul li a {
+    font-size: 13px;
+  }
+
+  .social-icons a {
+    margin-right: 10px;
+    font-size: 14px;
+  }
+
+  .footer-bottom {
+    font-size: 12px;
+    padding-top: 15px;
+  }
+}
+
+
+/* =====================================================
+   12. DARK MODE
+   All dark-mode overrides are grouped here at the end
+   so they're easy to find and have highest specificity.
+===================================================== */
+
+/* Base */
+.dark {
+  background: #0d0d0d;
+  color: #ffffff;
+}
+
+/* Global heading/paragraph resets for dark */
+.dark h1,
+.dark h2,
+.dark h3,
+.dark h4 {
+  color: #ffffff !important;
+}
+
+.dark p {
+  color: #d1d5db;
+}
+
+/* --- Header --- */
+.dark .header {
+  background: #000;
+  border-bottom: 1px solid rgba(56, 189, 248, 0.3);
+  box-shadow: 0 2px 20px rgba(56, 189, 248, 0.8);
+}
+
+/* --- Hero --- */
+.dark .hero-text h1 {
+  color: #60a5fa;
+}
+
+.dark .hero-text p {
+  color: #cbd5f5;
+}
+
+.dark .hero-text .btn {
+  box-shadow:
+    0 0 10px #38bdf8,
+    0 0 20px #38bdf8,
+    0 0 40px rgba(56, 189, 248, 0.5);
+}
+
+/* Quote box on dark background */
+.dark #quoteBox {
+  background: rgba(30, 30, 30, 0.97);
+  border-color: #60a5fa;
+}
+
+.dark #quoteBox p {
+  color: #93c5fd;
+}
+
+/* --- Features --- */
+.dark .features {
+  background: transparent;
+}
+
+.dark .features h2 {
+  color: #60a5fa;
+}
+
+.dark .feature-box {
+  background: #1e1e1e;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 40px rgba(59, 130, 246, 0.2);
+}
+
+.dark .feature-box p {
+  color: #cbd5f5;
+}
+
+.dark .feature-box:hover {
+  box-shadow: 0 20px 60px rgba(59, 130, 246, 0.5);
+}
+
+/* --- CTA --- */
+.dark .cta {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+}
+
+.dark .cta .btn {
+  box-shadow:
+    0 0 10px #38bdf8,
+    0 0 10px #38bdf8,
+    0 0 20px rgba(56, 189, 248, 0.2);
+}
+
+/* --- Gallery --- */
+.dark .gallery {
+  background: transparent;
+}
+
+/* --- Testimonials --- */
+.dark .testimonials {
+  background: #111;
+}
+
+.dark .testimonial-box {
+  background: #1a1a1a;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 10px 40px rgba(59, 130, 246, 0.2);
+}
+
+.dark .testimonial-box p {
+  color: #d1d5db;
+}
+
+.dark .testimonial-box h4 {
+  color: #60a5fa; /* student names stand out in blue */
+}
+
+.dark .testimonial-box:hover {
+  box-shadow: 0 20px 60px rgba(59, 130, 246, 0.5);
+  border-color: rgba(96, 165, 250, 0.3);
+}
+
+/* --- Transition overlay in dark mode --- */
+.dark #page-transition {
+  background: #020617;
+}
+
+.dark .loading-text {
+  color: #38bdf8;
+}
+
+/* --- Misc cards (about/info pages) --- */
+.dark .team-card,
+.dark .info-card {
+  background: #1e1e1e;
+  color: white;
+}
+
+/* --- Footer --- */
+.dark .footer {
+  background: linear-gradient(180deg, #111, #000);
+  border-top: 2px solid #3b82f6;
+}
+
+.dark .footer-bottom {
+  border-top: 1px solid #2a2a2a;
+  color: #888;
+}

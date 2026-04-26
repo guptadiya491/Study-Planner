@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gemini AI Chat</title>
+  <link rel="stylesheet" href="chatbot.css" />
+</head>
+<body>
+
+<div class="chat-container">
+
+  <!-- Header -->
+  <div class="chat-header">
+    <div class="bot-avatar">✦</div>
+    <div class="header-info">
+      <h1>Gemini Assistant</h1>
+      <div class="status">
+        <span class="status-dot"></span>
+        Online
+      </div>
+    </div>
+    <div class="model-badge">gemini-2.0-flash</div>
+  </div>
+
+  <!-- Messages -->
+  <div class="messages" id="messages">
+
+    <!-- Welcome message -->
+    <div class="msg-row bot">
+      <div class="msg-avatar">✦</div>
+      3
+      <div class="msg-col">
+        <div class="bubble">
+          Hey there! I'm your Gemini AI assistant. Ask me anything — I'm here to help. 👋
+          <div class="welcome-chips">
+            <span class="chip" onclick="sendChip(this)">Explain quantum computing</span>
+            <span class="chip" onclick="sendChip(this)">Write a short poem</span>
+            <span class="chip" onclick="sendChip(this)">How does AI work?</span>
+          </div>
+        </div>
+        <div class="timestamp">Just now</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Input -->
+  <div class="input-area">
+    <div class="input-row">
+      <textarea
+        id="user-input"
+        rows="1"
+        placeholder="Message Gemini..."
+        autocomplete="off"
+        spellcheck="true"
+      ></textarea>
+      <button id="send-btn" title="Send message">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+        </svg>
+      </button>
+    </div>
+    <div class="hint">Press <strong>Enter</strong> to send · <strong>Shift+Enter</strong> for new line</div>
+  </div>
+
+</div>
+
+<script>
+  // ─── CONFIG ────────────────────────────────────────────────────────────────
+  const API_KEY = "AIzaSyCbU_mPP3xwsOCQFYtpv8gepiptJ_ufWL0"; // 🔑 Replace with your Gemini API key
+  const MODEL   = "gemini-3-flash-preview";
+  const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${API_KEY}`;
+
+  // ─── STATE ─────────────────────────────────────────────────────────────────
+  const conversationHistory = [];
+
+  // ─── DOM REFS ──────────────────────────────────────────────────────────────
+  const messagesEl  = document.getElementById("messages");
+  const inputEl     = document.getElementById("user-input");
+  const sendBtn     = document.getElementById("send-btn");
+
+  // ─── HELPERS ───────────────────────────────────────────────────────────────
+
+  function getTime() {
+    return new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+  }
+
+  function scrollBottom() {
+    messagesEl.scrollTo({ top: messagesEl.scrollHeight, behavior: "smooth" });
+  }
+
+  // Auto-grow textarea
+  inputEl.addEventListener("input", () => {
+    inputEl.style.height = "auto";
+    inputEl.style.height = Math.min(inputEl.scrollHeight, 120) + "px";
+  });
+
+  // Simple markdown-lite: bold, italic, inline code, code blocks
+  function renderMarkdown(text) {
+    return text
+      .replace(/```([\s\S]*?)```/g, "<pre><code>$1</code></pre>")
+      .replace(/`([^`]+)`/g, "<code>$1</code>")
+      .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+      .replace(/\*(.+?)\*/g, "<em>$1</em>")
+      .replace(/\n/g, "<br>");
+  }
+
+  // ─── RENDER MESSAGES ───────────────────────────────────────────────────────
+
+  function appendMessage(role, text) {
+    const isUser = role === "user";
+
+    const row = document.createElement("div");
+    row.classList.add("msg-row", isUser ? "user" : "bot");
+
+    const avatar = document.createElement("div");
+    avatar.classList.add("msg-avatar");
+    avatar.textContent = isUser ? "🧑" : "✦";
+
+    const col = document.createElement("div");
+    col.classList.add("msg-col");
+
+    const bubble = document.createElement("div");
+    bubble.classList.add("bubble");
+    bubble.innerHTML = renderMarkdown(text);
+
+    const ts = document.createElement("div");
+    ts.classList.add("timestamp");
+    ts.textContent = getTime();
+
+    col.appendChild(bubble);
+    col.appendChild(ts);
+    row.appendChild(avatar);
+    row.appendChild(col);
+    messagesEl.appendChild(row);
+    scrollBottom();
+
+    return bubble; // returned so we can update it (streaming-style)
+  }
+
+  function showTyping() {
+    const row = document.createElement("div");
+    row.classList.add("msg-row", "bot");
+    row.id = "typing-row";
+
+    const avatar = document.createElement("div");
+    avatar.classList.add("msg-avatar");
+    avatar.textContent = "✦";
+
+    const col = document.createElement("div");
+    col.classList.add("msg-col");
+
+    const bubble = document.createElement("div");
+    bubble.classList.add("bubble");
+    bubble.innerHTML = `
+      <div class="typing-indicator">
+        <span></span><span></span><span></span>
+      </div>`;
+
+    col.appendChild(bubble);
+    row.appendChild(avatar);
+    row.appendChild(col);
+    messagesEl.appendChild(row);
+    scrollBottom();
+  }
+
+  function removeTyping() {
+    const el = document.getElementById("typing-row");
+    if (el) el.remove();
+  }
+
+  // ─── GEMINI API CALL ───────────────────────────────────────────────────────
+
+  async function callGemini(userMessage) {
+    // Add user turn to history
+    conversationHistory.push({
+      role: "user",
+      parts: [{ text: userMessage }]
+    });
+
+    const body = {
+      contents: conversationHistory,
+      generationConfig: {
+        temperature: 0.8,
+        maxOutputTokens: 1024,
+      }
+    };
+
+    const response = await fetch(API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body)
+    });
+
+    if (!response.ok) {
+      const err = await response.json();
+      throw new Error(err?.error?.message || "API request failed");
+    }
+
+    const data = await response.json();
+    const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text ?? "Sorry, I couldn't generate a response.";
+
+    // Add assistant turn to history
+    conversationHistory.push({
+      role: "model",
+      parts: [{ text: reply }]
+    });
+
+    return reply;
+  }
+
+  // ─── SEND FLOW ─────────────────────────────────────────────────────────────
+
+  async function sendMessage(text) {
+    const trimmed = text.trim();
+    if (!trimmed) return;
+
+    // Lock UI
+    sendBtn.disabled = true;
+    inputEl.disabled = true;
+    inputEl.value = "";
+    inputEl.style.height = "auto";
+
+    // Render user message
+    appendMessage("user", trimmed);
+
+    // Show typing
+    showTyping();
+
+    try {
+      const reply = await callGemini(trimmed);
+      removeTyping();
+      appendMessage("bot", reply);
+    } catch (err) {
+      removeTyping();
+      appendMessage("bot", `⚠️ Error: ${err.message}`);
+    } finally {
+      sendBtn.disabled = false;
+      inputEl.disabled = false;
+      inputEl.focus();
+    }
+  }
+
+  // ─── EVENT LISTENERS ───────────────────────────────────────────────────────
+
+  sendBtn.addEventListener("click", () => sendMessage(inputEl.value));
+
+  inputEl.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage(inputEl.value);
+    }
+  });
+
+  // Quick-chip clicks
+  function sendChip(el) {
+    sendMessage(el.textContent);
+  }
+</script>
+
+</body>
+</html>

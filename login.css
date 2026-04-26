@@ -1,0 +1,375 @@
+/* =============================================
+   RESET
+   Removes default browser margin/padding
+   and makes sizing consistent everywhere
+============================================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+/* =============================================
+   BODY
+   Full screen centered layout with
+   purple gradient background
+============================================= */
+body {
+  font-family: 'Poppins', sans-serif;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #5c00f0, #a78bfa);
+}
+
+
+/* =============================================
+   MAIN CONTAINER
+   The white card that holds Left + Right panels
+============================================= */
+.container {
+  width: 900px;
+  height: 550px;
+  display: flex;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+
+/* =============================================
+   LEFT PANEL
+   Purple branding side with app name
+============================================= */
+.left {
+  flex: 1;
+  background: linear-gradient(135deg, #6200ff, #8b5cf6);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+}
+
+.left h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+.left p {
+  text-align: center;
+  opacity: 0.9;
+}
+
+
+/* =============================================
+   RIGHT PANEL
+   White login form side
+============================================= */
+.right {
+  flex: 1;
+  background: white;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Login heading */
+.right h2 {
+  margin-bottom: 20px;
+  color: #4228d9;
+}
+
+
+/* =============================================
+   INPUT GROUP
+   Wrapper for each input field.
+   position:relative needed so the eye icon
+   inside .password-group positions correctly.
+============================================= */
+.input-group {
+  margin-bottom: 15px;
+  position: relative;
+}
+
+/* All input fields */
+.input-group input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 0.95rem;
+}
+
+/* Input focused state */
+.input-group input:focus {
+  outline: none;
+  border-color: #695cf6;
+}
+
+/* Input error state (red border) */
+.input-group input.error {
+  border-color: red;
+}
+
+
+/* =============================================
+   ERROR MESSAGE
+   Small red text shown below an invalid input.
+   Hidden by default, shown by adding .visible
+============================================= */
+.input-error-msg {
+  color: red;
+  font-size: 0.78rem;
+  margin-top: 4px;
+  display: none;
+}
+
+.input-error-msg.visible {
+  display: block;
+}
+
+
+/* =============================================
+   PASSWORD FIELD
+   type="text" + -webkit-text-security is used
+   instead of type="password" to completely
+   prevent the browser from adding its own
+   native eye icon (which caused double-eye bug)
+============================================= */
+
+/* Extra right padding so text doesn't go under the eye icon */
+.password-group input {
+  padding-right: 40px;
+}
+
+/* Makes the text look like bullets (●●●●) visually */
+.password-mask {
+  -webkit-text-security: disc;
+  text-security: disc;
+}
+
+/* When eye is clicked → show plain text */
+.password-mask.password-visible {
+  -webkit-text-security: none;
+  text-security: none;
+}
+
+/* Eye icon inside password field */
+.toggle-password {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #888;
+  font-size: 14px;
+  transition: color 0.2s;
+}
+
+.toggle-password:hover {
+  color: #5b3aed;
+}
+
+
+/* =============================================
+   LOGIN BUTTON
+============================================= */
+.btn {
+  width: 100%;
+  background: #5f5cf6;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 25px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background 0.3s;
+}
+
+.btn:hover {
+  background: #3a21b6;
+}
+
+
+/* =============================================
+   FORGOT PASSWORD & HELP LINKS
+============================================= */
+.links {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  font-size: 0.85rem;
+}
+
+.links a {
+  text-decoration: none;
+  color: #5c66f6;
+}
+
+
+/* =============================================
+   SOCIAL LOGIN BUTTONS (Google & Facebook)
+============================================= */
+.social {
+  margin-top: 20px;
+}
+
+.social button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 0.9rem;
+  transition: background 0.3s;
+}
+
+/* Google button — white with border */
+.google {
+  background: #fff;
+  border: 1px solid #ccc !important;
+  color: #333;
+}
+
+.google:hover {
+  background: #f1f1f1;
+}
+
+/* Facebook button — blue */
+.facebook {
+  background: #1877f2;
+  color: white;
+}
+
+.facebook:hover {
+  background: #1558b0;
+}
+
+
+/* =============================================
+   SIGN UP LINK (bottom of form)
+============================================= */
+.signup {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 0.9rem;
+}
+
+.signup a {
+  color: #8b5cf6;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+
+/* =============================================
+   RESPONSIVE (Mobile)
+   On small screens: hide left panel,
+   stack layout vertically
+============================================= */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .left {
+    display: none;
+  }
+}
+
+
+/* =============================================
+   DARK MODE
+   Applied when <body> has class "dark"
+   (toggled by JS based on localStorage)
+============================================= */
+
+/* Dark background */
+body.dark {
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+}
+
+/* Dark left panel */
+body.dark .left {
+  background: linear-gradient(135deg, #1e293b, #334155);
+  color: white;
+}
+
+/* Dark right panel */
+body.dark .right {
+  background: rgba(30, 41, 59, 0.9);
+  color: white;
+}
+
+/* Dark heading */
+body.dark .right h2 {
+  color: #60a5fa;
+}
+
+/* Dark input fields */
+body.dark .input-group input {
+  background: #1e293b;
+  border: 1px solid #334155;
+  color: white;
+}
+
+/* Dark input error state */
+body.dark .input-group input.error {
+  border: 1px solid red !important;
+}
+
+/* Dark eye icon */
+body.dark .input-group i {
+  color: white;
+}
+
+/* Dark placeholder text */
+body.dark input::placeholder {
+  color: #94a3b8;
+}
+
+/* Dark login button */
+body.dark .btn {
+  background: linear-gradient(135deg, #3b82f6, #6366f1);
+}
+
+body.dark .btn:hover {
+  background: linear-gradient(135deg, #2563eb, #4f46e5);
+}
+
+/* Dark links */
+body.dark .links a {
+  color: #93c5fd;
+}
+
+/* Dark Google button */
+body.dark .google {
+  background: #1e293b;
+  color: white;
+  border: 1px solid #334155 !important;
+}
+
+/* Dark Facebook button */
+body.dark .facebook {
+  background: #1d4ed8;
+}
+
+/* Dark sign-up text */
+body.dark .signup {
+  color: #cbd5e1;
+}
+
+body.dark .signup a {
+  color: #60a5fa;
+}

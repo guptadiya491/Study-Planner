@@ -1,0 +1,772 @@
+/* =========================
+   RESET & GLOBAL STYLES
+   Removes default browser margin/padding and sets border-box sizing.
+========================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #e0ebff, #f5f7ff);
+  color: #222;
+  line-height: 1.6;
+}
+
+/* =========================
+   HEADER
+   Sticky top bar: logo | nav | CTA | dark toggle
+========================= */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 10%;
+  background-color: #1e3a8a;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  color: #fff;
+}
+
+/* Site logo */
+.logo {
+  font-size: 1.8rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+}
+
+/* Navigation link list */
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+}
+
+.nav-links li a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+/* Highlight hovered or currently active nav link */
+.nav-links li a:hover,
+.nav-links li a.active {
+  color: #60a5fa;
+  font-weight: 700;
+}
+
+/* "Join now for free" pill button */
+.profile a {
+  text-decoration: none;
+  color: #1e3a8a;
+  font-weight: 600;
+  background-color: #60a5fa;
+  padding: 8px 18px;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.profile a:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  background-color: #3b82f6;
+  color: #fff;
+}
+
+/* =========================
+   DARK MODE TOGGLE BUTTON
+   Styled identically to the planner page button.
+   - Circle shape with subtle border
+   - Shows moon icon (light mode) or sun icon (dark mode)
+   - Icon swap is handled in contact.js
+========================= */
+.dark-toggle {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  flex-shrink: 0;
+}
+
+.dark-toggle:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: rotate(20deg);
+}
+
+/* =========================
+   DARK MODE — BASE
+   Uses html.dark (same selector strategy as planner.css).
+   Applied by JS adding "dark" class to <html>.
+========================= */
+html.dark body {
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+/* Dark header: black with glowing blue bottom border */
+html.dark .header {
+  background: #000;
+  border-bottom: 1px solid rgba(56, 189, 248, 0.3);
+  box-shadow: 0 2px 20px rgba(56, 189, 248, 0.8);
+}
+
+/* =========================
+   DARK MODE — SECTION 1 (Contact Form)
+========================= */
+html.dark .section-1 {
+  background-color: #1e293b;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+}
+
+html.dark .section-1 h1 {
+  color: #93c5fd;
+}
+
+html.dark .section-1 p {
+  color: #cbd5e1;
+}
+
+/* Form inputs in dark mode */
+html.dark .contact-form input,
+html.dark .contact-form textarea {
+  background: #0f172a;
+  color: #e2e8f0;
+  border: 1px solid #475569;
+}
+
+html.dark .contact-form input::placeholder,
+html.dark .contact-form textarea::placeholder {
+  color: #94a3b8;
+}
+
+/* =========================
+   DARK MODE — SECTION 2 (Get in Touch)
+========================= */
+html.dark .section-2 {
+  background: linear-gradient(135deg, #1e3a8a, #1e293b);
+}
+
+/* =========================
+   DARK MODE — SECTION 3 (FAQ)
+========================= */
+html.dark .section-3 {
+  background: #111827;
+}
+
+html.dark .section-3 h2 {
+  color: #93c5fd;
+}
+
+/* =========================
+   DARK MODE — CARDS (Info & FAQ)
+   Lighter background so cards stand out from the section.
+========================= */
+html.dark .info-card,
+html.dark .faq-card {
+  background: #1e293b;
+  color: #e2e8f0;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+  position: relative;
+  overflow: hidden;
+}
+
+html.dark .info-card h4,
+html.dark .faq-card h4 {
+  color: #60a5fa;
+}
+
+html.dark .info-card p,
+html.dark .faq-card p,
+html.dark .info-card span {
+  color: #cbd5e1;
+}
+
+/* Hover lift effect in dark mode */
+html.dark .info-card:hover,
+html.dark .faq-card:hover {
+  transform: translateY(-10px) scale(1.05);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.8);
+}
+
+/* Soft glow pseudo-element on card hover in dark mode */
+html.dark .info-card::after,
+html.dark .faq-card::after {
+  content: "";
+  position: absolute;
+  bottom: -25px;
+  left: 50%;
+  transform: translateX(-50%) scale(0.8);
+  width: 75%;
+  height: 50px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.25) 0%, rgba(200, 200, 255, 0.15) 40%, transparent 80%);
+  filter: blur(25px);
+  opacity: 0;
+  transition: all 0.4s ease;
+  z-index: -1;
+}
+
+html.dark .info-card:hover::after,
+html.dark .faq-card:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) scale(1.1);
+}
+
+/* =========================
+   DARK MODE — FOOTER
+========================= */
+html.dark .footer {
+  background: linear-gradient(180deg, #111 0%, #000 100%);
+  color: #ccc;
+  border-top: 2px solid #3b82f6;
+  box-shadow: 0 -8px 25px rgba(0, 0, 0, 0.6);
+}
+
+html.dark .footer-bottom {
+  border-top: 1px solid #2a2a2a;
+  color: #888;
+}
+
+/* =========================
+   HEADER RESPONSIVENESS
+========================= */
+
+/* Tablet (768px and below): stack header items vertically */
+@media screen and (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .nav-links li {
+    padding: 5px 0;
+  }
+
+  .profile a {
+    width: auto;
+    text-align: center;
+  }
+}
+
+/* Mobile (480px and below): smaller text and padding */
+@media screen and (max-width: 480px) {
+  .header {
+    padding: 10px 5%;
+    gap: 8px;
+  }
+
+  .logo {
+    font-size: 1.3rem;
+  }
+
+  .nav-links li a {
+    font-size: 0.9rem;
+    padding: 4px 0;
+  }
+
+  .profile a {
+    font-size: 0.9rem;
+    padding: 6px 12px;
+  }
+}
+
+/* =========================
+   MAIN WRAPPER
+   Outer padding for all three sections.
+========================= */
+.main {
+  padding: 80px 10%;
+}
+
+/* =========================
+   SECTION 1 — CONTACT FORM
+   White card with form fields.
+   JS injects: progress bar (top), char counter (below textarea).
+========================= */
+.section-1 {
+  background-color: #ffffff;
+  padding: 50px;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  margin-bottom: 60px;
+}
+
+.section-1 h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+  color: #1e3a8a;
+}
+
+.section-1 p {
+  margin-bottom: 30px;
+  color: #555;
+}
+
+/* Each label + input pair */
+.contact-form .input-group {
+  margin-bottom: 20px;
+}
+
+.contact-form label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #1e3a8a;
+}
+
+/* Text inputs and textarea */
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+/* Focus ring on inputs */
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: #60a5fa;
+  box-shadow: 0 0 8px rgba(96, 165, 250, 0.3);
+}
+
+/* Submit button */
+.contact-form button {
+  background-color: #60a5fa;
+  color: #fff;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 30px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.contact-form button:hover {
+  background-color: #3b82f6;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* =========================
+   SECTION 2 — GET IN TOUCH
+   Dark blue gradient background with 3 info cards.
+========================= */
+.section-2 {
+  margin: 80px auto;
+  padding: 60px 10%;
+  background: linear-gradient(135deg, #1e3a8a, #3b5bbf);
+  border-radius: 20px;
+  color: #fff;
+}
+
+/* Shared heading style for sections 2 & 3 */
+.section-2 h2,
+.section-3 h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.6rem;
+  color: #e0f0ff;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+.section-2 .contact-desc {
+  color: white;
+  margin-bottom: 45px;
+  text-align: center;
+  font-size: 1.1rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* =========================
+   SECTION 3 — FAQ
+   Light background with 3 FAQ cards.
+========================= */
+.section-3 {
+  margin: 80px auto;
+  padding: 60px 10%;
+  background: #f5f7ff;
+  border-radius: 20px;
+  color: #444;
+}
+
+.section-3 h2 {
+  color: #1e3a8a;
+}
+
+/* =========================
+   CARD GRIDS
+   Responsive CSS Grid for info cards and FAQ cards.
+========================= */
+.info-container,
+.faq-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 35px;
+  justify-items: center;
+  align-items: stretch;
+}
+
+/* =========================
+   INDIVIDUAL CARDS (Info & FAQ)
+   Shared styles for both card types.
+========================= */
+.info-card,
+.faq-card {
+  background: linear-gradient(135deg, #ffffff, #dbe7ff);
+  padding: 30px 25px;
+  border-radius: 18px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  max-width: 360px;
+  width: 100%;
+  text-align: center;
+  border-top: 4px solid #3b82f6;
+
+  /* Entry animation: cards fade up on page load */
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.8s forwards;
+}
+
+.info-card:hover,
+.faq-card:hover {
+  transform: translateY(-10px) scale(1.05);
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.2);
+}
+
+.info-card h4,
+.faq-card h4 {
+  color: #1e3a8a;
+  margin-bottom: 15px;
+  font-size: 1.35rem;
+}
+
+.info-card p,
+.faq-card p,
+.info-card span {
+  color: #333;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* =========================
+   CARD ENTRY ANIMATION
+   Cards slide up and fade in with staggered delays.
+========================= */
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Staggered animation delays for info cards */
+.info-card:nth-child(1) { animation-delay: 0.1s; }
+.info-card:nth-child(2) { animation-delay: 0.3s; }
+.info-card:nth-child(3) { animation-delay: 0.5s; }
+
+/* Staggered animation delays for FAQ cards */
+.faq-card:nth-child(1) { animation-delay: 0.1s; }
+.faq-card:nth-child(2) { animation-delay: 0.3s; }
+.faq-card:nth-child(3) { animation-delay: 0.5s; }
+
+/* =========================
+   RESPONSIVE — TABLET (768px)
+========================= */
+@media (max-width: 768px) {
+  .main {
+    padding: 60px 6%;
+  }
+
+  .section-1 {
+    padding: 40px 25px;
+    margin-bottom: 50px;
+  }
+
+  .section-1 h1 {
+    font-size: 2rem;
+  }
+
+  .section-1 p {
+    font-size: 0.95rem;
+    margin-bottom: 25px;
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    padding: 10px 12px;
+    font-size: 0.95rem;
+  }
+
+  .contact-form button {
+    padding: 10px 25px;
+    font-size: 0.95rem;
+  }
+
+  .section-2 {
+    padding: 50px 6%;
+  }
+
+  .section-2 h2,
+  .section-3 h2 {
+    font-size: 2rem;
+  }
+
+  .section-2 .contact-desc {
+    font-size: 1rem;
+    max-width: 90%;
+  }
+
+  .section-3 {
+    padding: 50px 6%;
+  }
+
+  .info-container,
+  .faq-container {
+    gap: 25px;
+  }
+
+  .info-card,
+  .faq-card {
+    max-width: 320px;
+    padding: 25px 20px;
+  }
+
+  .info-card h4,
+  .faq-card h4 {
+    font-size: 1.2rem;
+  }
+
+  .info-card p,
+  .faq-card p,
+  .info-card span {
+    font-size: 0.9rem;
+  }
+}
+
+/* =========================
+   RESPONSIVE — MOBILE (480px)
+========================= */
+@media (max-width: 480px) {
+  .main {
+    padding: 40px 4%;
+  }
+
+  .section-1 {
+    padding: 30px 15px;
+    margin-bottom: 40px;
+  }
+
+  .section-1 h1 {
+    font-size: 1.6rem;
+  }
+
+  .section-1 p {
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    padding: 8px 10px;
+    font-size: 0.9rem;
+  }
+
+  .contact-form button {
+    padding: 8px 20px;
+    font-size: 0.9rem;
+  }
+
+  .section-2 {
+    padding: 40px 4%;
+  }
+
+  .section-2 h2,
+  .section-3 h2 {
+    font-size: 1.8rem;
+  }
+
+  .section-2 .contact-desc {
+    font-size: 0.95rem;
+    max-width: 100%;
+  }
+
+  .section-3 {
+    padding: 40px 4%;
+  }
+
+  .info-container,
+  .faq-container {
+    gap: 20px;
+  }
+
+  .info-card,
+  .faq-card {
+    max-width: 100%;
+    padding: 20px 15px;
+  }
+
+  .info-card h4,
+  .faq-card h4 {
+    font-size: 1.1rem;
+  }
+
+  .info-card p,
+  .faq-card p,
+  .info-card span {
+    font-size: 0.85rem;
+  }
+}
+
+/* =========================
+   FOOTER
+   Dark footer with 3 columns and bottom copyright bar.
+========================= */
+.footer {
+  background: #1c1c1c;
+  color: #f1f1f1;
+  padding: 60px 20px 20px 20px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: auto;
+  gap: 40px;
+}
+
+.footer-box h3 {
+  font-size: 20px;
+  margin-bottom: 15px;
+  color: #ffffff;
+}
+
+.footer-box p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #cfcfcf;
+}
+
+.footer-box ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-box ul li {
+  margin-bottom: 10px;
+}
+
+.footer-box ul li a {
+  color: #cfcfcf;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.footer-box ul li a:hover {
+  color: #60a5fa;
+}
+
+/* Social icons row */
+.social-icons a {
+  display: inline-block;
+  margin-right: 15px;
+  color: #cfcfcf;
+  font-size: 18px;
+  transition: 0.3s;
+}
+
+.social-icons a:hover {
+  color: #60a5fa;
+  transform: scale(1.2);
+}
+
+/* Copyright bar at bottom of footer */
+.footer-bottom {
+  text-align: center;
+  border-top: 1px solid #333;
+  margin-top: 40px;
+  padding-top: 20px;
+  font-size: 14px;
+  color: #999;
+}
+
+/* Footer responsive: stack columns on small screens */
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 30px;
+  }
+
+  .footer-box {
+    width: 100%;
+  }
+
+  .social-icons a {
+    margin-right: 12px;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer {
+    padding: 40px 15px 15px 15px;
+  }
+
+  .footer-container {
+    gap: 20px;
+  }
+
+  .footer-box h3 {
+    font-size: 18px;
+  }
+
+  .footer-box p,
+  .footer-box ul li a {
+    font-size: 13px;
+  }
+
+  .social-icons a {
+    margin-right: 10px;
+    font-size: 14px;
+  }
+
+  .footer-bottom {
+    font-size: 12px;
+    padding-top: 15px;
+  }
+}

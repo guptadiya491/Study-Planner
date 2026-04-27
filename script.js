@@ -8,7 +8,14 @@
    5. Back To Top Button
    6. Konami Code Easter Egg
 ===================================================== */
+const progressBar = document.getElementById("progress-bar");
 
+window.addEventListener("scroll", () => {
+  const scrollTop   = document.documentElement.scrollTop;
+  const totalHeight = document.documentElement.scrollHeight
+                    - document.documentElement.clientHeight;
+  progressBar.style.width = (scrollTop / totalHeight) * 100 + "%";
+});
 
 /* =====================================================
    1. DARK MODE TOGGLE

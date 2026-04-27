@@ -1264,7 +1264,11 @@ html.dark .footer {
   max-width: 1200px;
   margin: 0 auto;
 }
- 
+/* Make native date & time picker icons visible in dark mode */
+html.dark input[type="date"],
+html.dark input[type="time"] {
+  color-scheme: dark;
+}
  
 /* =====================================================
    13. RESPONSIVE BREAKPOINTS
@@ -1348,4 +1352,14 @@ html.dark .footer {
   /* Compact week row */
   .week-row  { gap: 4px; }
   .week-day  { padding: 8px 2px; }
+}
+#progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 4px;
+  width: 0%;
+  background: linear-gradient(90deg, #6366f1, #8b5cf6);
+  z-index: 9999;
+  transition: width 0.1s linear;
 }

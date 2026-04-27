@@ -1164,3 +1164,13 @@ body.locked {
   .feedback-box  { width: calc(100vw - 40px); right: 20px; }
   .motivation-badges { justify-content: center; }
 }
+#progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 4px;
+  width: 0%;
+  background: linear-gradient(90deg, #6366f1, #8b5cf6);
+  z-index: 9999;
+  transition: width 0.1s linear;
+}

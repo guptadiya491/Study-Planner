@@ -1,3 +1,11 @@
+const progressBar = document.getElementById("progress-bar");
+
+window.addEventListener("scroll", () => {
+  const scrollTop   = document.documentElement.scrollTop;
+  const totalHeight = document.documentElement.scrollHeight
+                    - document.documentElement.clientHeight;
+  progressBar.style.width = (scrollTop / totalHeight) * 100 + "%";
+});
 // ============================================================
 // AUTH GUARD
 // Show lock overlay if user is not logged in — do NOT redirect

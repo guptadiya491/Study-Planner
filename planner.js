@@ -17,7 +17,14 @@
    14. Back To Top Button
    15. Initialization (runs everything on page load)
 ===================================================== */
- 
+const progressBar = document.getElementById("progress-bar");
+
+window.addEventListener("scroll", () => {
+  const scrollTop   = document.documentElement.scrollTop;
+  const totalHeight = document.documentElement.scrollHeight
+                    - document.documentElement.clientHeight;
+  progressBar.style.width = (scrollTop / totalHeight) * 100 + "%";
+}); 
  
 /* =====================================================
    1. AUTH GUARD

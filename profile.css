@@ -1,0 +1,201 @@
+   * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #6c96e3, #243b55);
+      transition: background 0.3s;
+    }
+
+    body.dark {
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+    }
+
+    /* ── CARD ── */
+    .profile-card {
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 48px 40px;
+      border-radius: 24px;
+      text-align: center;
+      width: 360px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    body.dark .profile-card {
+      background: rgba(30, 41, 59, 0.75);
+      border-color: rgba(129, 140, 248, 0.2);
+    }
+
+    /* ── AVATAR ── */
+    .avatar {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #4f46e5, #06b6d4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2rem;
+      margin: 0 auto 18px;
+      color: #fff;
+      box-shadow: 0 8px 20px rgba(79, 70, 229, 0.4);
+    }
+
+    /* ── NAME & EMAIL ── */
+    .profile-card h2 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+
+    .profile-email {
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.65);
+      margin-bottom: 32px;
+    }
+
+    /* ── BUTTONS ── */
+    .actions {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .logout-btn, .delete-btn {
+      width: 100%;
+      padding: 13px;
+      border: none;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      font-family: 'Poppins', sans-serif;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .logout-btn {
+      background: linear-gradient(135deg, #4facfe, #00f2fe);
+      color: #fff;
+      box-shadow: 0 4px 15px rgba(79, 172, 254, 0.4);
+    }
+
+    .logout-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(79, 172, 254, 0.5);
+    }
+
+    .delete-btn {
+      background: linear-gradient(135deg, #ef4444, #dc2626);
+      color: #fff;
+      box-shadow: 0 4px 15px rgba(239, 68, 68, 0.35);
+    }
+
+    .delete-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(239, 68, 68, 0.45);
+    }
+
+    /* ── MODAL OVERLAY ── */
+    /* Using a normal-flow wrapper instead of position:fixed so height is correct */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.55);
+      z-index: 999;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-overlay.open {
+      display: flex;
+    }
+
+    .modal-box {
+      background: #fff;
+      border-radius: 18px;
+      padding: 36px 32px;
+      text-align: center;
+      width: 320px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+    }
+
+    body.dark .modal-box {
+      background: #1e293b;
+      color: #e2e8f0;
+    }
+
+    .modal-box p {
+      font-size: 1rem;
+      font-weight: 500;
+      margin-bottom: 24px;
+      line-height: 1.6;
+      color: inherit;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .modal-actions button {
+      padding: 10px 24px;
+      border: none;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      font-family: 'Poppins', sans-serif;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .modal-actions button:hover { transform: translateY(-1px); }
+
+    .confirm-btn {
+      background: #ef4444;
+      color: #fff;
+    }
+
+    .cancel-btn {
+      background: #e2e8f0;
+      color: #334155;
+    }
+
+    body.dark .cancel-btn {
+      background: #334155;
+      color: #e2e8f0;
+    }
+
+    /* ── TOAST ── */
+    .toast {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      padding: 12px 22px;
+      border-radius: 10px;
+      color: #fff;
+      font-size: 0.88rem;
+      font-weight: 600;
+      z-index: 9999;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.3s, transform 0.3s;
+      pointer-events: none;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }

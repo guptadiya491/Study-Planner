@@ -68,7 +68,7 @@
 
 <script>
   // ─── CONFIG ────────────────────────────────────────────────────────────────
-  const API_KEY = "AIzaSyCbU_mPP3xwsOCQFYtpv8gepiptJ_ufWL0"; // 🔑 Replace with your Gemini API key
+  const API_KEY = "AIzaSyBVFyq0FFp3wYxSgoPjwMzk1A4r1iyEti"; // 🔑 Replace with your Gemini API key
   const MODEL   = "gemini-3-flash-preview";
   const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${API_KEY}`;
 
@@ -176,7 +176,7 @@
     // Add user turn to history
     conversationHistory.push({
       role: "user",
-      parts: [{ text: userMessage }]
+      parts: [{ text: userMessage+" Remember Questions Should be Asked Related to Study  and Study and Task Related Thing. If Asked Outside The Scope Then Tell Sorry,Only Ask Questions From Study Planner.And Initiallly if user says hii then reply in formal manner." }]
     });
 
     const body = {

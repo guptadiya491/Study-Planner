@@ -6,6 +6,7 @@
   <title>Profile - Study Planner</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="profile.css">
 </head>
 <body>
 
@@ -104,12 +105,14 @@
       users = users.filter(u => u.email !== email);
       localStorage.setItem("users", JSON.stringify(users));
 
+      // Also clear this user's tasks from the shared task wrapper
+      const taskStore = JSON.parse(localStorage.getItem("tasks")) || [];
+      const updatedStore = taskStore.filter(entry => entry.useremail !== email);
+      localStorage.setItem("tasks", JSON.stringify(updatedStore));
+
       // Clear only the login session keys
       localStorage.removeItem("loggedInUser");
       localStorage.removeItem("userEmail");
-
-      // Also clear this user's tasks
-      localStorage.removeItem("tasks");
 
       closeModal();
       showToast("Account deleted successfully.", "#ef4444");

@@ -93,14 +93,55 @@ document.addEventListener("click", (e) => {
 /* =====================================================
    4. LOCALSTORAGE HELPERS
    Centralised read/write for the tasks array.
-   Always returns a fresh array (never null).
+   Stores tasks per user in [{ useremail:"", tasks: [] }].
 ===================================================== */
-function getTasks() {
-  return JSON.parse(localStorage.getItem("tasks")) || [];
+function getCurrentUserEmail() {
+  return localStorage.getItem("userEmail") || "";
 }
- 
+
+function getTaskStore() {
+  try {
+    const raw = JSON.parse(localStorage.getItem("tasks"));
+    if (!Array.isArray(raw)) return [];
+
+    // Backwards compatibility: migrate legacy flat task arrays into the new wrapper.
+    if (raw.length === 0 || typeof raw[0] === "object" && !raw[0].hasOwnProperty("useremail")) {
+      const email = getCurrentUserEmail();
+      if (!email) return [];
+      const wrapped = [{ useremail: email, tasks: raw }];
+      localStorage.setItem("tasks", JSON.stringify(wrapped));
+      return wrapped;
+    }
+
+    return raw;
+  } catch {
+    return [];
+  }
+}
+
+function getTasks() {
+  const email = getCurrentUserEmail();
+  if (!email) return [];
+
+  const store = getTaskStore();
+  const userEntry = store.find(entry => entry.useremail === email);
+  return userEntry ? userEntry.tasks : [];
+}
+
 function saveTasks(tasks) {
-  localStorage.setItem("tasks", JSON.stringify(tasks));
+  const email = getCurrentUserEmail();
+  if (!email) return;
+
+  const store = getTaskStore();
+  const existing = store.find(entry => entry.useremail === email);
+
+  if (existing) {
+    existing.tasks = tasks;
+  } else {
+    store.push({ useremail: email, tasks });
+  }
+
+  localStorage.setItem("tasks", JSON.stringify(store));
 }
  
  

@@ -6,7 +6,6 @@
   <title>Study Planner</title>
 
   <!-- ===== EXTERNAL FONTS ===== -->
-  <!-- Loaded first so text renders correctly when DOM paints -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
 
   <!-- ===== FONT AWESOME ICONS ===== -->
@@ -15,15 +14,9 @@
   <!-- ===== MAIN STYLESHEET ===== -->
   <link rel="stylesheet" href="style.css">
 
-  <!-- ===== FAVICON (inline SVG emoji — no extra file needed) ===== -->
+  <!-- ===== FAVICON ===== -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>">
 
-  <!--
-    ===== DARK MODE FLASH PREVENTION =====
-    Runs BEFORE the page renders (in <head>) so there's no white-flash
-    when the user had dark mode saved. Kept inline intentionally —
-    moving it to script.js would cause a visible flash.
-  -->
   <script>
     if (localStorage.getItem("theme") === "dark") {
       document.body.classList.add("dark");
@@ -33,19 +26,21 @@
 
 <body>
 <div id="progress-bar"></div>
+
   <!-- ================================================
-       HEADER — sticky top bar with logo, nav, profile
+       HEADER
   ================================================ -->
   <header class="header">
 
-    <!-- Logo / Brand -->
     <div class="logo">
       <i class="fa-solid fa-graduation-cap"></i> Study Planner
     </div>
 
-    <!-- Main Navigation -->
     <nav>
-      <ul class="nav-links">
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
         <li><a href="index.html" class="active">Home</a></li>
         <li><a href="planner.html">Planner</a></li>
         <li><a href="progress.html">Progress</a></li>
@@ -54,39 +49,25 @@
       </ul>
     </nav>
 
-    <!-- CTA button -->
     <div class="profile">
       <a href="login.html">Join now for free</a>
     </div>
 
-    <!--
-      DARK MODE TOGGLE BUTTON — matches the planner page exactly:
-      - Uses Font Awesome moon/sun icon (not emoji)
-      - class="dark-toggle" styled in style.css
-      - id="darkModeBtn" targeted by script.js
-      - aria-label for accessibility
-    -->
     <button id="darkModeBtn" class="dark-toggle" aria-label="Toggle dark mode">
       <i class="fa-solid fa-moon"></i>
     </button>
 
-  </header><!-- /header -->
+  </header>
 
 
   <!-- ================================================
-       HERO — main banner with headline and illustration
+       HERO
   ================================================ -->
   <section class="hero">
 
-    <!-- Left: Text content -->
     <div class="hero-text">
       <h1>Plan Smart, Study Better 📚</h1>
       <p>Organize your study schedule, track progress, and achieve your goals with ease.</p>
-
-      <!--
-        startTransition() shows an animated overlay before navigating.
-        Args: (array of messages to show, destination page)
-      -->
       <a href="#"
          onclick="startTransition([`Let's Plan 🚀`], 'planner.html')"
          class="btn">
@@ -94,31 +75,26 @@
       </a>
     </div>
 
-    <!-- Right: Clickable illustration + motivational quote popup -->
     <div class="hero-image" id="heroImageWrapper">
-      <!-- Clicking the image triggers a spin + random quote (see script.js) -->
       <img src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png"
            alt="Student study illustration"
            id="heroImg">
-
-      <!-- Quote bubble — hidden by default, shown on image click -->
       <div id="quoteBox">
         <p id="quoteText"></p>
       </div>
     </div>
 
-  </section><!-- /hero -->
+  </section>
 
 
   <!-- ================================================
-       FEATURES — three feature highlight cards
+       FEATURES
   ================================================ -->
   <section class="features">
     <h2>Why Choose Study Planner?</h2>
 
     <div class="feature-container">
 
-      <!-- Each card is wrapped in <a> so the whole card is clickable -->
       <a href="smartplanning.html" class="feature-link">
         <div class="feature-box">
           <i class="fa-solid fa-calendar-check"></i>
@@ -144,11 +120,11 @@
       </a>
 
     </div>
-  </section><!-- /features -->
+  </section>
 
 
   <!-- ================================================
-       CALL TO ACTION — signup prompt banner
+       CALL TO ACTION
   ================================================ -->
   <section class="cta">
     <h2>Start Your Study Journey Today 🚀</h2>
@@ -157,11 +133,11 @@
        class="btn">
       Join now
     </a>
-  </section><!-- /cta -->
+  </section>
 
 
   <!-- ================================================
-       GALLERY — decorative icon grid
+       GALLERY
   ================================================ -->
   <section class="gallery">
     <h2>Study Moments 📸</h2>
@@ -171,11 +147,11 @@
       <img src="https://cdn-icons-png.flaticon.com/512/3135/3135789.png" alt="Student with laptop">
       <img src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png" alt="Student studying">
     </div>
-  </section><!-- /gallery -->
+  </section>
 
 
   <!-- ================================================
-       TESTIMONIALS — student reviews
+       TESTIMONIALS
   ================================================ -->
   <section class="testimonials">
     <h2>What Students Say 💬</h2>
@@ -197,11 +173,11 @@
       </div>
 
     </div>
-  </section><!-- /testimonials -->
+  </section>
 
 
   <!-- ================================================
-       CHATBOT — floating chat bubble + popup iframe
+       CHATBOT
   ================================================ -->
   <div id="chatbot-icon" onclick="toggleChat()" title="Chat with us">💬</div>
 
@@ -210,13 +186,12 @@
       Chatbot
       <span onclick="toggleChat()" style="cursor:pointer;">✖</span>
     </div>
-    <!-- Chatbot lives in a separate page loaded inside an iframe -->
     <iframe src="chatbot.html" title="Chatbot"></iframe>
   </div>
 
 
   <!-- ================================================
-       FOOTER — links, social icons, copyright
+       FOOTER
   ================================================ -->
   <footer class="footer">
     <div class="footer-container">
@@ -240,10 +215,10 @@
       <div class="footer-box">
         <h3>Follow Us</h3>
         <div class="social-icons">
-          <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-          <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-          <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
-          <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="https://www.facebook.com/" target="_blank" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="https://www.instagram.com/#" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://x.com/?lang=en" target="_blank" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+          <a href="https://www.linkedin.com/jobs/" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
         </div>
       </div>
 
@@ -252,22 +227,17 @@
     <div class="footer-bottom">
       <p>© 2026 Study Planner | All Rights Reserved</p>
     </div>
-  </footer><!-- /footer -->
+  </footer>
 
 
   <!-- ================================================
        PAGE TRANSITION OVERLAY
-       Shown during startTransition() navigation animation.
-   
   ================================================ -->
   <div id="page-transition">
     <h1 class="loading-text"></h1>
   </div>
 
 
-  <!-- ================================================
-       MAIN SCRIPT — loaded last so DOM is fully ready
-  ================================================ -->
   <script src="script.js"></script>
 
 </body>

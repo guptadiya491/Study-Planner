@@ -58,11 +58,9 @@ document.addEventListener("DOMContentLoaded", function () {
       el.style.color = passed ? "green" : "#c0392b";
     });
  
-    // Update warning box style based on overall pass/fail
+    // Hide the warning box once all rules are satisfied
     if (allPassed) {
-      warningBox.style.background = "#d4edda";
-      warningBox.style.borderColor = "#28a745";
-      warningBox.querySelector("strong").textContent = "✅ Password looks good!";
+      warningBox.style.display = "none";
     } else {
       warningBox.style.background = "#fff3cd";
       warningBox.style.borderColor = "#ffc107";
@@ -70,7 +68,10 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 });
- 
+document.addEventListener("DOMContentLoaded", function () {
+  const signupBtn = document.getElementById("signupBtn");
+  signupBtn.addEventListener("click", signup);
+});
 // Handle signup form submission
 function signup() {
   const name             = document.getElementById("name").value.trim();
@@ -130,3 +131,21 @@ function signup() {
  
   window.location.href = "planner.html";
 }
+// Fix eye icon color in dark mode
+document.addEventListener("DOMContentLoaded", () => {
+  const theme = localStorage.getItem("theme");
+  if (theme === "dark") {
+    document.body.classList.add("dark");
+  }
+
+  // Watch for any eye toggle icons added to the DOM
+  const observer = new MutationObserver(() => {
+    const icons = document.querySelectorAll(".input-group i, .input-group svg, .input-group span[class*='eye']");
+    const isDark = document.body.classList.contains("dark");
+    icons.forEach(icon => {
+      icon.style.color = isDark ? "#ffffff" : "";
+    });
+  });
+
+  observer.observe(document.body, { childList: true, subtree: true });
+});

@@ -14,7 +14,6 @@ body {
   color: #222;
   line-height: 1.6;
 }
-
 /* =========================
    HEADER
    Sticky top bar: logo | nav | CTA | dark toggle
@@ -30,6 +29,7 @@ body {
   background-color: #1e3a8a;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   color: #fff;
+  gap: 20px;
 }
 
 /* Site logo */
@@ -40,6 +40,8 @@ body {
   align-items: center;
   gap: 10px;
   color: #fff;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 /* Navigation link list */
@@ -80,6 +82,29 @@ body {
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
   background-color: #3b82f6;
   color: #fff;
+}
+
+/* =========================
+   HAMBURGER BUTTON
+   Hidden on desktop, shown on mobile (≤768px).
+   Three white bars that toggle the nav open/closed.
+========================= */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+}
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: #fff;
+  border-radius: 2px;
+  transition: all 0.3s;
 }
 
 /* =========================
@@ -247,24 +272,32 @@ html.dark .footer-bottom {
    HEADER RESPONSIVENESS
 ========================= */
 
-/* Tablet (768px and below): stack header items vertically */
+/* Tablet (768px and below): show hamburger, hide nav by default */
 @media screen and (max-width: 768px) {
-  .header {
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-  }
+  .hamburger { display: flex; }
+
+  nav { position: relative; }
 
   .nav-links {
+    display: none;
+    position: absolute;
+    top: 58px;
+    right: 0;
+    background: #1e3a8a;
+    border-radius: 0 0 14px 14px;
     flex-direction: column;
-    width: 100%;
-    align-items: center;
-    gap: 10px;
+    width: 220px;
+    padding: 16px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    gap: 4px;
+    align-items: flex-start;
   }
 
-  .nav-links li {
-    padding: 5px 0;
-  }
+  html.dark .nav-links { background: #000; }
+
+  .nav-links.open { display: flex; }
+
+  .header { padding: 0.8rem 5%; }
 
   .profile a {
     width: auto;
@@ -769,14 +802,4 @@ html.dark .footer-bottom {
     font-size: 12px;
     padding-top: 15px;
   }
-}
-#progress-bar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 4px;
-  width: 0%;
-  background: linear-gradient(90deg, #6366f1, #8b5cf6);
-  z-index: 9999;
-  transition: width 0.1s linear;
 }

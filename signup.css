@@ -182,6 +182,10 @@ body.dark input::placeholder {
   color: #94a3b8;
 }
  
+/* Eye icon visible in dark mode */
+body.dark .input-group input[type="password"] {
+  color-scheme: dark;
+}
 body.dark .btn {
   background: linear-gradient(135deg, #3b82f6, #6366f1);
 }

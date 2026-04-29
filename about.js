@@ -1,43 +1,6 @@
-/* ============================================================
-   about.js — JavaScript for the About Us page of Study Planner
-
-   TABLE OF CONTENTS
-   ─────────────────────────────────────────────────────────────
-   1.  Scroll Progress Bar
-   2.  Dark Mode Toggle
-   3.  Typing Effect (animated headline)
-   4.  Scroll-triggered Card Animations
-   5.  Stats Counter Animation
-   6.  Back to Top Button
-   7.  Timeline Scroll Reveal
-   ============================================================ */
-
 
 /* ────────────────────────────────────────────────────────────
-   1. SCROLL PROGRESS BAR
-   ─────────────────────────────────────────────────────────────
-   As the user scrolls, a thin bar at the very top of the page
-   grows from 0% → 100% width to show reading progress.
-   
-   How it works:
-   - scrollTop  = how many pixels have been scrolled
-   - scrollHeight - clientHeight = total scrollable distance
-   - We convert that ratio into a percentage and set it as width.
-   ──────────────────────────────────────────────────────────── */
-const progressBar = document.getElementById("progress-bar");
-
-window.addEventListener("scroll", () => {
-  const scrollTop    = document.documentElement.scrollTop;
-  const totalHeight  = document.documentElement.scrollHeight
-                     - document.documentElement.clientHeight;
-  const scrollPercent = (scrollTop / totalHeight) * 100;
-
-  progressBar.style.width = scrollPercent + "%";
-});
-
-
-/* ────────────────────────────────────────────────────────────
-   2. DARK MODE TOGGLE
+   1. DARK MODE TOGGLE
    ─────────────────────────────────────────────────────────────
    We add / remove the "dark" class on <html> (documentElement).
    
@@ -79,6 +42,24 @@ darkModeBtn.addEventListener("click", () => {
 
   /* Apply the new theme — this handles both the class and the icon */
   applyTheme(theme);
+});
+
+
+/* ────────────────────────────────────────────────────────────
+   2. HAMBURGER MENU
+   ─────────────────────────────────────────────────────────────
+   Toggles the "open" class on the nav links when the hamburger
+   icon is clicked. Clicking outside both elements closes the menu.
+   ──────────────────────────────────────────────────────────── */
+const hamburger = document.getElementById("hamburger");
+const navLinks  = document.getElementById("navLinks");
+
+hamburger.addEventListener("click", () => navLinks.classList.toggle("open"));
+
+document.addEventListener("click", (e) => {
+  if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+    navLinks.classList.remove("open");
+  }
 });
 
 

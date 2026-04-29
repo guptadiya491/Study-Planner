@@ -6,18 +6,17 @@
    1.  Reset & Global Styles
    2.  Dark Mode  (html.dark — targets the <html> element)
    3.  Header / Navigation
-   4.  Header Responsive (≤768px and ≤480px)
-   5.  Section Base Padding
-   6.  Hero Section
-   7.  Team Section
-   8.  Mission & Values Section
-   9.  Stats Section
-   10. Our Story / Timeline Section
-   11. Scroll Progress Bar
-   12. Back to Top Button
-   13. Footer
-   14. Keyframe Animations
-   15. Responsive Breakpoints (≤768px and ≤480px)
+   4.  Section Base Padding
+   5.  Hero Section
+   6.  Team Section
+   7.  Mission & Values Section
+   8.  Stats Section
+   9.  Our Story / Timeline Section
+   10. Scroll Progress Bar
+   11. Back to Top Button
+   12. Footer
+   13. Keyframe Animations
+   14. Responsive Breakpoints (≤768px and ≤480px)
    ============================================================ */
 
 
@@ -155,22 +154,28 @@ html.dark .team-avatar {
   box-shadow: 0 8px 20px rgba(99, 102, 241, 0.55);
 }
 
+/* Mobile nav dropdown in dark mode */
+html.dark .nav-links {
+  background: #000;
+}
+
 
 /* ────────────────────────────────────────────────────────────
    3. HEADER / NAVIGATION
    Sticky bar that stays at the top while scrolling.
+   Matches progress.html header structure exactly.
    ──────────────────────────────────────────────────────────── */
 .header {
   position: sticky;
   top: 0;
-  z-index: 1000; /* Always on top of other content */
+  z-index: 1000;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 15px 10%;
+  justify-content: space-between;
+  padding: 1rem 10%;
   background-color: #1e3a8a;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  color: #fff;
+  gap: 20px;
 }
 
 /* Logo text + icon */
@@ -181,20 +186,25 @@ html.dark .team-avatar {
   align-items: center;
   gap: 10px;
   color: #fff;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 /* Horizontal list of navigation links */
 .nav-links {
   list-style: none;
   display: flex;
+  align-items: center;
   gap: 25px;
 }
 
 .nav-links li a {
   text-decoration: none;
   color: #fff;
+  font-size: 0.95rem;
   font-weight: 500;
   transition: color 0.3s;
+  white-space: nowrap;
 }
 
 /* Highlight the current page link */
@@ -202,32 +212,27 @@ html.dark .team-avatar {
 .nav-links li a.active {
   color: #60a5fa;
   font-weight: 700;
+  background: transparent;
 }
 
-/* "Join now for free" pill button */
-.profile a {
-  text-decoration: none;
-  color: #1e3a8a;
-  font-weight: 600;
-  background-color: #60a5fa;
-  padding: 8px 18px;
-  border-radius: 25px;
-  transition: all 0.3s ease;
-  display: inline-block;
+/* "Join now for free" pill button — matches profile-btn style */
+.profile-btn {
+  background: linear-gradient(to right, #0072ff, #00c6ff) !important;
+  color: #fff !important;
+  border-radius: 20px !important;
+  padding: 8px 18px !important;
+  font-weight: 500 !important;
+  margin-left: 5px;
 }
 
-.profile a:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-  background-color: #3b82f6;
-  color: #fff;
+.profile-btn:hover {
+  transform: scale(1.05) !important;
+  color: #fff !important;
 }
 
 /*
   Dark mode toggle button — circular icon button.
-  Matches the planner page exactly:
-  semi-transparent white background, white border,
-  rotates slightly on hover.
+  Matches the progress page exactly.
 */
 .dark-toggle {
   background: rgba(255, 255, 255, 0.1);
@@ -250,59 +255,29 @@ html.dark .team-avatar {
   transform: rotate(20deg);
 }
 
-
-/* ────────────────────────────────────────────────────────────
-   4. HEADER RESPONSIVE
-   Stack the header vertically on smaller screens.
-   ──────────────────────────────────────────────────────────── */
-@media screen and (max-width: 768px) {
-  .header {
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .nav-links {
-    flex-direction: column;
-    width: 100%;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .nav-links li {
-    padding: 5px 0;
-  }
-
-  .profile a {
-    width: auto;
-    text-align: center;
-  }
+/* Hamburger button — hidden on desktop, shown on mobile */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
 }
 
-@media screen and (max-width: 480px) {
-  .header {
-    padding: 10px 5%;
-    gap: 8px;
-  }
-
-  .logo {
-    font-size: 1.3rem;
-  }
-
-  .nav-links li a {
-    font-size: 0.9rem;
-    padding: 4px 0;
-  }
-
-  .profile a {
-    font-size: 0.9rem;
-    padding: 6px 12px;
-  }
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: #fff;
+  border-radius: 2px;
+  transition: all 0.3s;
 }
 
 
 /* ────────────────────────────────────────────────────────────
-   5. SECTION BASE PADDING
+   4. SECTION BASE PADDING
    All major sections share the same comfortable padding.
    ──────────────────────────────────────────────────────────── */
 .about-hero,
@@ -314,7 +289,7 @@ html.dark .team-avatar {
 
 
 /* ────────────────────────────────────────────────────────────
-   6. HERO SECTION
+   5. HERO SECTION
    The big banner at the top of the page.
    Purple-to-violet gradient background, centered text.
    ──────────────────────────────────────────────────────────── */
@@ -411,7 +386,7 @@ html.dark .team-avatar {
 
 
 /* ────────────────────────────────────────────────────────────
-   7. TEAM SECTION
+   6. TEAM SECTION
    Three cards in a 3-column grid.
    Cards animate up on scroll (via IntersectionObserver in JS).
    ──────────────────────────────────────────────────────────── */
@@ -439,11 +414,11 @@ html.dark .team-avatar {
 
 /* Individual team card */
 .team-card {
-  position: relative;  /* Needed for the ::before shimmer overlay */
+  position: relative;
   background: white;
   padding: 45px 25px;
   border-radius: 20px;
-  overflow: hidden;    /* Hides the shimmer when it slides in from left */
+  overflow: hidden;
   transition: transform 0.5s, box-shadow 0.5s;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
@@ -454,11 +429,7 @@ html.dark .team-avatar {
   box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
 }
 
-/*
-  Shimmer / gloss overlay that slides in on hover.
-  Uses ::before pseudo-element positioned off-screen to the left,
-  then slides to left: 0 when the card is hovered.
-*/
+/* Shimmer overlay that slides in on hover */
 .team-card::before {
   content: "";
   position: absolute;
@@ -466,13 +437,13 @@ html.dark .team-avatar {
   height: 100%;
   background: linear-gradient(120deg, #6366f1, #8b5cf6, #6366f1);
   top: 0;
-  left: -100%;   /* Hidden off to the left initially */
+  left: -100%;
   opacity: 0.08;
   transition: 0.6s;
 }
 
 .team-card:hover::before {
-  left: 0;       /* Slides into view on hover */
+  left: 0;
 }
 
 /* Team member name */
@@ -524,7 +495,7 @@ html.dark .team-avatar {
 
 
 /* ────────────────────────────────────────────────────────────
-   8. MISSION & VALUES SECTION
+   7. MISSION & VALUES SECTION
    Two rows of 4 glass-effect cards each.
    ──────────────────────────────────────────────────────────── */
 
@@ -561,7 +532,7 @@ html.dark .team-avatar {
 /* Glass-morphism style info card */
 .info-card {
   background: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(12px);  /* Frosted glass effect */
+  backdrop-filter: blur(12px);
   padding: 35px 25px;
   border-radius: 20px;
   text-align: center;
@@ -577,14 +548,13 @@ html.dark .team-avatar {
 
 
 /* ────────────────────────────────────────────────────────────
-   9. STATS SECTION
+   8. STATS SECTION
    Three numbers that count up when scrolled into view.
-   Blue gradient background, centred layout.
    ──────────────────────────────────────────────────────────── */
 .stats-section {
   display: flex;
   justify-content: center;
-  flex-wrap: wrap;       /* Wraps to next line on small screens */
+  flex-wrap: wrap;
   gap: 40px;
   padding: 80px 10%;
   text-align: center;
@@ -608,9 +578,7 @@ html.dark .team-avatar {
 
 
 /* ────────────────────────────────────────────────────────────
-   10. OUR STORY / TIMELINE SECTION
-   Dark blue section with a vertical timeline.
-   Each item slides in from the left on scroll (via JS).
+   9. OUR STORY / TIMELINE SECTION
    ──────────────────────────────────────────────────────────── */
 .story-section {
   background: linear-gradient(145deg, #1e3a8a 0%, #312e81 50%, #1e1b4b 100%);
@@ -625,7 +593,7 @@ html.dark .team-avatar {
   inset: 0;
   background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
   background-size: 28px 28px;
-  pointer-events: none; /* Clicks pass through this decorative layer */
+  pointer-events: none;
 }
 
 /* Story section overrides the default section-title colours */
@@ -652,7 +620,7 @@ html.dark .team-avatar {
   position: relative;
   max-width: 820px;
   margin: 0 auto;
-  padding-left: 44px;  /* Space for the vertical line and dots */
+  padding-left: 44px;
   display: flex;
   flex-direction: column;
   gap: 52px;
@@ -669,11 +637,7 @@ html.dark .team-avatar {
   background: linear-gradient(180deg, #60a5fa, #a78bfa, rgba(167, 139, 250, 0));
 }
 
-/*
-  Each timeline item starts invisible and shifted left.
-  JavaScript adds the "revealed" class when the item
-  scrolls into view, triggering the transition below.
-*/
+/* Each timeline item starts invisible and shifted left */
 .timeline-item {
   position: relative;
   opacity: 0;
@@ -690,7 +654,7 @@ html.dark .team-avatar {
 /* The glowing circle dot on the timeline line */
 .timeline-dot {
   position: absolute;
-  left: -35px;   /* Positions it over the vertical line */
+  left: -35px;
   top: 5px;
   width: 16px;
   height: 16px;
@@ -700,7 +664,7 @@ html.dark .team-avatar {
   border: 2px solid rgba(255, 255, 255, 0.25);
 }
 
-/* Phase label (e.g. "The Problem", "The Idea") */
+/* Phase label */
 .timeline-year {
   font-size: 0.72rem;
   font-weight: 700;
@@ -728,27 +692,22 @@ html.dark .team-avatar {
 
 
 /* ────────────────────────────────────────────────────────────
-   11. SCROLL PROGRESS BAR
-   A thin indigo bar fixed at the very top of the page.
-   Its width is updated by JavaScript as you scroll.
+   10. SCROLL PROGRESS BAR
    ──────────────────────────────────────────────────────────── */
 #progress-bar {
   position: fixed;
   top: 0;
   left: 0;
   height: 4px;
-  width: 0%;           /* Starts at 0 — JS updates this */
+  width: 0%;
   background: linear-gradient(90deg, #6366f1, #8b5cf6);
-  z-index: 9999;       /* Above everything else, including the sticky header */
+  z-index: 9999;
   transition: width 0.1s linear;
 }
 
 
 /* ────────────────────────────────────────────────────────────
-   12. BACK TO TOP BUTTON
-   Fixed circle in the bottom-right corner.
-   Hidden by default (opacity: 0, pointer-events: none).
-   The "visible" class is added by JS after scrolling 400px.
+   11. BACK TO TOP BUTTON
    ──────────────────────────────────────────────────────────── */
 #backToTop {
   position: fixed;
@@ -767,18 +726,16 @@ html.dark .team-avatar {
   align-items: center;
   justify-content: center;
   box-shadow: 0 4px 15px rgba(99, 102, 241, 0.5);
-  /* Hidden state */
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.3s, transform 0.3s, background 0.2s;
-  pointer-events: none; /* Can't click while invisible */
+  pointer-events: none;
 }
 
-/* JS adds this class when user scrolls > 400px */
 #backToTop.visible {
   opacity: 1;
   transform: translateY(0);
-  pointer-events: all; /* Clickable again */
+  pointer-events: all;
 }
 
 #backToTop:hover {
@@ -788,15 +745,13 @@ html.dark .team-avatar {
 
 
 /* ────────────────────────────────────────────────────────────
-   13. FOOTER
-   Dark background, three-column layout.
-   Column contents: brand blurb | quick links | social icons.
+   12. FOOTER
    ──────────────────────────────────────────────────────────── */
 .footer {
   background: #1c1c1c;
   color: #f1f1f1;
   padding: 60px 20px 20px 20px;
-  margin-top: 60px;    /* Space between last section and footer */
+  margin-top: 60px;
   font-family: 'Poppins', sans-serif;
 }
 
@@ -804,27 +759,24 @@ html.dark .team-avatar {
 .footer-container {
   display: flex;
   justify-content: space-between;
-  flex-wrap: wrap;     /* Wraps on small screens */
+  flex-wrap: wrap;
   max-width: 1200px;
   margin: auto;
   gap: 40px;
 }
 
-/* Column heading */
 .footer-box h3 {
   font-size: 20px;
   margin-bottom: 15px;
   color: #ffffff;
 }
 
-/* Brand blurb text */
 .footer-box p {
   font-size: 14px;
   line-height: 1.6;
   color: #cfcfcf;
 }
 
-/* Quick links list */
 .footer-box ul {
   list-style: none;
   padding: 0;
@@ -844,7 +796,6 @@ html.dark .team-avatar {
   color: #2575fc;
 }
 
-/* Social media icon links */
 .social-icons a {
   display: inline-block;
   margin-right: 15px;
@@ -858,7 +809,6 @@ html.dark .team-avatar {
   transform: scale(1.2);
 }
 
-/* Copyright bar */
 .footer-bottom {
   text-align: center;
   border-top: 1px solid #333;
@@ -870,7 +820,7 @@ html.dark .team-avatar {
 
 
 /* ────────────────────────────────────────────────────────────
-   14. KEYFRAME ANIMATIONS
+   13. KEYFRAME ANIMATIONS
    ──────────────────────────────────────────────────────────── */
 
 /* Cursor blink — used inside the typing animation */
@@ -893,12 +843,38 @@ html.dark .team-avatar {
 
 
 /* ────────────────────────────────────────────────────────────
-   15. RESPONSIVE BREAKPOINTS
-   Tablet (≤768px) and Mobile (≤480px) overrides.
+   14. RESPONSIVE BREAKPOINTS
+   Matches progress.css hamburger behaviour exactly.
    ──────────────────────────────────────────────────────────── */
 
-/* ── Tablet ── */
+/* ── Tablet (≤768px) ── */
 @media (max-width: 768px) {
+  /* Show hamburger, hide nav by default */
+  .hamburger { display: flex; }
+
+  nav { position: relative; }
+
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 58px;
+    right: 0;
+    background: #1e3a8a;
+    border-radius: 0 0 14px 14px;
+    flex-direction: column;
+    width: 220px;
+    padding: 16px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    gap: 4px;
+    align-items: flex-start;
+  }
+
+  /* Nav opens when JS adds the "open" class */
+  .nav-links.open { display: flex; }
+
+  .header        { padding: 0.8rem 5%; }
+  .about-hero    { padding: 50px 6% 60px; }
+
   /* Shrink hero heading */
   .about-hero h1   { font-size: 36px; }
   .hero-definition { font-size: 18px; max-width: 90%; }
@@ -908,22 +884,17 @@ html.dark .team-avatar {
   .team-grid       { grid-template-columns: repeat(2, 1fr); gap: 30px; }
   .team-card       { padding: 35px 20px; }
 
-  /* Reduce gap between mission/values rows */
   .about           { gap: 70px; }
-
-  /* Smaller section titles */
   .section-title   { font-size: 36px; margin-bottom: 40px; }
 
   /* Mission/values grid: 4 columns → 2 columns */
   .grid-4          { grid-template-columns: repeat(2, 1fr); gap: 25px; }
   .info-card       { padding: 30px 20px; }
 
-  /* Footer stacks into a single column */
   .footer-container { flex-direction: column; align-items: flex-start; gap: 30px; }
   .footer-box      { width: 100%; }
   .social-icons a  { margin-right: 12px; font-size: 16px; }
 
-  /* Tighten story section */
   .story-section   { padding: 80px 5%; }
   .story-section .section-title { font-size: 34px !important; margin-bottom: 50px !important; }
   .timeline        { padding-left: 32px; gap: 38px; }
@@ -935,9 +906,11 @@ html.dark .team-avatar {
   .cta-secondary   { width: 210px; text-align: center; }
 }
 
-/* ── Mobile ── */
+/* ── Mobile (≤480px) ── */
 @media (max-width: 480px) {
-  /* Even smaller headings */
+  .header        { padding: 0 4%; }
+  .logo          { font-size: 1.2rem; }
+
   .about-hero h1   { font-size: 28px; }
   .hero-definition { font-size: 16px; max-width: 100%; }
 
@@ -946,7 +919,6 @@ html.dark .team-avatar {
   .team-grid       { grid-template-columns: 1fr; gap: 25px; }
   .team-card       { padding: 30px 15px; }
 
-  /* Further reduce spacing */
   .about           { gap: 50px; }
   .section-title   { font-size: 28px; margin-bottom: 30px; }
 
@@ -954,7 +926,6 @@ html.dark .team-avatar {
   .grid-4          { grid-template-columns: 1fr; gap: 20px; }
   .info-card       { padding: 25px 15px; }
 
-  /* Tighten footer */
   .footer          { padding: 40px 15px 15px 15px; }
   .footer-container { gap: 20px; }
   .footer-box h3   { font-size: 18px; }
@@ -963,14 +934,10 @@ html.dark .team-avatar {
   .social-icons a  { margin-right: 10px; font-size: 14px; }
   .footer-bottom   { font-size: 12px; padding-top: 15px; }
 
-  /* Smaller story section text */
   .story-section .section-title { font-size: 26px !important; }
   .timeline-title  { font-size: 1rem; }
   .timeline-text   { font-size: 0.85rem; }
 
-  /* Smaller avatar on mobile */
   .team-avatar     { width: 58px; height: 58px; font-size: 22px; }
-
-  /* Smaller hero badge */
   .hero-badge      { font-size: 0.7rem; padding: 5px 14px; }
 }

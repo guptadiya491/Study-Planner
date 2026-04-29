@@ -49,7 +49,7 @@
   <!-- ═══════════════════════════════════════════
        HEADER / NAVIGATION
        Sticky at the top. Contains logo, nav links,
-       a "Join now" CTA button, and dark-mode toggle.
+       a hamburger button (mobile), and dark-mode toggle.
        ═══════════════════════════════════════════ -->
   <header class="header">
 
@@ -58,21 +58,20 @@
       <i class="fa-solid fa-graduation-cap"></i> Study Planner
     </div>
 
-    <!-- Main navigation links -->
+    <!-- Main navigation -->
     <nav>
-      <ul class="nav-links">
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
         <li><a href="index.html">Home</a></li>
         <li><a href="planner.html">Planner</a></li>
         <li><a href="progress.html">Progress</a></li>
         <li><a href="about.html" class="active">About Us</a></li>
         <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="login.html" class="profile-btn">Join now for free</a></li>
       </ul>
     </nav>
-
-    <!-- "Join now" call-to-action (right side) -->
-    <div class="profile">
-      <a href="login.html">Join now for free</a>
-    </div>
 
     <!--
       Dark mode toggle button.
@@ -327,10 +326,10 @@
       <div class="footer-box">
         <h3>Follow Us</h3>
         <div class="social-icons">
-          <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-          <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-          <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
-          <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="https://www.facebook.com/" target="_blank" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="https://www.instagram.com/#" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://x.com/?lang=en" target="_blank" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+          <a href="https://www.linkedin.com/jobs/" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
         </div>
       </div>
 

@@ -1,31 +1,4 @@
-/* =====================================================
-   STUDY PLANNER — PLANNER PAGE SCRIPT
-   Structure:
-   1.  Auth Guard
-   2.  Dark Mode Toggle
-   3.  Hamburger Menu
-   4.  localStorage Helpers
-   5.  Form Setup (min date, char counter, error clearing)
-   6.  Form Submit & Validation
-   7.  Toast Notification
-   8.  Hero Stats
-   9.  Sidebar Summary
-   10. Tips Slider
-   11. Motivational Quotes
-   12. Daily Planner (date nav, week row, schedule grid)
-   13. Recent Tasks (filter + render + delete)
-   14. Back To Top Button
-   15. Initialization (runs everything on page load)
-===================================================== */
-const progressBar = document.getElementById("progress-bar");
 
-window.addEventListener("scroll", () => {
-  const scrollTop   = document.documentElement.scrollTop;
-  const totalHeight = document.documentElement.scrollHeight
-                    - document.documentElement.clientHeight;
-  progressBar.style.width = (scrollTop / totalHeight) * 100 + "%";
-}); 
- 
 /* =====================================================
    1. AUTH GUARD
    Protects this page from unauthenticated access.

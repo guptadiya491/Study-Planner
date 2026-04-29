@@ -1,18 +1,3 @@
-const progressBar = document.getElementById("progress-bar");
-
-window.addEventListener("scroll", () => {
-  const scrollTop   = document.documentElement.scrollTop;
-  const totalHeight = document.documentElement.scrollHeight
-                    - document.documentElement.clientHeight;
-  progressBar.style.width = (scrollTop / totalHeight) * 100 + "%";
-});
-// =========================
-// DARK MODE TOGGLE
-// Matches the planner page logic exactly:
-//  - Reads/writes "theme" key in localStorage
-//  - Toggles "dark" class on <html> (document.documentElement)
-//  - Swaps Font Awesome moon <-> sun icon inside the button
-// =========================
 
 const darkBtn = document.getElementById("darkModeBtn");
 
@@ -34,6 +19,21 @@ darkBtn.addEventListener("click", () => {
   const theme = isDark ? "dark" : "light";
   localStorage.setItem("theme", theme);
   applyTheme(theme);
+});
+
+// ============================================================
+// HAMBURGER MENU
+// ============================================================
+
+const hamburger = document.getElementById("hamburger");
+const navLinks  = document.getElementById("navLinks");
+
+hamburger.addEventListener("click", () => navLinks.classList.toggle("open"));
+
+document.addEventListener("click", (e) => {
+  if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+    navLinks.classList.remove("open");
+  }
 });
 
 // =========================

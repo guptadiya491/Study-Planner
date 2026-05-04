@@ -14,8 +14,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
  
   <!-- ===== MAIN STYLESHEET ===== -->
-  <link rel="stylesheet" href="planner.css">
- 
+  <link rel="stylesheet" href="planner.css"> 
   <!-- ===== FAVICON ===== -->
   <link rel="icon"
     href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>">
@@ -24,6 +23,8 @@
     ===== DARK MODE FLASH PREVENTION =====
     Must run in <head> BEFORE the page renders so there's no
     white flash when the user had dark mode saved.
+    NOTE: Planner uses html.dark (class on <html>), not body.dark.
+    This keeps it consistent with the CSS variables in planner.css.
   -->
   <script>
     if (localStorage.getItem("theme") === "dark") {
@@ -36,6 +37,10 @@
     Redirects to login if user is not logged in.
     Uses localStorage (not sessionStorage) so login persists on
     page refresh and across tabs.
+    BUG FIX: Duplicate auth check existed here AND in planner.js.
+    Keeping only the <head> inline version here ensures the redirect
+    happens before any content flashes on screen. planner.js also
+    has a pageshow listener for back-button navigation safety.
   -->
   <script>
     if (!localStorage.getItem("loggedInUser")) {
@@ -45,10 +50,12 @@
 </head>
  
 <body>
+ <div id="progress-bar"></div>
   <!-- ================================================
        HEADER — sticky navigation bar
   ================================================ -->
   <header class="header">
+ 
     <!-- Brand / Logo -->
     <div class="logo">
       <i class="fa-solid fa-graduation-cap"></i> Study Planner
@@ -70,7 +77,7 @@
         <li><a href="progress.html">Progress</a></li>
         <li><a href="about.html">About Us</a></li>
         <li><a href="contact.html">Contact Us</a></li>
-        <li><a href="profile.html" class="profile-btn"><i class="fa-solid fa-user"></i>Profile</a></li>
+        <li><a href="profile.html" class="profile-btn"><i class="fa-solid fa-user"></i> Profile</a></li>
       </ul>
     </nav>
  
@@ -79,7 +86,8 @@
       <i class="fa-solid fa-moon"></i>
     </button>
  
-  </header>
+  </header><!-- /header -->
+ 
  
   <main>
  
@@ -216,17 +224,7 @@
  
           </div><!-- /form-row -->
  
-          <!-- Notes (optional, full width) -->
-          <div class="form-group">
-            <label for="notes">
-              <i class="fa-solid fa-note-sticky"></i> Notes
-              <span class="optional">(optional)</span>
-            </label>
-            <div class="input-wrapper">
-              <textarea id="notes" rows="2"
-                        placeholder="Any extra notes or resources..."></textarea>
-            </div>
-          </div>
+          
  
           <!-- Form Buttons -->
           <div class="form-actions">
@@ -373,7 +371,14 @@
     </section><!-- /recent-tasks-section -->
  
   </main><!-- /main -->
- 
+  
+   <!-- ═══════════════════════════════════════════
+       BACK TO TOP BUTTON
+       Fixed in the bottom-right corner.
+       Becomes visible after scrolling 400px down.
+       CSS class "visible" handles the fade-in.
+       ═══════════════════════════════════════════ -->
+  <button id="backToTop" title="Back to top" aria-label="Back to top">&#8679;</button>
  
   <!-- ================================================
        FOOTER
@@ -400,10 +405,10 @@
       <div class="footer-box">
         <h3>Follow Us</h3>
         <div class="social-icons">
-          <a href="https://www.facebook.com/" target="_blank" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-          <a href="https://www.instagram.com/#"target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-          <a href="https://x.com/?lang=en" target="_blank" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
-          <a href="https://www.linkedin.com/jobs/" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
         </div>
       </div>
  

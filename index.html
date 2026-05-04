@@ -16,7 +16,11 @@
 
   <!-- ===== FAVICON ===== -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>">
-
+  <!--
+    ===== DARK MODE FLASH PREVENTION =====
+    Must run in <head> BEFORE the page renders so there's no
+    white flash when the user had dark mode saved.
+  -->
   <script>
     if (localStorage.getItem("theme") === "dark") {
       document.body.classList.add("dark");
@@ -25,7 +29,6 @@
 </head>
 
 <body>
-<div id="progress-bar"></div>
 
   <!-- ================================================
        HEADER
@@ -224,10 +227,11 @@
 
     </div>
 
-    <div class="footer-bottom">
-      <p>© 2026 Study Planner | All Rights Reserved</p>
-    </div>
-  </footer>
+<div class="footer-bottom">
+  <p>© 2026 Study Planner | All Rights Reserved</p>
+  <p class="konami-hint" title="...">↑ ↑ ↓ ↓ ← → ← → ?</p>
+</div>
+</footer>
 
 
   <!-- ================================================

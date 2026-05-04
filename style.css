@@ -836,3 +836,34 @@ body {
   border-top: 1px solid #2a2a2a;
   color: #888;
 }
+/* =====================================================
+   KONAMI HINT — Footer easter egg teaser
+===================================================== */
+.konami-hint {
+  font-size: 13px;
+  letter-spacing: 4px;
+  color: #444;
+  margin-top: 8px;
+  user-select: none;
+  cursor: default;
+  animation: hintPulse 4s ease-in-out infinite;
+  transition: color 0.3s;
+}
+
+.konami-hint:hover {
+  color: #6366f1;
+  letter-spacing: 6px;
+}
+
+@keyframes hintPulse {
+  0%, 100% { opacity: 0.3; }
+  50%       { opacity: 0.75; }
+}
+
+.dark .konami-hint {
+  color: #555;
+}
+
+.dark .konami-hint:hover {
+  color: #a5b4fc;
+}

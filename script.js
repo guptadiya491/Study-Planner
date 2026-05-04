@@ -9,14 +9,6 @@
    6. Back To Top Button
    7. Konami Code Easter Egg
 ===================================================== */
-const progressBar = document.getElementById("progress-bar");
-
-window.addEventListener("scroll", () => {
-  const scrollTop   = document.documentElement.scrollTop;
-  const totalHeight = document.documentElement.scrollHeight
-                    - document.documentElement.clientHeight;
-  progressBar.style.width = (scrollTop / totalHeight) * 100 + "%";
-});
 
 /* =====================================================
    1. DARK MODE TOGGLE
@@ -33,12 +25,12 @@ function applyTheme(theme) {
 applyTheme(localStorage.getItem("theme") || "light");
 
 darkModeBtn.addEventListener("click", () => {
-  const isDark = document.body.classList.toggle("dark");
-  const theme = isDark ? "dark" : "light";
+  const isDark = document.body.classList.contains("dark");
+  const theme = isDark ? "light" : "dark";
+
   localStorage.setItem("theme", theme);
   applyTheme(theme);
 });
-
 
 /* =====================================================
    2. HAMBURGER MENU

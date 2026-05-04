@@ -1,4 +1,3 @@
-
 /* =====================================================
    1. AUTH GUARD
    Protects this page from unauthenticated access.
@@ -204,7 +203,7 @@ form.addEventListener("submit", (e) => {
     date:      document.getElementById("date").value,
     time:      document.getElementById("time").value,
     priority:  document.getElementById("priority").value,
-    notes:     document.getElementById("notes").value.trim(),
+    
     createdAt: new Date().toISOString()
   };
  
@@ -560,7 +559,7 @@ function renderRecentTasks(filter = "all") {
       </div>
       <div class="task-card-body">
         <div class="task-card-title">${task.task}</div>
-        ${task.notes ? `<div class="task-card-notes">${task.notes}</div>` : ""}
+       
       </div>
       <div class="task-card-footer">
         <span class="task-deadline ${isOverdue ? "overdue" : ""}">
@@ -592,64 +591,26 @@ function renderRecentTasks(filter = "all") {
     grid.appendChild(card);
   });
 }
- 
- 
-/* =====================================================
-   14. BACK TO TOP BUTTON
-   Created dynamically (no HTML markup needed).
-   Appears after scrolling 400px; smooth-scrolls to top on click.
-===================================================== */
-const backToTopStyle = document.createElement("style");
-backToTopStyle.textContent = `
-  #backToTop {
-    position: fixed;
-    bottom: 90px;
-    right: 22px;
-    width: 46px;
-    height: 46px;
-    border-radius: 50%;
-    background: #6366f1;
-    color: #fff;
-    border: none;
-    font-size: 20px;
-    cursor: pointer;
-    z-index: 9998;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.5);
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.3s, transform 0.3s, background 0.2s;
-    pointer-events: none;
-  }
-  #backToTop.visible {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: all;
-  }
-  #backToTop:hover {
-    background: #4f46e5;
-    transform: translateY(-3px);
-  }
-`;
-document.head.appendChild(backToTopStyle);
- 
-const backToTopBtn     = document.createElement("button");
-backToTopBtn.id        = "backToTop";
-backToTopBtn.innerHTML = "&#8679;"; // ↑ arrow
-backToTopBtn.title     = "Back to top";
-document.body.appendChild(backToTopBtn);
- 
-// Show/hide based on scroll depth
+
+ /* ────────────────────────────────────────────────────────────
+   6. BACK TO TOP BUTTON
+   ─────────────────────────────────────────────────────────────
+   A circular button fixed in the bottom-right corner.
+   - Hidden (opacity 0) until the user scrolls > 400px
+   - Clicking it smoothly scrolls back to the top
+   ──────────────────────────────────────────────────────────── */
+const topBtn = document.getElementById("backToTop");
+
+/* Show/hide the button based on scroll position */
 window.addEventListener("scroll", () => {
-  backToTopBtn.classList.toggle("visible", window.scrollY > 400);
+  /* toggle() adds the class if scrolled > 400px, removes it otherwise */
+  topBtn.classList.toggle("visible", window.scrollY > 400);
 });
- 
-backToTopBtn.addEventListener("click", () => {
+
+/* Smooth scroll to top when clicked */
+topBtn.addEventListener("click", () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
 });
- 
  
 /* =====================================================
    15. INITIALIZATION

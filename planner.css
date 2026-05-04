@@ -1189,7 +1189,45 @@ html.dark .header {
   color: var(--danger);
   background: rgba(239, 68, 68, 0.08);
 }
- 
+
+/* ────────────────────────────────────────────────────────────
+   11. BACK TO TOP BUTTON
+   ──────────────────────────────────────────────────────────── */
+#backToTop {
+  position: fixed;
+  bottom: 90px;
+  right: 22px;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: #6366f1;
+  color: #fff;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 9998;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.5);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.3s, transform 0.3s, background 0.2s;
+  pointer-events: none;
+}
+
+#backToTop.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: all;
+}
+
+#backToTop:hover {
+  background: #4f46e5;
+  transform: translateY(-3px);
+}
+
+
  
 /* =====================================================
    12. FOOTER
@@ -1352,4 +1390,14 @@ html.dark input[type="time"] {
   /* Compact week row */
   .week-row  { gap: 4px; }
   .week-day  { padding: 8px 2px; }
+}
+#progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 4px;
+  width: 0%;
+  background: linear-gradient(90deg, #6366f1, #8b5cf6);
+  z-index: 9999;
+  transition: width 0.1s linear;
 }

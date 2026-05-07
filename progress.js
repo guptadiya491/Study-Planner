@@ -3,17 +3,6 @@
 // AUTH GUARD
 // ============================================================
 
-window.addEventListener("DOMContentLoaded", () => {
-  const overlay = document.getElementById("lockOverlay");
-  if (!localStorage.getItem("loggedInUser")) {
-    overlay.style.display = "flex";
-    document.body.classList.add("locked");
-  } else {
-    overlay.style.display = "none";
-    document.body.classList.remove("locked");
-  }
-});
-
 window.addEventListener("pageshow", () => {
   const overlay = document.getElementById("lockOverlay");
   if (!localStorage.getItem("loggedInUser")) {
@@ -107,22 +96,11 @@ hqDots.forEach(dot => {
 // ============================================================
 // USER IDENTITY
 // ============================================================
-// FIX: getCurrentUser() now prefers userEmail (unique per person)
+// getCurrentUser() prefers userEmail (unique per person)
 // and falls back to loggedInUser only if email is absent.
 // This prevents two accounts that both have loggedInUser="true"
-// (or any shared value) from sharing reward keys.
-//
-// Your login page should store BOTH keys when a user signs in:
-//   localStorage.setItem("loggedInUser", user.name);   // display name
-//   localStorage.setItem("userEmail",    user.email);  // unique ID  ← critical
-//
-// If you cannot change login.html right now, the sanitised
-// loggedInUser fallback below still improves isolation by
-// lowercasing and trimming the stored value.
-// ============================================================
 
 function getCurrentUser() {
-  // Prefer email as the unique identifier
   const email = (localStorage.getItem("userEmail") || "").trim().toLowerCase();
   if (email) return email;
 
@@ -193,7 +171,7 @@ function saveTasks(tasks) {
 // SESSION GUARD
 // ============================================================
 
-const SESSION_VERSION = "v3"; // bumped from v2 → forces clean re-init for all users
+const SESSION_VERSION = "v3";
 
 function initUserSession() {
   const currentUser = getCurrentUser();
@@ -372,28 +350,6 @@ document.querySelectorAll("th[data-sort]").forEach(th => {
 });
 
 // ============================================================
-// EXPORT CSV
-// ============================================================
-
-document.getElementById("exportBtn").addEventListener("click", () => {
-  const tasks = getTasks();
-  if (!tasks.length) { alert("No tasks to export!"); return; }
-
-  let csv = "Subject,Task,Date,Time,Priority\n";
-  tasks.forEach(t => {
-    csv += `"${t.subject}","${t.task}","${t.date}","${t.time}","${t.priority}"\n`;
-  });
-
-  const blob = new Blob([csv], { type: "text/csv" });
-  const url  = URL.createObjectURL(blob);
-  const a    = document.createElement("a");
-  a.href     = url;
-  a.download = "study-tasks.csv";
-  a.click();
-  URL.revokeObjectURL(url);
-});
-
-// ============================================================
 // CLEAR ALL TASKS
 // ============================================================
 
@@ -536,124 +492,6 @@ function getPointsInfo(percent) {
     tip: "Start with the easiest task to build your confidence."
   };
 }
-
-// ============================================================
-// INJECT MODAL + REWARDS BUTTON STYLES
-// ============================================================
-
-(function injectPointsModalStyles() {
-  const style = document.createElement("style");
-  style.textContent = `
-    #pointsModalOverlay {
-      position: fixed; inset: 0;
-      background: rgba(10,15,30,0.75); backdrop-filter: blur(6px);
-      display: flex; align-items: center; justify-content: center;
-      z-index: 999998; opacity: 0; transition: opacity 0.3s ease;
-    }
-    #pointsModalOverlay.pm-visible { opacity: 1; }
-    #pointsModal {
-      background: var(--surface, #ffffff); border-radius: 20px;
-      padding: 36px 32px 28px; width: 90%; max-width: 420px;
-      text-align: center; box-shadow: 0 24px 60px rgba(0,0,0,0.35);
-      transform: translateY(30px) scale(0.96);
-      transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), opacity 0.3s ease;
-      opacity: 0; position: relative;
-    }
-    #pointsModalOverlay.pm-visible #pointsModal { transform: translateY(0) scale(1); opacity: 1; }
-    .pm-rank { font-size: 1.5rem; font-weight: 800; margin-bottom: 4px; }
-    .pm-points-ring {
-      width: 110px; height: 110px; border-radius: 50%;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      margin: 16px auto; border: 4px solid;
-    }
-    .pm-points-number { font-size: 2rem; font-weight: 800; line-height: 1; }
-    .pm-points-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; opacity: 0.8; margin-top: 2px; }
-    .pm-breakdown { display: flex; justify-content: center; gap: 18px; margin: 14px 0; flex-wrap: wrap; }
-    .pm-breakdown-item {
-      background: var(--surface2, #f8faff);
-      border: 1.5px solid var(--border, rgba(99,102,241,0.15));
-      border-radius: 10px; padding: 10px 16px; min-width: 80px;
-    }
-    .pm-breakdown-item span { display: block; font-size: 1.2rem; font-weight: 800; color: var(--primary, #4f46e5); }
-    .pm-breakdown-item small { font-size: 0.72rem; font-weight: 600; color: var(--text-muted, #64748b); }
-    .pm-message {
-      font-size: 0.88rem; color: var(--text-muted, #64748b); line-height: 1.6;
-      margin: 14px 0 10px; padding: 12px 16px;
-      background: var(--surface2, #f8faff); border-radius: 10px; border-left: 3px solid;
-    }
-    .pm-tip { font-size: 0.8rem; color: var(--text-muted, #64748b); font-style: italic; margin-bottom: 20px; }
-    .pm-close-btn {
-      padding: 12px 36px;
-      background: linear-gradient(135deg, var(--primary, #4f46e5), var(--accent, #06b6d4));
-      border: none; border-radius: 50px; color: #fff; font-size: 0.95rem; font-weight: 700;
-      cursor: pointer; font-family: 'Poppins', sans-serif; transition: all 0.25s ease;
-      box-shadow: 0 8px 20px rgba(79,70,229,0.3);
-    }
-    .pm-close-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(79,70,229,0.4); }
-    .pm-total-points-stored { font-size: 0.78rem; color: var(--text-muted, #64748b); margin-top: 12px; opacity: 0.8; }
-    .pm-total-points-stored strong { color: var(--primary, #4f46e5); }
-    .pm-no-new-points {
-      font-size: 0.88rem; color: var(--text-muted, #64748b);
-      background: var(--surface2, #f8faff);
-      border: 1.5px solid var(--border, rgba(99,102,241,0.15));
-      border-radius: 10px; padding: 12px 16px; margin: 14px 0; line-height: 1.6;
-    }
-    /* ── REWARDS MODAL ── */
-    #rewardsModalOverlay {
-      position: fixed; inset: 0;
-      background: rgba(10,15,30,0.75); backdrop-filter: blur(6px);
-      display: flex; align-items: center; justify-content: center;
-      z-index: 999998; opacity: 0; transition: opacity 0.3s ease;
-    }
-    #rewardsModalOverlay.rm-visible { opacity: 1; }
-    #rewardsModal {
-      background: var(--surface, #ffffff); border-radius: 20px;
-      padding: 36px 32px 28px; width: 90%; max-width: 400px;
-      text-align: center; box-shadow: 0 24px 60px rgba(0,0,0,0.35);
-      transform: translateY(30px) scale(0.96);
-      transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), opacity 0.3s ease;
-      opacity: 0;
-    }
-    #rewardsModalOverlay.rm-visible #rewardsModal { transform: translateY(0) scale(1); opacity: 1; }
-    .rm-title { font-size: 1.4rem; font-weight: 800; color: var(--primary, #4f46e5); margin-bottom: 6px; }
-    .rm-subtitle { font-size: 0.82rem; color: var(--text-muted, #64748b); margin-bottom: 20px; }
-    .rm-total-ring {
-      width: 130px; height: 130px; border-radius: 50%;
-      border: 5px solid #f59e0b; background: rgba(245,158,11,0.08);
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      margin: 0 auto 20px;
-    }
-    .rm-total-number { font-size: 2.2rem; font-weight: 800; color: #f59e0b; line-height: 1; }
-    .rm-total-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #f59e0b; opacity: 0.8; margin-top: 3px; }
-    .rm-breakdown-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
-    .rm-stat { background: var(--surface2, #f8faff); border: 1.5px solid var(--border, rgba(99,102,241,0.15)); border-radius: 10px; padding: 12px; }
-    .rm-stat-value { display: block; font-size: 1.3rem; font-weight: 800; color: var(--primary, #4f46e5); }
-    .rm-stat-label { font-size: 0.72rem; font-weight: 600; color: var(--text-muted, #64748b); }
-    .rm-rank-badge { display: inline-block; padding: 6px 20px; border-radius: 20px; font-size: 0.88rem; font-weight: 700; margin-bottom: 20px; border: 2px solid; }
-    .rm-close-btn {
-      padding: 12px 36px;
-      background: linear-gradient(135deg, var(--primary, #4f46e5), var(--accent, #06b6d4));
-      border: none; border-radius: 50px; color: #fff; font-size: 0.95rem; font-weight: 700;
-      cursor: pointer; font-family: 'Poppins', sans-serif; transition: all 0.25s ease;
-      box-shadow: 0 8px 20px rgba(79,70,229,0.3);
-    }
-    .rm-close-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(79,70,229,0.4); }
-    /* ── REWARDS FLOAT BUTTON ── */
-    #rewardsFloatBtn {
-      position: fixed; bottom: 90px; left: 22px;
-      background: linear-gradient(135deg, #f59e0b, #ef4444);
-      border: none; border-radius: 50px; color: #fff;
-      font-family: 'Poppins', sans-serif; font-size: 0.82rem; font-weight: 700;
-      padding: 10px 18px; cursor: pointer; z-index: 9997;
-      box-shadow: 0 6px 20px rgba(245,158,11,0.45);
-      display: flex; align-items: center; gap: 7px;
-      transition: all 0.25s ease; white-space: nowrap;
-    }
-    #rewardsFloatBtn:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(245,158,11,0.55); }
-    #rewardsFloatBtn i { font-size: 0.95rem; }
-  `;
-  document.head.appendChild(style);
-})();
 
 (function injectRewardsButton() {
   const btn = document.createElement("button");
@@ -1148,25 +986,6 @@ document.getElementById("newMotivation").addEventListener("click", () => {
 // ============================================================
 // BACK TO TOP BUTTON
 // ============================================================
-
-const topBtnStyle = document.createElement("style");
-topBtnStyle.textContent = `
-  #backToTop {
-    position: fixed; bottom: 90px; right: 22px;
-    width: 46px; height: 46px; border-radius: 50%;
-    background: #6366f1; color: #fff; border: none;
-    font-size: 20px; cursor: pointer; z-index: 9998;
-    display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 4px 15px rgba(99,102,241,0.5);
-    opacity: 0; transform: translateY(20px);
-    transition: opacity 0.3s, transform 0.3s, background 0.2s;
-    pointer-events: none;
-  }
-  #backToTop.visible { opacity: 1; transform: translateY(0); pointer-events: all; }
-  #backToTop:hover   { background: #4f46e5; transform: translateY(-3px); }
-`;
-document.head.appendChild(topBtnStyle);
-
 const topBtn = document.createElement("button");
 topBtn.id        = "backToTop";
 topBtn.innerHTML = "&#8679;";

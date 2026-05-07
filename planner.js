@@ -29,9 +29,6 @@ function applyTheme(theme) {
     ? '<i class="fa-solid fa-sun"></i>'
     : '<i class="fa-solid fa-moon"></i>';
 }
- 
-// Apply saved theme on load (html.dark may already be set by <head> script,
-// but this call ensures the button icon is also in sync)
 applyTheme(localStorage.getItem("theme") || "light");
  
 darkBtn.addEventListener("click", () => {

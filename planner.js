@@ -11,6 +11,8 @@ window.addEventListener("pageshow", () => {
   if (!localStorage.getItem("loggedInUser")) {
     window.location.replace("login.html");
   }
+
+  
 });
  
  

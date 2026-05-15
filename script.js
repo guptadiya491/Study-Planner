@@ -1,14 +1,3 @@
-/* =====================================================
-   STUDY PLANNER — MAIN SCRIPT
-   Structure:
-   1. Dark Mode Toggle
-   2. Hamburger Menu
-   3. Chatbot Toggle
-   4. Page Transition
-   5. Hero Image Click (Random Quote)
-   6. Back To Top Button
-   7. Konami Code Easter Egg
-===================================================== */
 
 /* =====================================================
    1. DARK MODE TOGGLE
@@ -54,8 +43,6 @@ function toggleChat() {
   const chatPopup = document.getElementById("chatbot-popup");
   chatPopup.classList.toggle("show");
 }
-
-
 /* =====================================================
    4. PAGE TRANSITION
 ===================================================== */
